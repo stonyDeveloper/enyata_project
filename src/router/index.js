@@ -53,13 +53,19 @@ const routes = [{
         path: "/assessment_completed",
         name: "assessment_completed",
         component: () =>
-            import ("../views/AssessmentCompletedView.vue"),
+            import ("../views/AdminDashboardView.vue"),
     },
     {
         path: "/admin_login",
         name: "admin_login",
         component: () =>
             import ("../views/AdminLoginView.vue"),
+    },
+    {
+        path: "/admin_dashboard",
+        name: "admin_dashboard",
+        component: () =>
+            import ("../views/AdminDashboardView.vue"),
     },
 ];
 
