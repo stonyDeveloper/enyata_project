@@ -2,7 +2,7 @@
   <div class="signup">
     <EnyataLogo></EnyataLogo>
 
-    <form action="/user" method="post" @submit.prevent="handleSubmit">
+    <form @submit.prevent="handleSubmit">
       <h3>Sign Up</h3>
 
       <div class="form-input">
@@ -66,17 +66,15 @@ export default {
     }
   },
   methods: {
-    async handleSubmit(){
-      const response = await axios.post('users', {
+    handleSubmit(){
+      axios.post("http://7a41-102-89-32-23.ngrok.io/signup", {
         first_name: this.first_name,
         last_name: this.last_name,
         email: this.email,
         phone_number: this.phone_number,
         password: this.password,
         confirm_password: this.confirm_password
-      });
-
-      console.log(response);
+      }).then(response => console.log(response)).catch(error => console.log(error));
       this.$router.push('/login');
     }
 

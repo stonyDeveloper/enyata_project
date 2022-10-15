@@ -13,16 +13,24 @@
         </div>
 
         <div class="routes">
+            <router-link to="/dashboard">
             <div class="route">
                 <img src="../assets/dashboardicon.svg" alt="">
-
+                
                 <span>Dashboard</span>
+                
             </div>
+            </router-link>
+
+
+            <router-link to="/assessment">
             <div class="route">
                 <img src="../assets/assessmenticon.svg" alt="">
-
+                
                 <span>Assessment</span>
+                
             </div>
+            </router-link>
             <div class="route">
                 <img src="../assets/logouticon.svg" alt="">
 
@@ -94,6 +102,7 @@ margin-top: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-top:28px;
     
 }
 .routes .route{
@@ -113,11 +122,20 @@ margin-top: 5px;
 }
 
 .routes .route:nth-child(1){
-    margin-top: 42px;
-    border-left: 4px solid #7557D3; 
+    /* margin-top: 42px; */
+     
 }
 
 .routes .route:last-child{
-    margin-top: 61px;
+    margin-top: px;
+}
+
+a{
+    text-decoration: none;
+    color: #2B3C4E;
+}
+
+.router-link-exact-active{
+  border-left: 4px solid #7557D3;;
 }
 </style>
