@@ -85,6 +85,18 @@ const routes = [{
         component: () =>
             import ("../views/AdminComposeAssessment.vue"),
     },
+    {
+        path: "/admin_assessment_history",
+        name: "admin_assessment_history",
+        component: () =>
+            import ("../views/AdminAssessmentHistory.vue"),
+    },
+    {
+        path: "/admin_results",
+        name: "admin_results",
+        component: () =>
+            import ("../views/AdminResults.vue"),
+    },
 ];
 
 const router = createRouter({

@@ -13,7 +13,7 @@
 
             <div class="questions">
                 <p>Questions</p>
-                <textarea name="" id="" cols="70" rows="10"></textarea>
+                <textarea></textarea>
             </div>
 
             <div class="options">
@@ -34,6 +34,34 @@
                     <input type="text" class="option_D">
                 </div>
             </div>
+
+            <div class="btns">
+                <ButtonComponent
+                    buttonText="Previous"
+                    width="125"
+                    height="41"
+                    border = "2">
+                </ButtonComponent>
+
+                <ButtonComponent
+                    buttonText="Next"
+                    width="125"
+                    height="41"
+                    border = "2">
+                </ButtonComponent>
+            </div>
+
+
+            <div class="submit">
+                <ButtonComponent
+                    buttonText="Save"
+                    width="205"
+                    height="41"
+                    border = "2">
+                </ButtonComponent>
+            </div>
+
+            
       </div>
       
     </div>
@@ -245,7 +273,8 @@ color: #2B3C4E;
     margin-top: 5px;
     border: 1.5px solid #2B3C4E;
 border-radius: 4px;
-width: 100%
+width: 100%;
+height:  144px;
 }
 
 .options{
@@ -266,12 +295,36 @@ margin-bottom: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
+    grid-row-gap: 25px;
+    grid-column-gap: 64px;
 
 }
 
 .options input{
-    width: 456px;
+    width: 100%;
     height: 41px;
+
+}
+
+.btns{
+    margin-top:52px;
+    padding-left: 85px;
+    padding-right: 85px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.btns > *{
+    background-color: #2B3C4E;
+}
+
+.submit{
+    text-align: center;
+    margin-top: 55px;
+}
+
+.submit > *{
+    background-color: #CECECE;
 }
 
 
