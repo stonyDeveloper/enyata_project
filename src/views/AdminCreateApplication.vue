@@ -3,86 +3,43 @@
     <AdminDashboardSidebar />
 
     <div class="dashboard">
-      <h1>Dashboard</h1>
+      <h1>Create Application</h1>
 
-      <div class="date-and-status">
-        <div class="application-date">
-          <div class="title">Current Applications</div>
-
-          <div class="date">233</div>
-
-          <div class="date-indicator"></div>
-
-          <div>Academy 2.0</div>
-        </div>
-
-        <div class="application-status">
-          <div class="title">Total Applications</div>
-
-          <div class="status">4253</div>
-
-          <div class="status-indicator"></div>
-
-          <div>All entries do far</div>
-        </div>
-
-        <div class="application-status">
-          <div class="title">Academy's</div>
-
-          <div class="status">4.0</div>
-
-          <div class="status-indicator"></div>
-
-          <div>So far</div>
-        </div>
-      </div>
-
-      <div class="updates-and-assessment">
-        <div class="updates">
-          <h4>History</h4>
-          <p>Last Update  18:24, 22/02/19</p>
-
-          <div class="batches">
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
+     
+        <form action="">
+          <div class="date_and_batch">
+            <div class="closure_date">
+                <label>Application closure date</label><br>
+        <input type="date">
             </div>
-
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
+            <div class="batch_id">
+                <label>Batch ID</label><br>
+        <input type="text"  placeholder="Enyata Academy 6.0">
             </div>
-
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
-            </div>
-          </div>
+          </div> 
           
-        </div>
+          
+          <div class="instructions">
+            <label>Instructions</label>
+            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <div class="attach_question">
+               <img src="../assets/attach_question_icon.svg" alt=""> 
 
-        <div class="assessment">
-          <h4>Create Assessment</h4>
-
-          <div class="content">
-            <div>
-              Create test question for an incoming academy students
+               <span>Attach question</span>
             </div>
-            <ButtonComponent
-              buttonText="Take Assessment"
-              width="205"
-              height="41"
-              border="2"
-            ></ButtonComponent>
           </div>
+
+
+          <div class="btn">
+          <ButtonComponent 
+          buttonText="Submit"
+          width="379"
+          height="50"
+          border = "2"
+        />
         </div>
-      </div>
+        </form>
+
     </div>
   </div>
 </template>
@@ -289,7 +246,85 @@ color: #4F4F4F;
     justify-content: space-between;
     
     border-radius: 8px 0px 0px 8px;
-    
+}
+
+form{
+    margin-top: 100px;
+}
+
+label{
+   font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+color: #2B3C4E; 
+}
+
+.date_and_batch{
+    display: flex;
+    gap: 64px;
+}
+
+.date_and_batch input{
+    width: 456px;
+    height: 41px;
+    margin-top: 5px;
+    border: 1.5px solid #2B3C4E;
+border-radius: 4px;
+}
+
+.closure_date input{
+    /* padding: 15px 0px 14px 13px; */
+    padding-left: 13px;
+    font-family: 'Lato';
+font-style: italic;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+color: #CECECE;
 
 }
+
+.batch_id input{
+    font-family: 'Lato';
+font-style: italic;
+font-weight: 400;
+font-size: 10px;
+line-height: 12px;
+color: #CECECE;
+ padding-left: 13px;
+}
+
+.instructions{
+    display: flex;
+    flex-direction: column;
+    margin-top: 36px;
+}
+
+.instructions textarea{
+    border: 1.5px solid #2B3C4E;
+border-radius: 4px;
+margin-top: 5px;
+}
+
+.attach_question{
+    margin-top: 16px;
+    font-family: 'Lato';
+font-style: italic;
+font-weight: 400;
+font-size: 14px;
+line-height: 17px;
+color: #2B3C4E;
+display: flex;
+align-items: center;
+gap: 4px;
+
+}
+
+.btn{
+    text-align: center;
+}
+
+
 </style>

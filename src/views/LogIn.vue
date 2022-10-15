@@ -3,18 +3,18 @@
     
     <EnyataLogo></EnyataLogo>
     
-    <form action="">
+    <form @submit.prevent="handleSubmit">
       <h3>Log In</h3>
 
       <div class="form-input">
       <div class="input-field">
         <label>Email Address</label><br>
-        <input type="email">
+        <input type="email" v-model="email">
       </div>
 
       <div class="input-field">
         <label>Password</label><br>
-        <input type="password">
+        <input type="password" v-model="password">
         <img src="../assets/passwordicon.svg" alt="">
       </div>
 
@@ -37,15 +37,33 @@
 
 
 <script>
+import axios from 'axios'
 export default {
   name: "LogIn",
   data() {
-    
+    return {
+      email: '',
+      password: ''
+    }
   },
   methods: {
-    togglePassword(){
-      this.showPassword = !this.showPassword
+   async handleSubmit(){
+      const result = await axios.get(
+        `users?email=${this.email}&password=${this.password}`)
+        console.log(result);
+
+        if(result.status == 200 && result.data.length > 0){
+          alert('You have been logged in')
+          this.$router.push('/dashboard')
+        }
+        else{
+          alert('Please fill in the right information')
+        }
+
+        
     }
+    
+
   }
   
 };

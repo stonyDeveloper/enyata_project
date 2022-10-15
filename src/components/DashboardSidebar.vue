@@ -102,6 +102,8 @@ margin-top: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
     border-left: 4px solid #ffffff; 
+    display: flex;
+    padding-right: 132px;
     
 
 }

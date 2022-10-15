@@ -76,7 +76,7 @@ import DashboardSidebar from '../components/DashboardSidebar.vue'
 
 .container{
     display: flex;
-    gap: 47px;
+    gap: 58px;
     
 }
 

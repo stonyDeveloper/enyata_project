@@ -3,85 +3,56 @@
     <AdminDashboardSidebar />
 
     <div class="dashboard">
-      <h1>Dashboard</h1>
+      <h1>Entries - Batch 2</h1>
+      <p>Comprises of all that applied for batch 2</p>
 
-      <div class="date-and-status">
-        <div class="application-date">
-          <div class="title">Current Applications</div>
-
-          <div class="date">233</div>
-
-          <div class="date-indicator"></div>
-
-          <div>Academy 2.0</div>
-        </div>
-
-        <div class="application-status">
-          <div class="title">Total Applications</div>
-
-          <div class="status">4253</div>
-
-          <div class="status-indicator"></div>
-
-          <div>All entries do far</div>
-        </div>
-
-        <div class="application-status">
-          <div class="title">Academy's</div>
-
-          <div class="status">4.0</div>
-
-          <div class="status-indicator"></div>
-
-          <div>So far</div>
-        </div>
-      </div>
+      
 
       <div class="updates-and-assessment">
-        <div class="updates">
-          <h4>History</h4>
-          <p>Last Update  18:24, 22/02/19</p>
-
-          <div class="batches">
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
-            </div>
-
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
+        
+          <div class="entries">
+            <div class="entry">
+                <span>Name</span>
+                <span>Email</span>
+                <span>DOB-Age</span>
+                <span>Address</span>
+                <span>University</span>
+                <span>CGPA</span>
 
             </div>
 
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
+            <div class="entry">
+                <span>Name</span>
+                <span>Email</span>
+                <span>DOB-Age</span>
+                <span>Address</span>
+                <span>University</span>
+                <span>CGPA</span>
 
             </div>
+
+            <div class="entry">
+                <span>Name</span>
+                <span>Email</span>
+                <span>DOB-Age</span>
+                <span>Address</span>
+                <span>University</span>
+                <span>CGPA</span>
+
+            </div>
+
+            <div class="entry">
+                <span>Name</span>
+                <span>Email</span>
+                <span>DOB-Age</span>
+                <span>Address</span>
+                <span>University</span>
+                <span>CGPA</span>
+
+            </div>
+
+           
           </div>
-          
-        </div>
-
-        <div class="assessment">
-          <h4>Create Assessment</h4>
-
-          <div class="content">
-            <div>
-              Create test question for an incoming academy students
-            </div>
-            <ButtonComponent
-              buttonText="Take Assessment"
-              width="205"
-              height="41"
-              border="2"
-            ></ButtonComponent>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -105,6 +76,9 @@ export default {
 
 .dashboard {
   padding-top: 107px;
+  width: 70%;
+ 
+  
 }
 
 .dashboard h1 {
@@ -118,6 +92,17 @@ export default {
   color: #2b3c4e;
 }
 
+
+.dashboard p{
+  font-family: 'Lato';
+font-style: italic;
+font-weight: 400;
+font-size: 13px;
+line-height: 16px;
+
+
+color: #4F4F4F;  
+}
 .title {
   font-family: "Lato";
   font-style: normal;
@@ -207,9 +192,9 @@ color: #4F4F4F;
 }
 
 .updates-and-assessment {
-  margin-top: 52px;
-  display: flex;
-  gap: 67px;
+  margin-top: 38px;
+
+  width: 100%;
 }
 
 .updates-and-assessment h4 {
@@ -268,16 +253,31 @@ color: #4F4F4F;
   margin-bottom: 74px;
 }
 
-.batches{
+.entries{
     margin-top: 32px;
+    width: 100%;
 }
 
-.batch:first-child{
+.entry:first-child{
+    background: #2B3C4E;
+    
+    font-family: 'Lato';
+font-size: 14px;
+line-height: 17px;
+
+text-align: center;
+
+color: #FFFFFF;
+border-radius: 0; 
+}
+
+.entry:nth-child(2){
     border-left: solid 7px #7557D3;
     box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
+    margin-top: 20px;
 }
 
-.batch{
+.entry{
     font-family: 'Nunito Sans';
 font-style: normal;
 font-weight: 400;

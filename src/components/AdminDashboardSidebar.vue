@@ -16,7 +16,7 @@
             <div class="route">
                 <img src="../assets/dashboardicon.svg" alt="">
 
-                <span>Dashboard</span>
+                <span><router-link to="/dashboard">Dashboard</router-link></span>
             </div>
             <div class="route">
                 <img src="../assets/plusicon.svg" alt="">
@@ -126,7 +126,9 @@ margin-top: 5px;
     padding-left: 43px;
     padding-top: 10px;
     padding-bottom: 28px;
-    border-left: 4px solid #ffffff; 
+    padding-right: 65px;
+    border-left: 4px solid #ffffff;
+    display: flex; 
     
 
 }

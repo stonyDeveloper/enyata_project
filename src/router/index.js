@@ -53,7 +53,7 @@ const routes = [{
         path: "/assessment_completed",
         name: "assessment_completed",
         component: () =>
-            import ("../views/AdminDashboardView.vue"),
+            import ("../views/AssessmentCompletedView.vue"),
     },
     {
         path: "/admin_login",
@@ -66,6 +66,24 @@ const routes = [{
         name: "admin_dashboard",
         component: () =>
             import ("../views/AdminDashboardView.vue"),
+    },
+    {
+        path: "/admin_create_application",
+        name: "admin_create_application",
+        component: () =>
+            import ("../views/AdminCreateApplication.vue"),
+    },
+    {
+        path: "/admin_entries",
+        name: "admin_entries",
+        component: () =>
+            import ("../views/AdminEntries.vue"),
+    },
+    {
+        path: "/admin_compose_assessment",
+        name: "admin_compose_assessment",
+        component: () =>
+            import ("../views/AdminComposeAssessment.vue"),
     },
 ];
 
