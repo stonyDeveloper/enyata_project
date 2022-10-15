@@ -97,6 +97,12 @@ const routes = [{
         component: () =>
             import ("../views/AdminResults.vue"),
     },
+    {
+        path: "/admin_profiles_and_settings",
+        name: "admin_profiles_and_settings",
+        component: () =>
+            import ("../views/AdminProfilesAndSettings.vue"),
+    },
 ];
 
 const router = createRouter({
