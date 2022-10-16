@@ -5,6 +5,11 @@
     <div class="dashboard">
       <h1>Compose Assessment</h1>
 
+      <div class="timer">
+            <p>Timer</p>
+            <p>00<span>min</span>000<span>sec</span></p>
+        </div>
+
       <div class="assessment">
             <p>0/30</p>
             <div class="choose_file">

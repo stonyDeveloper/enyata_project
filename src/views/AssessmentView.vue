@@ -11,8 +11,16 @@
         </div>
 
         <div class="timer">
-            <p>Timer</p>
-            <p>00<span>min</span>000<span>sec</span></p>
+            <CountDownComponent
+            :year = "year"
+            :month = "month"
+            :date = "date"
+            :hour = "hour"
+            :minute = "minute"
+            :second = 0
+            :millisecond ="millisecond"
+
+            />
         </div>
         </div>
 
@@ -36,11 +44,23 @@ Watch this space</p>
 
 <script>
 import DashboardSidebar from '../components/DashboardSidebar.vue'
+import CountDownComponent from '../components/CountDownComponent.vue'
 
     export default {
-        components:{
-            DashboardSidebar
+        components:{DashboardSidebar, CountDownComponent},
+        data(){
+            return {
+            year : "2022",
+            month : "10",
+            date : "15",
+            hour : "17",
+            minute : "60",
+            second : "0",
+            millisecond : "1000"
+            }
         }
+            
+        
         
     }
 </script>

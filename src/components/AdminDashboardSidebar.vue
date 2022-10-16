@@ -13,31 +13,41 @@
         </div>
 
         <div class="routes">
+            <router-link to="/admin_dashboard">
             <div class="route">
                 <img src="../assets/dashboardicon.svg" alt="">
 
-                <span><router-link to="/dashboard">Dashboard</router-link></span>
+                <span>Dashboard</span>
             </div>
+            </router-link>
+            <router-link to="/admin_create_application">
             <div class="route">
                 <img src="../assets/plusicon.svg" alt="">
 
                 <span>Create Application</span>
             </div>
+            </router-link>
+            <router-link to="/admin_entries">
             <div class="route">
                 <img src="../assets/application_entries_icon.svg" alt="">
 
                 <span>Application Entries</span>
             </div>
+            </router-link>
+            <router-link to="/admin_compose_assessment">
             <div class="route">
                 <img src="../assets/compose_assessment_icon.svg" alt="">
 
                 <span>Compose Assessment</span>
             </div>
+            </router-link>
+            <router-link to="/admin_assessment_history">
             <div class="route">
                 <img src="../assets/assessment_history_icon.svg" alt="">
 
                 <span>Assessment History</span>
             </div>
+            </router-link>
             <div class="route">
                 <img src="../assets/results_icon.svg" alt="">
 
@@ -69,13 +79,14 @@
 
 <style scoped>
 .sidebar{
-    width: 292px;
+    /* width: 292px; */
     
     min-height: 100vh;
     
 border-radius: 8px;
 background: #FFFFFF;
 box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0, 0, 0, 0.22);
+/* padding-right: 100px; */
 }
 
 
@@ -119,6 +130,8 @@ margin-top: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    /* margin-right: -500px; */
+    width: 300px;
     
 }
 .routes .route{
@@ -126,11 +139,16 @@ margin-top: 5px;
     padding-left: 43px;
     padding-top: 10px;
     padding-bottom: 28px;
-    padding-right: 65px;
+    /* margin-right: 65px; */
     border-left: 4px solid #ffffff;
-    display: flex; 
+    display: flex;
+
     
 
+}
+
+.route span{
+    display: inline-block;
 }
 
 .routes .route img{
@@ -138,11 +156,33 @@ margin-top: 5px;
 }
 
 .routes .route:nth-child(1){
-    margin-top: 42px;
-    border-left: 4px solid #7557D3; 
+    /* margin-top: 42px; */
+    /* border-left: 4px solid #7557D3;  */
 }
 
 .routes .route:last-child{
-    margin-top: 231px;
+    /* margin-top: 231px; */
 }
+
+a:first-child{
+    
+    margin-top: 40px;
+}
+
+a{
+    text-decoration: none;
+    color: #2B3C4E;
+}
+
+.router-link-exact-active{
+  border-left: 4px solid #7557D3;;
+  font-weight: 700;
+font-size: 16px;
+line-height: 19px;
+
+
+color: #2B3C4E;
+}
+
+
 </style>

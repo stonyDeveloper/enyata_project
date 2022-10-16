@@ -31,7 +31,7 @@
                 
             </div>
             </router-link>
-            <div class="route">
+            <div class="route logout">
                 <img src="../assets/logouticon.svg" alt="">
 
                 <span>Log Out</span>
@@ -137,5 +137,15 @@ a{
 
 .router-link-exact-active{
   border-left: 4px solid #7557D3;;
+  font-weight: 700;
+font-size: 16px;
+line-height: 19px;
+
+
+color: #2B3C4E;
+}
+
+.logout{
+    margin-top: 57px;
 }
 </style>
