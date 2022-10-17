@@ -36,6 +36,14 @@ font-style: normal;
 font-weight: 400;
 font-size: 16px;
 line-height: 24px;
+cursor: pointer;
+
+}
+
+button:hover{
+    transform:scale(1.3,1.3);
+    -webkit-transform:scale(1.3,1.3);
+    -moz-transform:scale(1.3,1.3);
 
 }
 

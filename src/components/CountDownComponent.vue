@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div v-if="loaded">
         <p>Timer</p>
         <p>{{ displayMinutes }}<span>min</span>{{ displaySeconds}}<span>sec</span></p>
+        
     </div>
 </template>
 
@@ -12,7 +13,9 @@
   data () {
     return { 
       displayMinutes: 0,
-      displaySeconds: 0
+      displaySeconds: 0,
+      loaded: false,
+      expired: false
     }
   },
   computed: {
@@ -52,7 +55,8 @@
         //    const end = new Date(2022, 9, 17, 10, 10, 10, 10 );
            const distance = this.end.getTime() - now.getTime(); 
 
-           if(distance < 0){
+           if(distance <= 0){
+                this.expired = true;
                 clearInterval(timer);
                 return;
            }
@@ -62,6 +66,7 @@
            const seconds = Math.floor((distance % this._minutes) / this._seconds);
            this.displayMinutes = minutes < 10 ? "0" + minutes : minutes;
            this.displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+           this.loaded =  true;
         //    this.displayHours = hours < 10 ? "0" + hours : hours;
         //    this.displayDays = days < 10 ? "0" + days : days;
         }, 1000)

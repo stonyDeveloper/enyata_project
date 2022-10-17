@@ -44,7 +44,7 @@ const routes = [{
             import ("../views/ForgotPasswordView.vue"),
     },
     {
-        path: "/questions",
+        path: "/assessment/questions",
         name: "questions",
         component: () =>
             import ("../views/QuestionsView.vue"),

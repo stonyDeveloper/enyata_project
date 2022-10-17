@@ -12,15 +12,17 @@
 
         <div class="timer">
             <CountDownComponent
+            ref="count"
             :year = "year"
             :month = "month"
             :date = "date"
             :hour = "hour"
             :minute = "minute"
-            :second = 0
+            :second = "second"
             :millisecond ="millisecond"
 
             />
+            
         </div>
         </div>
 
@@ -33,6 +35,7 @@
 Watch this space</p>
 
             <ButtonComponent
+            
  buttonText="Take Assessment"
           width="205"
           height="41"
@@ -52,12 +55,17 @@ import CountDownComponent from '../components/CountDownComponent.vue'
             return {
             year : "2022",
             month : "10",
-            date : "15",
-            hour : "17",
-            minute : "60",
-            second : "0",
-            millisecond : "1000"
+            date : "17",
+            hour : "6",
+            minute : "11",
+            second : "5",
+            millisecond : "31"
             }
+        },
+        methods:{
+        //    countDown(){
+        //     this.$refs.count.showRemaining();
+        //    } 
         }
             
         

@@ -24,6 +24,15 @@
                 <h2>What is the purpose of HDR technology?</h2>
             </div>
 
+            <input type="radio" id="a" name="answer" value="">
+            <label for="a">A. To reduce the file size of images and videos.</label><br>
+            <input type="radio" id="b" name="answer" value="">
+            <label for="b">B. To speed up 3D rendering performance.</label><br>
+            <input type="radio" id="c" name="answer" value="">
+            <label for="c">C. To support higher video resolutions.</label><br>
+            <input type="radio" id="d" name="answer" value="">
+            <label for="d">D. To display more colors in images and videos</label><br>
+
             <div class="btns">
                 <ButtonComponent
                     buttonText="Previous"
