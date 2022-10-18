@@ -29,7 +29,7 @@
 
 
 
-      <form>
+      <form @submit.prevent="submitAdminInfo">
       <div class="profile_image">
         <div class="image">
             <img src="../assets/profile_image_icon.svg" alt="">
@@ -43,24 +43,24 @@
       <div class="inputs">
         <div class="name">
             <label>Name</label>
-            <input type="text" placeholder="Cameron Williamson">
+            <input type="text" placeholder="Cameron Williamson" v-model="name">
         </div>
         <div class="email">
             <label>Email</label>
             <input type="text"
-            placeholder="debra.holt@example.com">
+            placeholder="debra.holt@example.com" v-model="email">
         </div>
         <div class="phone_number">
             <label>Phone number</label>
-            <input type="text" placeholder="(303) 555-0105">
+            <input type="text" placeholder="(303) 555-0105" v-model="phone_number">
         </div>
         <div class="country">
             <label>Country</label>
-            <input type="text" placeholder="Afghanistan">
+            <input type="text" placeholder="Afghanistan" v-model="country">
         </div>
         <div class="address">
             <label>Address</label>
-            <input type="text" placeholder="3891 Ranchview Dr. Richardson, California 62639">
+            <input type="text" placeholder="3891 Ranchview Dr. Richardson, California 62639" v-model="address">
         </div>
       </div>
 
@@ -87,11 +87,33 @@
 
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from 'axios'
 
 export default {
+  data() {
+     return {
+      name: "",
+      email: "",
+      phone_number: "",
+      country: "",
+      address: ""
+    }
+  },
   components: {
     AdminDashboardSidebar,
   },
+  methods:{
+    submitAdminInfo(){
+      axios.post("https://634828c60b382d796c6af96d.mockapi.io/admin_register", {
+        name: this.name,
+        email: this.email,
+        phone_number: this.phone_number,
+        country: this.country,
+        address: this.address
+      }).then(response => console.log(response)).catch(error => console.log(error));
+      // this.$router.push('/login');
+    }
+  }
 };
 </script>
 

@@ -36,6 +36,7 @@ export default {
   name: "LogIn",
   data() {
     
+    
   },
   methods: {
     togglePassword(){

@@ -14,8 +14,8 @@
 
       <div class="input-field">
         <label>Password</label><br>
-        <input type="password" v-model="password">
-        <img src="../assets/passwordicon.svg" alt="">
+        <input :type="[showPassword ? 'text' : 'password']" v-model="password">
+        <img @click="showPassword = !showPassword" src="../assets/passwordicon.svg" alt="">
       </div>
 
       <ButtonComponent class="btn"
@@ -43,22 +43,25 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      showPassword: false,
     }
   },
   methods: {
    async handleSubmit(){
-      const result = await axios.get(
-        `users?email=${this.email}&password=${this.password}`)
-        console.log(result);
+       let response = await axios.get(
+        `https://634828c60b382d796c6af96d.mockapi.io/users?email=${this.email}&password=${this.password}`)
+        // console.log(response);
 
-        if(result.status == 200 && result.data.length > 0){
+        if(response.status == 200 && response.data.length > 0){
+          console.log(response)
           alert('You have been logged in')
           this.$router.push('/dashboard')
         }
         else{
           alert('Please fill in the right information')
         }
+
 
         
     }

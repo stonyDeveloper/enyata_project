@@ -35,7 +35,7 @@
 Watch this space</p>
 
             <ButtonComponent
-            
+            @click="countDown"
  buttonText="Take Assessment"
           width="205"
           height="41"
@@ -56,16 +56,16 @@ import CountDownComponent from '../components/CountDownComponent.vue'
             year : "2022",
             month : "10",
             date : "17",
-            hour : "6",
-            minute : "11",
+            hour : "7",
+            minute : "30",
             second : "5",
             millisecond : "31"
             }
         },
         methods:{
-        //    countDown(){
-        //     this.$refs.count.showRemaining();
-        //    } 
+           countDown(){
+            this.$refs.count.showRemaining();
+           } 
         }
             
         

@@ -40,11 +40,20 @@ cursor: pointer;
 
 }
 
+button{
+    position: relative;
+    transition: 0.5s;
+}
+
+
+
 button:hover{
-    transform:scale(1.3,1.3);
-    -webkit-transform:scale(1.3,1.3);
-    -moz-transform:scale(1.3,1.3);
+    padding-right: 24px;
+    padding-left: 8px;
+    transform: scale(0.9);    
 
 }
+
+
 
 </style>

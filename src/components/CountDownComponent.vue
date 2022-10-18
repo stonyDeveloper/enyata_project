@@ -46,7 +46,7 @@
     }
   },
   mounted(){
-    this.showRemaining();
+    // this.showRemaining();
   },
   methods: {
     showRemaining(){

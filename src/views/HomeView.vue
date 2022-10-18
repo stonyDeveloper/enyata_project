@@ -9,13 +9,14 @@
           Join enyata academy today and bring your long <br/> awaiting dream to
           reality.
         </p>
-
+        <router-link to="/signup">
         <ButtonComponent class="btn"
           buttonText="Register Now"
           width="152"
           height="48"
           border = "2"
         />
+        </router-link>
       </div>
 
       <div class="home-image">

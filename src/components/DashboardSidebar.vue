@@ -6,10 +6,10 @@
             </div>
 
             <div class="name">
-                Jane Doe
+                {{name}}
             </div>
 
-            <div class="email">doe@enyata.com</div>
+            <div class="email">{{email}}</div>
         </div>
 
         <div class="routes">
@@ -45,8 +45,16 @@
 </template>
 
 <script>
+// import axios from 'axios'
     export default {
-        name: "DashboardSidebar"
+        name: "DashboardSidebar",
+        data(){
+                return{
+                name: "",
+                email: ""
+                }
+            },
+        
     }
 </script>
 

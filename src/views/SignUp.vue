@@ -2,7 +2,7 @@
   <div class="signup">
     <EnyataLogo></EnyataLogo>
 
-    <form @submit.prevent="handleSubmit">
+    <form @submit="handleSubmit">
       <h3>Sign Up</h3>
 
       <div class="form-input">
@@ -62,24 +62,38 @@ export default {
       email: "",
       phone_number: "",
       password: "",
-      confirm_password: ""
+      confirm_password: "",
+      error: false,
+      errorMsg: 'An Error occured, please try again'
     }
   },
   methods: {
-    handleSubmit(){
-      axios.post("http://7a41-102-89-32-23.ngrok.io/signup", {
-        first_name: this.first_name,
-        last_name: this.last_name,
-        email: this.email,
-        phone_number: this.phone_number,
-        password: this.password,
-        confirm_password: this.confirm_password
-      }).then(response => console.log(response)).catch(error => console.log(error));
-      this.$router.push('/login');
-    }
+    async handleSubmit(e){
+      try {
+        e.preventDefault()
+          const response = await axios.post('http://localhost:5500/signup', {
+            first_name: this.first_name,
+            last_name: this.last_name,
+            email_address: this.email,
+            phone_number: this.phone_number,
+            password: this.password,
+            confirm_password: this.confirm_password
+        })
+        console.log(response);
+         this.$router.push('/login')
+      } catch(e){
+        this.error = true;
+        this.email = ''
+  
+      }
+      
+    
 
   }
-};
+}
+}
+
+
 </script>
 
 <style scoped>

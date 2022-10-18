@@ -3,81 +3,145 @@
     <AdminDashboardSidebar />
 
     <div class="dashboard">
-      <h1>Compose Assessment</h1>
+      <div class="header_and_timer">
+        <h1>Compose Assessment</h1>
 
-      <div class="timer">
-            <p>Timer</p>
-            <p>00<span>min</span>000<span>sec</span></p>
+        <div class="timer">
+          <p>Set Time</p>
+          <p>0<span>min</span>000<span>sec</span></p>
         </div>
+      </div>
 
       <div class="assessment">
-            <p>0/30</p>
-            <div class="choose_file">
-                <span>+</span><span>Choose file</span>
+        <p>0/30</p>
+
+        
+          <div class="choose_file">
+            <label for="upload">
+              <!-- <span>+</span><span>Choose file</span> -->
+              <input id="upload" type="file" size="60" />
+            </label>
+          </div>
+
+          <div class="questions">
+            <p>Questions</p>
+            <textarea
+              placeholder="1. How many countries are in Africa?"
+              v-model="questionText"
+            ></textarea>
+          </div>
+
+          <div class="options">
+            <div class="input_field">
+              <label>Option A</label><br />
+              <input
+                type="text"
+                class="option_A"
+                placeholder="20"
+                v-model="optionA"
+              />
             </div>
-
-            <div class="questions">
-                <p>Questions</p>
-                <textarea></textarea>
+            <div class="input_field">
+              <label>Option B</label><br />
+              <input
+                type="text"
+                class="option_B"
+                placeholder="40"
+                v-model="optionB"
+              />
             </div>
-
-            <div class="options">
-                <div class="input_field">
-                    <label>Option A</label><br>
-                    <input type="text" class="option_A">
-                </div>
-                <div class="input_field">
-                    <label>Option B</label><br>
-                    <input type="text" class="option_B">
-                </div>
-                <div class="input_field">
-                    <label>Option C</label><br>
-                    <input type="text" class="option_C">
-                </div>
-                <div class="input_field">
-                    <label>Option D</label><br>
-                    <input type="text" class="option_D">
-                </div>
+            <div class="input_field">
+              <label>Option C</label><br />
+              <input
+                type="text"
+                class="option_C"
+                placeholder="67"
+                v-model="optionC"
+              />
             </div>
-
-            <div class="btns">
-                <ButtonComponent
-                    buttonText="Previous"
-                    width="125"
-                    height="41"
-                    border = "2">
-                </ButtonComponent>
-
-                <ButtonComponent
-                    buttonText="Next"
-                    width="125"
-                    height="41"
-                    border = "2">
-                </ButtonComponent>
+            <div class="input_field">
+              <label>Option D</label><br />
+              <input
+                type="text"
+                class="option_D"
+                placeholder="50"
+                v-model="optionD"
+              />
             </div>
+          </div>
 
+          <div class="btns">
+            <ButtonComponent
+              buttonText="Previous"
+              width="125"
+              height="41"
+              border="2"
+            >
+            </ButtonComponent>
 
-            <div class="submit">
-                <ButtonComponent
-                    buttonText="Save"
-                    width="205"
-                    height="41"
-                    border = "2">
-                </ButtonComponent>
-            </div>
+            <ButtonComponent
+              @click="submitQuestion"
+              buttonText="Next"
+              width="125"
+              height="41"
+              border="2"
+            >
+            </ButtonComponent>
+          </div>
 
-            
+          <div class="submit">
+            <ButtonComponent
+              buttonText="Save"
+              width="205"
+              height="41"
+              border="2"
+            >
+            </ButtonComponent>
+          </div>
       </div>
-      
     </div>
-</div>
-
+  </div>
 </template>
 
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from "axios";
 
 export default {
+  data() {
+    return [
+      {
+        questionText: "",
+        options: [
+          { optionA: "", isAnswer: true },
+          { optionB: "", isAnswer: true },
+          { optionC: "", isAnswer: true },
+          { optionD: "", isAnswer: true },
+        ],
+      },
+    ];
+  },
+  methods: {
+    submitQuestion() {
+      const data = [
+        {
+          questionText: this.questionText,
+          options: [
+            { optionA: this.optionA, isAnswer: true },
+            { optionB: this.optionB, isAnswer: false },
+            { optionC: this.optionC, isAnswer: false },
+            { optionC: this.optionD, isAnswer: false }
+          ],
+        },
+      ];
+
+      axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
+
+
+
+      console.log(data)
+    },
+  },
   components: {
     AdminDashboardSidebar,
   },
@@ -93,8 +157,6 @@ export default {
 .dashboard {
   padding-top: 107px;
   width: 70%;
- 
-  
 }
 
 .dashboard h1 {
@@ -108,16 +170,46 @@ export default {
   color: #2b3c4e;
 }
 
+.dashboard p {
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
 
-.dashboard p{
-  font-family: 'Lato';
-font-style: italic;
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;
+  color: #4f4f4f;
+}
 
+.header_and_timer {
+  display: flex;
+  justify-content: space-between;
+}
 
-color: #4F4F4F;  
+.timer p:first-of-type {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2b4e2e;
+}
+
+.timer p:nth-of-type(2) {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 58px;
+  color: #2b4e2e;
+}
+
+.timer p:nth-of-type(2) span {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #4f4f4f;
 }
 .title {
   font-family: "Lato";
@@ -130,14 +222,14 @@ color: #4F4F4F;
 }
 
 .updates p {
- font-family: 'Nunito Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 16px;
-margin-top: 4px;
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 4px;
 
-color: #4F4F4F;
+  color: #4f4f4f;
 }
 
 .date-and-status {
@@ -226,111 +318,117 @@ color: #4F4F4F;
 }
 
 .updates {
-  padding-top: 25px ;
-  
+  padding-top: 25px;
+
   border-radius: 4px;
   height: 307px;
   width: 482px;
 }
 
-.assessment{
-    margin-top: 62px;
+.assessment {
+  margin-top: 62px;
 }
 
-.assessment p{
-  font-family: 'Lato';
-font-style: normal;
-font-weight: 700;
-font-size: 16px;
-line-height: 19px;
+.assessment p {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
 
-color: #2B3C4E;
-
+  color: #2b3c4e;
 }
 
-.choose_file{
-    margin-top: 21px;
+.choose_file {
+  margin-top: 21px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 13px;
-    width: 456px;
-    height: 108px;
-    border: 1.55172px dashed #2B3C4E;
-border-radius: 6.2069px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 13px;
+  width: 456px;
+  height: 108px;
+  border: 1.55172px dashed #2b3c4e;
+  border-radius: 6.2069px;
 }
 
-.questions{
-    margin-top: 25px;
+.choose_file input {
+  /* display: none; */
+  border: none;
+  outline: none;
+  /* background: blue; */
 }
 
-.questions p{
-   font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 17px;
-color: #2B3C4E;
+.choose_file label {
+  cursor: pointer;
 }
 
-.questions textarea{
-    margin-top: 5px;
-    border: 1.5px solid #2B3C4E;
-border-radius: 4px;
-width: 100%;
-height:  144px;
+.questions {
+  margin-top: 25px;
 }
 
-.options{
-    margin-top: 25px;
+.questions p {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2b3c4e;
 }
 
-label{
-    font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 17px;
-color: #2B3C4E;
-margin-bottom: 5px;
+.questions textarea {
+  margin-top: 5px;
+  border: 1.5px solid #2b3c4e;
+  border-radius: 4px;
+  width: 100%;
+  height: 144px;
 }
 
-.options{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-row-gap: 25px;
-    grid-column-gap: 64px;
-
+.options {
+  margin-top: 25px;
 }
 
-.options input{
-    width: 100%;
-    height: 41px;
-
+label {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #2b3c4e;
+  margin-bottom: 5px;
 }
 
-.btns{
-    margin-top:52px;
-    padding-left: 85px;
-    padding-right: 85px;
-    display: flex;
-    justify-content: space-between;
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-row-gap: 25px;
+  grid-column-gap: 64px;
 }
 
-.btns > *{
-    background-color: #2B3C4E;
+.options input {
+  width: 100%;
+  height: 41px;
 }
 
-.submit{
-    text-align: center;
-    margin-top: 55px;
+.btns {
+  margin-top: 52px;
+  padding-left: 85px;
+  padding-right: 85px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.submit > *{
-    background-color: #CECECE;
+.btns > * {
+  background-color: #2b3c4e;
 }
 
+.submit {
+  text-align: center;
+  margin-top: 55px;
+}
 
+.submit > * {
+  background-color: #cecece;
+}
 </style>
