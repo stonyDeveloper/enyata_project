@@ -13,7 +13,7 @@
       </div>
 
       <div class="assessment">
-        <p>0/30</p>
+        <p>{{ questionNumber }}/30</p>
 
         
           <div class="choose_file">
@@ -109,17 +109,15 @@ import axios from "axios";
 
 export default {
   data() {
-    return [
-      {
+    return{
         questionText: "",
-        options: [
-          { optionA: "", isAnswer: true },
-          { optionB: "", isAnswer: true },
-          { optionC: "", isAnswer: true },
-          { optionD: "", isAnswer: true },
-        ],
-      },
-    ];
+        optionA : "",
+        optionB : "",
+        optionC: "",
+        optionD: "",
+        questionNumber: 29
+      } 
+    
   },
   methods: {
     submitQuestion() {
@@ -130,16 +128,33 @@ export default {
             { optionA: this.optionA, isAnswer: true },
             { optionB: this.optionB, isAnswer: false },
             { optionC: this.optionC, isAnswer: false },
-            { optionC: this.optionD, isAnswer: false }
+            { optionD: this.optionD, isAnswer: false }
           ],
         },
       ];
 
-      axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
+      if(this.questionText != '' && this.optionA != '' && this.optionB != '' && this.optionC != '' && this.optionD != ''){
 
-
-
+      
+      if(this.questionNumber < 30){
+        axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
       console.log(data)
+        this.questionNumber++
+      } else if(this.questionNumber == 30){
+        axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
+      console.log(data)
+      }
+      
+      this.questionText = ''
+      this.optionA = ''
+      this.optionB = ''
+      this.optionC = ''
+      this.optionD = ''
+
+      } else{
+        alert('please fill in all the fields')
+      }
+      
     },
   },
   components: {

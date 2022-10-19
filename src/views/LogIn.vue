@@ -37,7 +37,7 @@
 
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   name: "LogIn",
   data() {
@@ -48,28 +48,10 @@ export default {
     }
   },
   methods: {
-   async handleSubmit(){
-       let response = await axios.get(
-        `https://634828c60b382d796c6af96d.mockapi.io/users?email=${this.email}&password=${this.password}`)
-        // console.log(response);
-
-        if(response.status == 200 && response.data.length > 0){
-          console.log(response)
-          alert('You have been logged in')
-          this.$router.push('/dashboard')
-        }
-        else{
-          alert('Please fill in the right information')
-        }
-
-
-        
-    }
     
 
   }
-  
-};
+}
 
 </script>
 
