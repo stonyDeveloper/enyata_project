@@ -3,18 +3,18 @@
     
     <img src="../assets/whiteenyatalogo.svg" alt="">
     
-    <form action="">
+    <form @submit.prevent="login">
       <h3>Log In</h3>
 
       <div class="form-input">
       <div class="input-field">
         <label>Email Address</label><br>
-        <input type="email">
+        <input type="email" v-model="email">
       </div>
 
       <div class="input-field">
         <label>Password</label><br>
-        <input type="password">
+        <input type="password" v-model="password">
         <img src="../assets/passwordicon.svg" alt="">
       </div>
 
@@ -32,16 +32,84 @@
 
 
 <script>
+import { mapMutations } from "vuex";
+import axios from 'axios';
 export default {
   name: "LogIn",
   data() {
-    
-    
+    return{
+      email: '',
+      password: '',
+      name: ''  
+    }
   },
   methods: {
-    togglePassword(){
-      this.showPassword = !this.showPassword
+    ...mapMutations(["setAdmin", "setToken"]),
+    async login(e){
+      e.preventDefault()
+
+      
+
+      const input = {
+        email_address: this.email,
+        password: this.password
+      }
+
+      console.log(input)
+
+      const response = await axios.post('http://localhost:5500/adminLogin', input, {
+        withCredentials: false
+      })
+
+      console.log(response.data.data.admin[0].name)
+
+      this.name = response.data.data.admin[0].name
+      this.email = response.data.data.admin[0].email_address
+
+     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+     const admin = response.data.data.admin
+     const token = response.data.data.token
+     this.setAdmin(admin);
+     this.setToken(token);
+      
+
+      await this.$router.push('/admin_dashboard')
+
+
+
+
+
+
+
+
+      
+
+      // try {
+      //   const res = await axios.post(`http://localhost:5500/login`, {
+      //     email_address: this.email,
+      //     password: this.password
+      //   });
+      //   console.log(res)
+      //   const { jwt, user} = res.data
+      //   window.localStorage.setItem('jwt', jwt)
+      //   window.localStorage.setItem('userData', JSON.stringify(user))
+       
+
+      //   const res2 = await axios.get(`http://localhost:5500/signup/${user.id}?populate=*`, {
+      //     headers: {
+      //       Authorization: `Bearer ${jwt}`,
+      //     }
+      //   })
+      //   window.localStorage.setItem('bookmarks', JSON.stringify(res2?.data?.bookmarks || []))
+      //   this.$router.push('/dashboard')
+      // } catch(error){
+      //   this.error = true
+      //   this.password = ''
+      // }
     }
+   
+    
   }
   
 };

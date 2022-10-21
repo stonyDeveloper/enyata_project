@@ -65,6 +65,15 @@
 
 export default {
   name: "HomeView",
+  data(){
+    // application_date: ''
+
+  },
+  methods: {
+    registerButton(){
+    
+    }
+  }
   
 };
 </script>

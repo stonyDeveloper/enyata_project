@@ -11,43 +11,14 @@
       <div class="updates-and-assessment">
         
           <div class="entries">
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
+            <div class="entry" v-for="entry in entries"
+            :key="entry">
+                <span>{{entry.first_name}} {{entry.last_name}}</span>
+                <span>{{entry.email}}</span>
+                <span>{{entry.dob}}</span>
+                <span>{{entry.address}}</span>
+                <span>{{entry.university}}</span>
+                <span>{{entry.cgpa}}</span>
 
             </div>
 
@@ -60,11 +31,28 @@
 
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from 'axios'
 
 export default {
   components: {
     AdminDashboardSidebar,
   },
+  data(){
+    return{
+      entries:[]
+    }
+  },
+  async mounted(){
+    {
+        const response  = await axios.get('https://634828c60b382d796c6af96d.mockapi.io/applications')
+      // console.log(response.data)
+      this.entries = response.data
+      console.log(this.entries) 
+    }
+  },
+  methods: {
+
+  }
 };
 </script>
 

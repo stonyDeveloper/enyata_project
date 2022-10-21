@@ -62,12 +62,25 @@
 </template>
 
 <script>
+// import axios from 'axios'
 import DashboardSidebar from "../components/DashboardSidebar.vue";
 
 export default {
   components: {
     DashboardSidebar,
   },
+  data(){
+    return {
+      message: 'Current Time'
+    }
+  },
+  mounted(){
+    // {
+    //   const response = axios.get('https://634828c60b382d796c6af96d.mockapi.io/applications')
+    //   console.log(response)
+    // }
+  }
+  
 };
 </script>
 

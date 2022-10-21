@@ -6,10 +6,10 @@
             </div>
 
             <div class="name">
-                Jane Doe
+                {{$store.state.admin[0].name}}
             </div>
 
-            <div class="email">doe@enyata.com</div>
+            <div class="email">{{$store.state.admin[0].email_address}}</div>
         </div>
 
         <div class="routes">
@@ -73,7 +73,13 @@
 
 <script>
     export default {
-        name: "AdminDashboardSidebar"
+        name: "AdminDashboardSidebar",
+        data(){
+                return{
+                name: "",
+                email: ""
+                }
+            }
     }
 </script>
 

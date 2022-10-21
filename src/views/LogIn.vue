@@ -3,7 +3,7 @@
     
     <EnyataLogo></EnyataLogo>
     
-    <form @submit.prevent="handleSubmit">
+    <form @submit.prevent="login">
       <h3>Log In</h3>
 
       <div class="form-input">
@@ -37,7 +37,9 @@
 
 
 <script>
-// import axios from 'axios'
+import { mapMutations } from "vuex";
+import axios from 'axios'
+
 export default {
   name: "LogIn",
   data() {
@@ -47,10 +49,133 @@ export default {
       showPassword: false,
     }
   },
+  watch:{
+
+
+  },
   methods: {
+    ...mapMutations(["setUser", "setToken"]),
+    async login(e){
+      e.preventDefault()
+
+      
+
+      const input = {
+        email_address: this.email,
+        password: this.password
+      }
+
+      // console.log(input)
+
+      const response = await axios.post('http://localhost:5500/login', input, {
+        withCredentials: false
+      })
+
+      console.log(response.data.data.user)
+      console.log(response.data.data.token)
+
+     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+     const user = response.data.data.user
+     const token = response.data.data.token
+     this.setUser(user);
+     this.setToken(token);
+      
+
+      await this.$router.push('/application')
+
+
+
+
+
+
+
+
+      
+
+      // try {
+      //   const res = await axios.post(`http://localhost:5500/login`, {
+      //     email_address: this.email,
+      //     password: this.password
+      //   });
+      //   console.log(res)
+      //   const { jwt, user} = res.data
+      //   window.localStorage.setItem('jwt', jwt)
+      //   window.localStorage.setItem('userData', JSON.stringify(user))
+       
+
+      //   const res2 = await axios.get(`http://localhost:5500/signup/${user.id}?populate=*`, {
+      //     headers: {
+      //       Authorization: `Bearer ${jwt}`,
+      //     }
+      //   })
+      //   window.localStorage.setItem('bookmarks', JSON.stringify(res2?.data?.bookmarks || []))
+      //   this.$router.push('/dashboard')
+      // } catch(error){
+      //   this.error = true
+      //   this.password = ''
+      // }
+    }
     
 
-  }
+
+
+    // async login(e) {
+    //                     e.preventDefault()
+
+    //                     try {
+    //                         const res = await axios.post(`http://localhost:5500/login`, {
+    //                             identifier: this.email,
+    //                             password: this.password
+    //                         });
+    //                         const { jwt, user } = res.data
+    //                         window.localStorage.setItem('jwt', jwt)
+    //                         window.localStorage.setItem('userData', JSON.stringify(user))
+    //                         const res2 = await this.axios.get(`http://localhost:5500/signup/${user.id}?populate=*`, {
+    //                                 headers: {
+    //                                     Authorization: `Bearer ${jwt}`,
+    //                                 }
+    //                             })
+    //                         window.localStorage.setItem('bookmarks', JSON.stringify(res2?.data?.bookmarks || []))
+    //                         this.$router.push('/dashboard')
+    //                     } catch(error) {
+    //                         this.error = true
+    //                         this.password = ''
+    //                     }
+    //                 },
+  //  async handleSubmit(){
+  //      let response = await axios.post(
+  //       "http://localhost:5500/login", {
+  //         email: this.email,
+  //         password: this.password
+  //       },{
+  //         withCredentials: true
+  //       });
+
+  //       axios.defaults.headers.commom['Authorization']
+
+
+  //       console.log(response);
+  //       console.log("yes");
+
+  //       if(response.status == 200 && response.data.length > 0){
+  //         console.log(response)
+  //         alert('You have been logged in')
+  //         this.$router.push('/dashboard')
+  //       }
+  //       else{
+  //         alert('Please fill in the right information')
+  //       }
+
+
+        
+  //   }
+    
+
+  // }
+
+}
+
 }
 
 </script>

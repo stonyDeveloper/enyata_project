@@ -6,10 +6,10 @@
             </div>
 
             <div class="name">
-                {{name}}
+                {{$store.state.user.first_name}} {{$store.state.user.last_name}}
             </div>
 
-            <div class="email">{{email}}</div>
+            <div class="email">{{$store.state.user.email_address}}</div>
         </div>
 
         <div class="routes">
@@ -34,7 +34,7 @@
             <div class="route logout">
                 <img src="../assets/logouticon.svg" alt="">
 
-                <span>Log Out</span>
+                <router-link to="/"><span>Log Out</span></router-link>
             </div>
 
             
@@ -54,8 +54,11 @@
                 email: ""
                 }
             },
+        mounted(){
+            
         
     }
+}
 </script>
 
 <style scoped>

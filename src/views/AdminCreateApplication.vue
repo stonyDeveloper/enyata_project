@@ -6,22 +6,23 @@
       <h1>Create Application</h1>
 
      
-        <form action="">
+        <form @submit.prevent="createApplication">
           <div class="date_and_batch">
             <div class="closure_date">
                 <label>Application closure date</label><br>
-        <input type="date">
+        <input type="date"
+        v-model="application_closure_date">
             </div>
             <div class="batch_id">
                 <label>Batch ID</label><br>
-        <input type="text"  placeholder="Enyata Academy 6.0">
+        <input type="text"  placeholder="Enyata Academy 6.0" v-model="batch_id">
             </div>
           </div> 
           
           
           <div class="instructions">
             <label>Instructions</label>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <textarea name="" id="" cols="30" rows="10"  v-model="instruction"></textarea>
             <div class="attach_question">
                <img src="../assets/attach_question_icon.svg" alt=""> 
 
@@ -47,10 +48,43 @@
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
 
+import axios from 'axios'
+
 export default {
   components: {
     AdminDashboardSidebar,
   },
+  data(){
+    return{
+      application_closure_date: '',
+      batch_id: '',
+      instruction: ''
+    }
+  },
+  methods: {
+     async createApplication(e){
+      e.preventDefault()
+
+      
+
+      const input = {
+        application_closure_date: this.application_closure_date,
+        batch_id: this.batch_id,
+        instruction: this.instruction
+      }
+
+      console.log(input)
+
+      const response = await axios.post('http://localhost:5500/create_batches', input, {
+        withCredentials: false
+      })
+
+      console.log(response)
+      
+    
+
+  }
+  }
 };
 </script>
 
