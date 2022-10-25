@@ -27,7 +27,8 @@
             <p>Questions</p>
             <textarea
               placeholder="1. How many countries are in Africa?"
-              v-model="questionText"
+              v-model= "questions.questionText"
+          
             ></textarea>
           </div>
 
@@ -40,7 +41,7 @@
                 type="text"
                 class="option_A"
                 placeholder="20"
-                v-model="optionA"
+                v-model="questions[0].options[0]"
               />
             </div>
             <div class="input_field">
@@ -51,7 +52,7 @@
                 type="text"
                 class="option_B"
                 placeholder="40"
-                v-model="optionB"
+                v-model="questions[0].options[1]"
               />
             </div>
             <div class="input_field">
@@ -62,7 +63,7 @@
                 type="text"
                 class="option_C"
                 placeholder="67"
-                v-model="optionC"
+                v-model="questions[0].options[2]"
               />
             </div>
             <div class="input_field">
@@ -73,7 +74,7 @@
                 type="text"
                 class="option_D"
                 placeholder="50"
-                v-model="optionD"
+                v-model="questions[0].options[3]"
               />
             </div>
           </div>
@@ -88,7 +89,7 @@
             </ButtonComponent>
 
             <ButtonComponent
-              @click="submitQuestion"
+              @click="next"
               buttonText="Next"
               width="125"
               height="41"
@@ -118,28 +119,24 @@ import axios from "axios";
 export default {
   data() {
     return{
-        questionText: "",
-        optionA : "",
-        optionB : "",
-        optionC: "",
-        optionD: "",
+        questions:[
+          {
+            questionText: "",
+            options: [{ text: ""}, { text: ""}, {text: ""}, { text: ""}]
+          }
+        ],
+        optionA : false,
+        optionB : false,
+        optionC: false,
+        optionD: false,
+        questionIndex: 0,
         questionNumber: 1,
-        colorA: '',
-        colorB: '',
-        colorC: '',
-        colorD: ''
       } 
     
   },
   methods: {
-    chooseOption() {
-        this.colorA = 'yellow'
-        this.colorB = 'blue'
-        this.colorC = 'grey'
-        this.colorD = 'pink'
-    },
     submitQuestion() {
-      
+
       const data = [
         {
           questionText: this.questionText,
@@ -164,17 +161,29 @@ export default {
       console.log(data)
       }
       
-      this.questionText = ''
-      this.optionA = ''
-      this.optionB = ''
-      this.optionC = ''
-      this.optionD = ''
+     
 
       } else{
         alert('please fill in all the fields')
       }
       
     },
+    next(){
+      if (this.questions.length - 1 === this.questionIndex){
+        this.questions.push({
+          question: "",
+          options: [
+            {text: "", correct: false},
+            {text: "", correct: false},
+            {text: "", correct: false},
+            {text: "", correct: false},
+
+          ],
+        })
+        console.log("Questions", this.questions)
+        this.questionNumber ++
+      }
+    }
   },
   components: {
     AdminDashboardSidebar,

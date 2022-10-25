@@ -19,7 +19,9 @@
       <div class="profile_settings">
         <h5>Profiles Setting</h5>
 
-        <ButtonComponent class="edit_btn"
+        <ButtonComponent 
+        @click="edit"  
+        class="edit_btn"
           buttonText="Edit"
           width="127"
           height="38"
@@ -43,29 +45,34 @@
       <div class="inputs">
         <div class="name">
             <label>Name</label>
-            <input type="text" placeholder="Cameron Williamson" v-model="name">
+            <input type="text" placeholder="Cameron Williamson" v-model="name"  :style="{'pointer-events' : pointer_events}">
         </div>
         <div class="email">
             <label>Email</label>
             <input type="text"
-            placeholder="debra.holt@example.com" v-model="email">
+            placeholder="debra.holt@example.com" v-model="email"
+            :style="{'pointer-events' : pointer_events}">
         </div>
         <div class="phone_number">
             <label>Phone number</label>
-            <input type="text" placeholder="(303) 555-0105" v-model="phone_number">
+            <input type="text" placeholder="(303) 555-0105" v-model="phone_number"
+            :style="{'pointer-events' : pointer_events}">
         </div>
         <div class="country">
             <label>Country</label>
-            <input type="text" placeholder="Afghanistan" v-model="country">
+            <input type="text" placeholder="Afghanistan" v-model="country"
+            :style="{'pointer-events' : pointer_events}">
         </div>
         <div class="address">
             <label>Address</label>
-            <input type="text" placeholder="3891 Ranchview Dr. Richardson, California 62639" v-model="address">
+            <input type="text" placeholder="3891 Ranchview Dr. Richardson, California 62639" v-model="address"
+            :style="{'pointer-events' : pointer_events}">
         </div>
       </div>
 
       <div class="save_btn">
       <ButtonComponent
+              @click="submitAdminInfo"
               buttonText="Save"
               width="205"
               height="41"
@@ -96,22 +103,44 @@ export default {
       email: "",
       phone_number: "",
       country: "",
-      address: ""
+      address: "",
+      disabled: 0,
+      pointer_events: ""
     }
   },
   components: {
     AdminDashboardSidebar,
   },
+  async mounted() {
+    const adminEmail = this.$store.state.admin[0].email_address;
+    const response = await axios.get(
+      `http://localhost:5500/oneAdmin/${adminEmail}`
+    );
+
+    this.name = response.data.data.name;
+    this.email = response.data.data.email_address;
+    this.country = response.data.data.country;
+    this.address = response.data.data.address;
+    this.phone_number = response.data.data.phone_number;
+  },
   methods:{
-    submitAdminInfo(){
-      axios.post("https://634828c60b382d796c6af96d.mockapi.io/admin_register", {
+    async submitAdminInfo(){
+      const id = this.$store.state.admin[0].id;
+      console.log(id)
+
+      await axios.patch(`http://localhost:5500/updateAdmin/${id}`, {
         name: this.name,
-        email: this.email,
+        email_address: this.email,
         phone_number: this.phone_number,
         country: this.country,
         address: this.address
-      }).then(response => console.log(response)).catch(error => console.log(error));
+      })
+
+      this.pointer_events = "none"
       // this.$router.push('/login');
+    },
+    edit(){
+      this.pointer_events = "auto"
     }
   }
 };
@@ -260,7 +289,10 @@ border: none;
 padding-left: 12px;
 padding-top: 16px;
 padding-bottom: 15px;
+pointer-events: none;
+
 }
+
 
 .inputs div:last-child{
     /* width:432px; */
