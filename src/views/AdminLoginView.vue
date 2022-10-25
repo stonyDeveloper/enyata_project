@@ -63,10 +63,11 @@ export default {
 
       console.log(response.data.data.admin[0].name)
 
-      this.name = response.data.data.admin[0].name
-      this.email = response.data.data.admin[0].email_address
+      // this.name = response.data.data.admin[0].name
+      // this.email = response.data.data.admin[0].email_address
+      // this.password = response.data.data.admin[0].password
 
-     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    //  axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
      const admin = response.data.data.admin
      const token = response.data.data.token

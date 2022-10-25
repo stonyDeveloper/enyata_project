@@ -53,15 +53,17 @@
 
                 <span>Results</span>
             </div>
+            <router-link to="/admin_profiles_and_settings">
             <div class="route">
                 <img src="../assets/settings_icon.svg" alt="">
 
                 <span>Settings</span>
             </div>
+            </router-link>
             <div class="route">
                 <img src="../assets/logouticon.svg" alt="">
 
-                <span>Log Out</span>
+                <router-link to="/admin_login"><span>Log Out</span></router-link>
             </div>
 
             
@@ -72,6 +74,7 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default {
         name: "AdminDashboardSidebar",
         data(){
@@ -79,7 +82,13 @@
                 name: "",
                 email: ""
                 }
-            }
+            },
+        async mounted(){
+            const adminEmail = this.$store.state.admin[0].email_address
+            const response = await axios.get(`http://localhost:5500/oneAdmin/${adminEmail}`)
+
+            console.log(response)
+        }
     }
 </script>
 

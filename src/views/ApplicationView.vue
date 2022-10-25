@@ -47,6 +47,7 @@
       </div>
 
       <div value>
+        
 
       </div>
       
@@ -66,6 +67,7 @@
 
 
         </form>
+        
     </div>
 </template>
 
@@ -74,7 +76,8 @@ import axios from 'axios'
     export default {
       data(){
         return {
-          date: '',
+          upload_CV: '',
+          upload_photo: '',
           first_name: '',
           last_name: '',
           email_address: '',
@@ -85,28 +88,68 @@ import axios from 'axios'
           cgpa: ''
         }
       },
+      computed: {
+        returnUser(){
+          return this.$store.state.user.first_name;
+        }
+      },
+      mounted(){
+        {
+          // let storeEmail = this.$store.state.user.email_address
+          // console.log(storeEmail)
+        }
+      },
       methods: {
         async submitApplication(e){
            try {
         e.preventDefault()
-          const response = await axios.post('https://634828c60b382d796c6af96d.mockapi.io/applications', {
-            date: new Date(),
+        
+        
+        {
+          const token = this.$store.state.token
+           const response = await axios.post('http://localhost:5500/application', {
+            upload_CV: this.upload_CV,
+            upload_photo: this.upload_photo,
             first_name : this.first_name,
             last_name : this.last_name,
             email_address : this.email_address,
-            dob: this.dob,
+            date_of_birth: this.dob,
             address: this.address,
             university: this.university,
-            course: this.course,
+            course_of_study: this.course,
             cgpa: this.cgpa
 
+          },{ 
+            headers: { 
+              'Authorization': `Bearer ${token}`  
+            } 
           })
 
-          axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+          // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
-          
+        // console.log(returnUser())
+        
+        // console.log(token);
         console.log(response);
+
+        const storeEmail = []
+
+        const push = localStorage.setItem('applicationEmail', storeEmail)
+        storeEmail.push(push)
+
+
+        
+        
+
+        
+
+        console.log(storeEmail)
+        
+        
+        
          this.$router.push('/dashboard')
+        }
+         
       } catch(error){
         console.log(error)
         
@@ -119,6 +162,8 @@ import axios from 'axios'
       }
         
 }
+
+
 </script>
 
 <style scoped>

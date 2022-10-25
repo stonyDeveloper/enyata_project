@@ -9,19 +9,19 @@
         <div class="application-date">
           <div class="title">Current Applications</div>
 
-          <div class="date">233</div>
+          <div class="date">{{currentApplications}}</div>
 
           <div class="date-indicator"></div>
 
-          <div>Academy 2.0</div>
+          <div>Academy {{batch}}</div>
         </div>
 
         <div class="application-status">
           <div class="title">Total Applications</div>
 
-          <div class="status">4253</div>
+          <div class="status">{{totalApplications}}</div>
 
-          <div class="status-indicator"></div>
+          <div class="status-indicator green"></div>
 
           <div>All entries do far</div>
         </div>
@@ -29,7 +29,7 @@
         <div class="application-status">
           <div class="title">Academy's</div>
 
-          <div class="status">4.0</div>
+          <div class="status">{{batch}}</div>
 
           <div class="status-indicator"></div>
 
@@ -75,7 +75,7 @@
               Create test question for an incoming academy students
             </div>
             <ButtonComponent
-              buttonText="Take Assessment"
+              buttonText="Create Assessment"
               width="205"
               height="41"
               border="2"
@@ -89,11 +89,39 @@
 
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from 'axios'
 
 export default {
+  data(){
+    return{
+      totalApplications: '0',
+      currentApplications: '0',
+      batch: '0'
+    }
+  },
   components: {
     AdminDashboardSidebar,
   },
+  async mounted(){
+
+    {
+      const response = await axios.get('http://localhost:5500/total_applications')
+
+      // console.log(response.data.data[0].count)
+      this.totalApplications = response.data.data[0].count
+    }
+    {
+      const current = await axios.get('http://localhost:5500/current_applications')
+      // console.log(current.data.data.count)
+      this.currentApplications = current.data.data.count
+
+    }
+    {
+      const batch = await axios.get('http://localhost:5500/current_batch')
+      console.log(batch.data.data.batch_id)
+      this.batch = batch.data.data.batch_id
+    }
+  }
 };
 </script>
 
@@ -167,6 +195,10 @@ color: #4F4F4F;
   background: #f09000;
   border-radius: 4px;
   margin-top: 9px;
+}
+
+.status-indicator.green{
+  background: #00F026;
 }
 
 .application-date div:last-child {

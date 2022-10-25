@@ -49,10 +49,6 @@ export default {
       showPassword: false,
     }
   },
-  watch:{
-
-
-  },
   methods: {
     ...mapMutations(["setUser", "setToken"]),
     async login(e){
@@ -65,7 +61,7 @@ export default {
         password: this.password
       }
 
-      // console.log(input)
+      console.log(input)
 
       const response = await axios.post('http://localhost:5500/login', input, {
         withCredentials: false
@@ -73,16 +69,71 @@ export default {
 
       console.log(response.data.data.user)
       console.log(response.data.data.token)
+      
 
-     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;
+
+     localStorage.setItem('token', response.data.data.token)
+     
 
      const user = response.data.data.user
      const token = response.data.data.token
+
+     
      this.setUser(user);
      this.setToken(token);
+
+    //  localStorage.setItem('token', token)
+    //  localStorage.setItem('user', user)
+
+    //  console.log(localStorage.token)
+    //  console.log(localStorage.user)
+
+    const getDate = localStorage.getItem('application')
+    console.log(getDate)
+    if(!getDate){
+      await this.$router.push('/application')
+    } else{
+      await this.$router.push('/dashboard')
+    }
+
+   
+
+     
+
+    //  const email = response.data.data.user.id
+
+    //  console.log(email)
+
+    //  const applied = await axios.get('http://localhost:5500/signup')
+
+    //  let signUp = applied.data.data
+    //  let single = {id: email}
+
+    //  if(signUp.some(animal => animal.name === single.name)){
+    //   await this.$router.push('/dashboard')
+    //  }
+
+    //  console.log(user)
+
+
+
+     
+
+    //  console.log(applied)
+
+
+
+
+
+    //  if(applied.email_address){
+    //     await this.$router.push('/dashboard')
+    //  }else{
+    //     await this.$router.push('/application')
+    //  } 
       
 
-      await this.$router.push('/application')
+      
 
 
 

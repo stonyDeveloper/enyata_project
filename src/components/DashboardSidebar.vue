@@ -55,6 +55,10 @@
                 }
             },
         mounted(){
+            {
+                const testing = localStorage.getItem('token')
+                console.log(testing)
+            }
             
         
     }

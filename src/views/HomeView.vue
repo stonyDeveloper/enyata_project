@@ -9,14 +9,20 @@
           Join enyata academy today and bring your long <br/> awaiting dream to
           reality.
         </p>
-        <router-link to="/signup">
-        <ButtonComponent class="btn"
+        <!-- <router-link to="/signup"> -->
+        <ButtonComponent 
+          @click="registerButton"
+          class="btn"
           buttonText="Register Now"
           width="152"
           height="48"
           border = "2"
         />
-        </router-link>
+        <!-- </router-link> -->
+        <div class="registration_open" v-if="applicationOpen">
+          <img src="../assets/registrationopenicon.svg" alt="">
+          <div class="registration_paragraph">Registration not open</div>
+        </div>
       </div>
 
       <div class="home-image">
@@ -62,16 +68,59 @@
 <script>
 // @ is an alias to /src
 
-
+import axios from 'axios'
+const moment = require('moment');
 export default {
   name: "HomeView",
   data(){
+    return{
+      applicationOpen: false
     // application_date: ''
+
+    }
+    
 
   },
   methods: {
-    registerButton(){
-    
+   async registerButton(){
+      
+       const response =  await axios.get('http://localhost:5500/batches')
+
+      //  console.log(response)
+
+       const applicationClosureDate = response.data.data[response.data.data.length - 1].application_closure_date
+
+       console.log(applicationClosureDate)
+      
+
+      //  console.log(moment(applicationDate, 'DD.MM.YY'))
+
+
+
+       const applicationDate = moment().add(1015, 'days');
+       console.log(applicationDate)
+
+      const dateFormat = 'YYYY-MM-DD'
+      const userCanApply = moment(applicationDate, dateFormat).isBefore(moment(applicationClosureDate, dateFormat))
+
+      localStorage.setItem('application', userCanApply)
+
+      console.log(userCanApply)
+
+      if(userCanApply){
+        this.applicationOpen = false;
+        this.$router.push("/signup")
+      }
+       
+        this.applicationOpen = true;
+      
+       
+      //  else{
+      //     // this.applicationOpen = false;
+      //     this.$router.push("/login")
+      //  }
+
+       
     }
   }
   
@@ -225,5 +274,23 @@ letter-spacing: 0.01em;
 text-align: center;
 color: #FFFFFF;
 
+}
+
+.registration_open{
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 25px;
+  font-family: 'Poppins';
+font-style: normal;
+font-weight: 400;
+font-size: 20px;
+line-height: 24px;
+letter-spacing: 0.02em;
+}
+
+.registration_open .registration_paragraph{
+  letter-spacing: 0.02em;
+color: rgba(255, 0, 0, 0.71);
 }
 </style>

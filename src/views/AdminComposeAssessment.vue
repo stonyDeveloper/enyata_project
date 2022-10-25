@@ -35,6 +35,8 @@
             <div class="input_field">
               <label>Option A</label><br />
               <input
+              v-on:dblclick="chooseOption"
+              :style="{ 'background': colorA}"
                 type="text"
                 class="option_A"
                 placeholder="20"
@@ -44,6 +46,8 @@
             <div class="input_field">
               <label>Option B</label><br />
               <input
+              v-on:dblclick="chooseOption"
+              :style="{ 'background': colorB}"
                 type="text"
                 class="option_B"
                 placeholder="40"
@@ -53,6 +57,8 @@
             <div class="input_field">
               <label>Option C</label><br />
               <input
+              v-on:dblclick="chooseOption"
+              :style="{ 'background': colorC}"
                 type="text"
                 class="option_C"
                 placeholder="67"
@@ -62,6 +68,8 @@
             <div class="input_field">
               <label>Option D</label><br />
               <input
+              v-on:dblclick="chooseOption"
+              :style="{ 'background': colorD}"
                 type="text"
                 class="option_D"
                 placeholder="50"
@@ -115,17 +123,28 @@ export default {
         optionB : "",
         optionC: "",
         optionD: "",
-        questionNumber: 29
+        questionNumber: 1,
+        colorA: '',
+        colorB: '',
+        colorC: '',
+        colorD: ''
       } 
     
   },
   methods: {
+    chooseOption() {
+        this.colorA = 'yellow'
+        this.colorB = 'blue'
+        this.colorC = 'grey'
+        this.colorD = 'pink'
+    },
     submitQuestion() {
+      
       const data = [
         {
           questionText: this.questionText,
           options: [
-            { optionA: this.optionA, isAnswer: true },
+            { optionA: this.optionA, isAnswer: false },
             { optionB: this.optionB, isAnswer: false },
             { optionC: this.optionC, isAnswer: false },
             { optionD: this.optionD, isAnswer: false }

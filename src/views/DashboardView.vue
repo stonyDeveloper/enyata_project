@@ -5,7 +5,7 @@
     <div class="dashboard">
       <h1>Dashboard</h1>
 
-      <p>
+      <p v-if="status == Pending">
         Your Application is currently being review, you will be notified if
         successful
       </p>
@@ -14,19 +14,33 @@
         <div class="application-date">
           <div class="title">Date of Application</div>
 
-          <div class="date">09.09.19</div>
+          <div class="date">{{date_of_application}}</div>
 
           <div class="date-indicator"></div>
 
-          <div>4 days since applied</div>
+          <div>{{daysAgo}} since applied</div>
         </div>
 
         <div class="application-status">
           <div class="title">Application Status</div>
 
-          <div class="status">Pending</div>
+          <div class="status">{{status}}</div>
 
-          <div class="status-indicator"></div>
+     
+          <div 
+          v-if="status == Pending"
+          class= "yellow-status-indicator"></div>
+          
+
+         
+          <div
+          v-if="status == Approved" class="green-status-indicator"></div>
+         
+
+         
+          <div
+          v-if="status == Approved" class="red-status-indicator"></div>
+          
 
           <div>We will get back to you</div>
         </div>
@@ -62,8 +76,10 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 import DashboardSidebar from "../components/DashboardSidebar.vue";
+
+const moment = require('moment')
 
 export default {
   components: {
@@ -71,14 +87,71 @@ export default {
   },
   data(){
     return {
-      message: 'Current Time'
+      date_of_application: '',
+      daysAgo: '',
+      status:'Pending',
+      isGreen: false,
+      isRed: false,
+      isYellow: false
     }
   },
-  mounted(){
+  async mounted(){
     // {
     //   const response = axios.get('https://634828c60b382d796c6af96d.mockapi.io/applications')
     //   console.log(response)
     // }
+    // {
+      
+      const applicationDate = this.$store.state.user.created_at
+      const convertDate = moment(applicationDate).format('DD.MM.YY')
+
+      this.date_of_application = convertDate
+
+      const daysSince = moment(applicationDate).fromNow(true)
+
+      this.daysAgo = daysSince
+
+      console.log(daysSince);
+
+      // console.log(this.$state.appli)
+    // }
+    {
+      // const response = await axios.get('http://localhost:5500/total_applications')
+
+      // console.log(response)
+      const test = localStorage.getItem('applicationEmail')
+      console.log(test)
+
+
+
+      // const appliedDate = await axios.get('http/oneApplicant/:email_address')
+    }
+    {
+
+     const userEmail = this.$store.state.user.email_address
+
+      const status = await axios.get(`http://localhost:5500/oneApplicant/${userEmail}`)
+      console.log(status.data.data.status)
+
+      const realStatus = status.data.data.status
+
+      this.status = realStatus.charAt(0).toUpperCase() + realStatus.slice(1);
+
+      
+
+      
+    }
+    {
+      // if(this.status == "Pending"){
+      //   this.isYellow = true
+      // } else if(this.status == "Approved"){
+      //   this.isGreen = true
+      // }else{
+      //   this.isRed = true
+      // }
+    }
+
+    
   }
   
 };
@@ -147,10 +220,26 @@ export default {
   margin-top: 9px;
 }
 
-.status-indicator {
+.yellow-status-indicator {
   width: 148px;
   height: 4px;
   background: #f09000;
+  border-radius: 4px;
+  margin-top: 9px;
+}
+
+.green-status-indicator{
+  background:#12C52F;
+  width: 148px;
+  height: 4px;
+  border-radius: 4px;
+  margin-top: 9px;
+}
+
+.red-status-indicator{
+  background: red;
+  width: 148px;
+  height: 4px;
   border-radius: 4px;
   margin-top: 9px;
 }
