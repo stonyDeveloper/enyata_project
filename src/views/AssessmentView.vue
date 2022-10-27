@@ -34,12 +34,14 @@
             <p>We have 4 days left until the next assessment<br>
 Watch this space</p>
 
+
             <ButtonComponent
             @click="countDown"
  buttonText="Take Assessment"
           width="205"
           height="41"
           border = "2"></ButtonComponent>
+         
         </div>
     </div>
     </div>
@@ -48,6 +50,7 @@ Watch this space</p>
 <script>
 import DashboardSidebar from '../components/DashboardSidebar.vue'
 import CountDownComponent from '../components/CountDownComponent.vue'
+import axios from 'axios'
 
     export default {
         components:{DashboardSidebar, CountDownComponent},
@@ -62,10 +65,23 @@ import CountDownComponent from '../components/CountDownComponent.vue'
             millisecond : "31"
             }
         },
+
         methods:{
-           countDown(){
+           async countDown(){
+            
+            const questions = await axios.get('http://localhost:5500/questions/11')
+            
+            console.log(questions)
             this.$refs.count.showRemaining();
-           } 
+
+            console.log('ttttt')
+            
+            this.$router.push('/assessment/questions')
+            
+
+            
+           },
+
         }
             
         

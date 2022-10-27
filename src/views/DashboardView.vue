@@ -27,19 +27,19 @@
           <div class="status">{{status}}</div>
 
      
-          <div 
+          <!-- <div 
           v-if="status == Pending"
-          class= "yellow-status-indicator"></div>
+          class= "yellow-status-indicator"></div> -->
           
 
          
           <div
-          v-if="status == Approved" class="green-status-indicator"></div>
+          class="green-status-indicator"></div>
          
-
+<!-- 
          
           <div
-          v-if="status == Approved" class="red-status-indicator"></div>
+          v-if="status == Approved" class="red-status-indicator"></div> -->
           
 
           <div>We will get back to you</div>
@@ -89,7 +89,7 @@ export default {
     return {
       date_of_application: '',
       daysAgo: '',
-      status:'Pending',
+      status: '',
       isGreen: false,
       isRed: false,
       isYellow: false

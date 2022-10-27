@@ -20,7 +20,7 @@
 
       <ButtonComponent class="btn"
           buttonText="Sign In"
-          width="379"
+          width="400"
           height="50"
           border = "2"
         />

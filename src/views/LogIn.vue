@@ -20,7 +20,7 @@
 
       <ButtonComponent class="btn"
           buttonText="Sign In"
-          width="379"
+          width="400"
           height="50"
           border = "2"
         />
@@ -91,11 +91,13 @@ export default {
 
     const getDate = localStorage.getItem('application')
     console.log(getDate)
-    if(!getDate){
+    if(getDate){
       await this.$router.push('/application')
     } else{
       await this.$router.push('/dashboard')
     }
+
+
 
    
 
@@ -105,7 +107,22 @@ export default {
 
     //  console.log(email)
 
-    //  const applied = await axios.get('http://localhost:5500/signup')
+     const applied = await axios.get('http://localhost:5500/allApplicant')
+     
+    console.log(applied)
+     console.log(applied.data.data.length)
+     const loggedInUser = this.$store.state.user.email_address
+     for(let i = 0; i < applied.data.data.length; i++){
+        if(loggedInUser === applied.data.data[i].email_address){
+          await this.$router.push('/dashboard')
+        } else {
+           await this.$router.push('/application')
+        }
+        console.log(applied.data.data[i].email_address)
+
+     }
+     console.log(this.$store.state.user.email_address)
+     
 
     //  let signUp = applied.data.data
     //  let single = {id: email}

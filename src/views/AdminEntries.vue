@@ -98,7 +98,7 @@
       </div>
       </div>
 
-      <ValidateApplicationComponent class="hide" v-if="!approve"></ValidateApplicationComponent>
+     
     </div>
   </div>
 </template>
@@ -107,13 +107,12 @@
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
 
 import axios from 'axios'
-import ValidateApplicationComponent from "@/components/ValidateApplicationComponent.vue";
+// import ValidateApplicationComponent from "@/components/ValidateApplicationComponent.vue";
 const moment = require('moment')
  
 export default {
  components: {
-    AdminDashboardSidebar,
-    ValidateApplicationComponent
+    AdminDashboardSidebar, 
 },
   data(){
     return{
@@ -191,7 +190,11 @@ export default {
         email_address: `${this.email_address}`
       })
 
+      console.log(this.email_address)
+
       this.setApplicationStatus(approve)
+
+      console.log('working')
 
     }
 

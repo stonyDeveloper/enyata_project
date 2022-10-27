@@ -74,12 +74,15 @@
             <div>
               Create test question for an incoming academy students
             </div>
+            <router-link to="/admin_compose_assessment">
             <ButtonComponent
+            class="createBtn"
               buttonText="Create Assessment"
               width="205"
               height="41"
               border="2"
             ></ButtonComponent>
+            </router-link>
           </div>
         </div>
       </div>
@@ -323,5 +326,9 @@ color: #4F4F4F;
     border-radius: 8px 0px 0px 8px;
     
 
+}
+
+.createBtn{
+  background-color: #12C52F;
 }
 </style>
