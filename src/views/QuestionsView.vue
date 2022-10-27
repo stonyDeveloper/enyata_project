@@ -31,49 +31,76 @@
     </div>
     <div class="container">
         <div>      
-          <h6 class="text-center">Question {{currentQuestion+1}}</h6>
-          <h2 class="text-center question_name">{{questions[currentQuestion]["questions"]}}
-        </h2>
-         <div class= "d-flex justify-content-center mt-5">
+          <h6 class="text-center question-heading">Question {{currentQuestion+1}}</h6>
+          <div v-for="(question, index) in questions" :key="index" v-show="index === currentQuestion">
+            <h2 class="realquestion">{{question.question}}</h2>
+            <div class= "d-flex justify-content-center mt-5">
            <div class="mb-5">
               <div  class="align-items-center mb-3">
                 <div class="gap-3">
                   <input id="questions[currentQuestion].optiona" type="radio" value="questions[currentQuestion].optiona" v-model="userAnswers[currentQuestion]">
                 <label for="questions[currentQuestion].optiona">
-                  {{questions[currentQuestion].optiona}}
+                  <!-- {{questions[currentQuestion].optiona}} -->
+                  {{question.options[0].text}}
                   </label>
                 </div>
                 <div class="gap-3">
                   <input id="questions[currentQuestion].optionb" type="radio" value="questions[currentQuestion].optionb"   v-model="userAnswers[currentQuestion]">
                 <label for="questions[currentQuestion].optionb">
-                  {{questions[currentQuestion].optionb}}
+                  <!-- {{questions[currentQuestion].optionb}} -->
+                  {{question.options[1].text}}
                   </label>
                 </div>
                 <div class="gap-3">
                   <input id="questions[currentQuestion].optionc" type="radio" value="questions[currentQuestion].optionc"   v-model="userAnswers[currentQuestion]">
                 <label for="questions[currentQuestion].optionc">
-                  {{questions[currentQuestion].optionc}}
+                  <!-- {{questions[currentQuestion].optionc}} -->
+                  {{question.options[2].text}}
                   </label>
                 </div>
                 <div class="gap-3">
                   <input id="questions[currentQuestion].optiond" type="radio" value="questions[currentQuestion].optiond"   v-model="userAnswers[currentQuestion]">
                 <label for="questions[currentQuestion].optiond">
-                  {{questions[currentQuestion].optiond}}
+                  <!-- {{questions[currentQuestion].optiond}} -->
+                  {{question.options[3].text}}
                   </label>
                 </div>
               </div> 
             </div>
          </div>
+
+        </div>
+          <!-- <h2 class="text-center question_name">
+            {{questions[currentQuestion]?.questions}}
+
+           
+            
+        </h2> -->
           
         </div>
     </div>
       <div class="two-buttons">
         <button class="second-button" @click="preQuest">Previous</button>
-        <button :disabled="!isDisabled()" @click="submit" :class="btnBg()">Finish</button>
+
+        <router-link to="/assessment_completed">
+        <ButtonComponent
+             :class="btnBg()"
+              buttonText="Finish"
+              width="205"
+              height="41"
+              border="2"
+            ></ButtonComponent>
+        </router-link>
+
         <button @click="nextQuest" :class="btnNextQuest()">Next</button>
+        
       </div>
   </div>
   </div>
+
+  <!-- <div v-for="(question, index) in questions" :key="index.question">
+   <p>{{ question }}</p>
+  </div> -->
 </template>
 
 
@@ -101,20 +128,23 @@ export default {
             timer:null,
             startQuiz: false,
             userAnswers: new Array().fill(""),
-            questions:[],
+            questions: [],
         }
     },
     computed:{
     },
     methods: {
+        next(){
+            this.currentQuestion ++
+        },
       btnBg(){
-        if(this.currentQuestion === 9){
+        if(this.currentQuestion === 2){
         return this.btnFinish
         } 
           return this.btn
       },
         btnNextQuest(){
-        if(this.currentQuestion === 9){
+        if(this.currentQuestion === 2){
           return this.noNext
           } 
         return this.btnNext
@@ -147,28 +177,29 @@ export default {
            this.$store.commit("setTimeFinish", timeFinish)
        },
        isDisabled(){
-         if(this.currentQuestion === 9) return true
+         if(this.currentQuestion === 3) return true
        }
     },
     async created(){
-       await axios.get("http://localhost:5500/questions/11")
-       .then(data => {
-         console.log(data.data.data)
-          this.questions = data.data.data
+       const resp = await axios.get("http://localhost:5500/questions/14")
+
+        //  console.log(resp.data.data)
+          this.questions = JSON.parse(resp.data.data[0].questions);
+        console.log(this.questions)
+        //   console.log(resp.data.data)
          
-       })
-    },
+       },
    mounted() {
         const thirtyMins = 60 * 30
          this.startTimer(thirtyMins)
     },
     watch:{
-      userAnswers:{
-        handler(userAnswers){
-          console.log(userAnswers)
-        },
-        deep:true
-      },
+    //   userAnswers:{
+    //     handler(userAnswers){
+    //       console.log(userAnswers)
+    //     },
+    //     deep:true
+    //   },
       secs(secs){
         if(Number(secs)===0 && Number(this.mins)===0){
          this.submit()
@@ -183,7 +214,20 @@ export default {
 .gap-3{
   display: flex;
   align-items: baseline;
-  margin:5px 0 ;
+  margin:30px 5px ;
+}
+
+.gap-3 label{
+    margin-left: 10px;
+    font-family: 'Lato';
+font-style: italic;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+/* identical to box height */
+
+
+color: #2B3C4E;
 }
 input[type="radio"]{
   width:12px;
@@ -234,6 +278,11 @@ li {
 .containers {
   display: flex;
   justify-content: space-between;
+}
+
+.question-heading{
+    margin-top: 64px;
+
 }
 .last-button {
   background: #cecece;
@@ -441,5 +490,14 @@ font-weight: 400;
 font-size: 12px;
 line-height: 14px;
 color: #4F4F4F;
+}
+
+.finish{
+    margin-top: 130px;
+    
+}
+
+.realquestion{
+    margin-top: 14px
 }
 </style>

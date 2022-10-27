@@ -42,7 +42,7 @@
           v-if="status == Approved" class="red-status-indicator"></div> -->
           
 
-          <div>We will get back to you</div>
+          <!-- <div>We will get back to you</div> -->
         </div>
       </div>
 

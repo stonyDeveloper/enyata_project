@@ -67,8 +67,12 @@ export default {
         withCredentials: false
       })
 
-      console.log(response.data.data.user)
-      console.log(response.data.data.token)
+      // console.log(response.data.data.user)
+      // console.log(response.data.data.token)
+
+      console.log(response)
+
+      alert(response.data.message)
       
 
      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;

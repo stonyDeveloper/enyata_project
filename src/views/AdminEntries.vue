@@ -6,7 +6,51 @@
       <h1>Entries - Batch 2</h1>
       <p>Comprises of all that applied for batch 2</p>
 
-      
+      <!-- <div>
+      <table>
+        <thead class="entry-table">
+          <td>Name</td>
+          <td>Email</td>
+          <td>DOB - Age</td>
+          <td>Address</td>
+          <td>University</td>
+          <td>CGPA</td>
+        </thead>
+
+        <tbody>
+          <tr
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          >
+            <td><div>Ify Chinke</div></td>
+            <td><div>ify@enyata.com</div></td>
+            <td><div>12/09/19 - 22</div></td>
+            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
+            <td><div>University of Nigeria</div></td>
+            <td><div>5.0</div></td>
+          </tr>
+
+          <tr v-b-modal.modal-1>
+            <td><div>Ify Chinke</div></td>
+            <td><div>ify@enyata.com</div></td>
+            <td><div>12/09/19 - 22</div></td>
+            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
+            <td><div>University of Nigeria</div></td>
+            <td><div>5.0</div></td>
+          </tr>
+
+          <tr v-b-modal.modal-1>
+            <td><div>Ify Chinke</div></td>
+            <td><div>ify@enyata.com</div></td>
+            <td><div>12/09/19 - 22</div></td>
+            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
+            <td><div>University of Nigeria</div></td>
+            <td><div>5.0</div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>  -->
 
       <div class="updates-and-assessment">
         <div class="header">
@@ -549,5 +593,78 @@ backdrop-filter: blur(4px);
   top: 50vh;
   left:50vw;
   z-index: 99;
+}
+table {
+  margin-top: 30px;
+  width: 930px;
+  text-align: center;
+  border-collapse: collapse;
+}
+
+thead {
+  background: #2b3c4e;
+  color: white;
+  width: 1042px;
+  height: 46px;
+  font-family: Lato;
+  font-size: 14px;
+  line-height: 17px;
+  margin-right: 200px;
+}
+
+td {
+  padding: 0 20px 0 0;
+}
+
+td div {
+  margin-bottom: 10px;
+  margin-top: 11px;
+  padding: 10px;
+}
+
+tr {
+  height: 45.78px;
+  border-left: 10px solid #ffffff;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+}
+
+tr:hover {
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
+  border-left: 10px solid #7557d3;
+}
+
+.batch1 {
+  display: flex;
+}
+
+img {
+  width: 12px;
+  height: 12px;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+h6 {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 43.5555px;
+  line-height: 52px;
+  color: #2b3c4e;
+}
+
+p {
+  font-family: Lato;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  color: #2b3c4e;
 }
 </style>

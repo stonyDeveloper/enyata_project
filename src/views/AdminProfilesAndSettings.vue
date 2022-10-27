@@ -125,8 +125,11 @@ export default {
   },
   methods:{
     async submitAdminInfo(){
+      
       const id = this.$store.state.admin[0].id;
       console.log(id)
+      
+      
 
       await axios.patch(`http://localhost:5500/updateAdmin/${id}`, {
         name: this.name,
@@ -136,8 +139,11 @@ export default {
         address: this.address
       })
 
+      alert("Details saved successfully")
+      
       this.pointer_events = "none"
       // this.$router.push('/login');
+      
     },
     edit(){
       this.pointer_events = "auto"

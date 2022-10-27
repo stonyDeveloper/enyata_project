@@ -256,10 +256,11 @@ export default {
     async uploadQuestions(){
 
        await axios.post('http://localhost:5500/assessments', {
-        
-        questions: JSON.parse(this.questions),
+        questions: JSON.stringify(this.questions),
         time_allocated: 60
       })
+
+      
     }
 
   },

@@ -40,7 +40,8 @@
       <div class="updates-and-assessment">
         <div class="updates">
           <h4>History</h4>
-          <p>Last Update  18:24, 22/02/19</p>
+          <p>Last Update 18:24,{{getHumanDate(lastUpdate) }} 
+            </p>
 
           <div class="batches">
             <div class="batch">
@@ -93,17 +94,24 @@
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   data(){
     return{
       totalApplications: '0',
       currentApplications: '0',
-      batch: '0'
+      batch: '0',
+      lastUpdate: ''
     }
   },
   components: {
     AdminDashboardSidebar,
+  },
+  methods: {
+    getHumanDate : function (date) {
+                return moment(date, 'YYYY-MM-DD').format('DD/MM/YY');
+            }
   },
   async mounted(){
 
@@ -123,6 +131,10 @@ export default {
       const batch = await axios.get('http://localhost:5500/current_batch')
       console.log(batch.data.data.batch_id)
       this.batch = batch.data.data.batch_id
+    }
+    {
+     const lastUpdate = await axios.get('http://localhost:5500/batches') 
+     this.lastUpdate = lastUpdate.data.data[lastUpdate.data.data.length-1].created_at
     }
   }
 };

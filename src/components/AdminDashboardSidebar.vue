@@ -66,7 +66,7 @@
       <div class="route">
         <img src="../assets/logouticon.svg" alt="" />
 
-        <router-link to="/admin_login"><span>Log Out</span></router-link>
+        <router-link to="/admin_login" @click="confirm('Are you sure you want to log out?')"><span>Log Out</span></router-link>
       </div>
     </div>
   </div>

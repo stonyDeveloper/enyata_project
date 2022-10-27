@@ -10,10 +10,7 @@
         <p>Thank you!</p>
         </div>
 
-        <div class="timer">
-            <p>Timer</p>
-            <p>23<span>min</span>043<span>sec</span></p>
-        </div>
+        
         </div>
 
 
@@ -24,11 +21,14 @@
             <p>We have received your assessment test, we will get back to you soon. <br>
 Best of luck</p>
 
-            <ButtonComponent
+            
+<router-link to="/dashboard">
+    <ButtonComponent
  buttonText="Home"
           width="205"
           height="41"
           border = "2"></ButtonComponent>
+          </router-link>
         </div>
     </div>
     </div>

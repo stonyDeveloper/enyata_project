@@ -9,8 +9,25 @@
       
 
       <div class="updates-and-assessment">
+         <table>
+        <thead class="table-header">
+          <td>Batch</td>
+          <td>Date Composed</td>
+          <td>No of Questions</td>
+          <td>Time Allocated</td>
+        </thead>
+
+        <tbody v-for="history in histories" v-bind:key="history.client_id">
+          <tr>
+            <td><div>Batch {{ history.batch_id  }}</div></td>
+            <td><div>{{ getHumanDate(history.created_at )}}</div></td>
+            <td><div>30</div></td>
+            <td><div>30 min</div></td>
+          </tr>
+        </tbody>
+      </table>
         
-          <div class="entries">
+          <!-- <div class="entries">
             <div class="entry">
                 <span>Batch</span>
                 <span>Date Composed</span>
@@ -71,19 +88,42 @@
             </div>
 
            
-          </div>
+          </div> -->
       </div>
     </div>
   </div>
 </template>
 
+
+
+
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from 'axios'
+ import moment from 'moment'
 
 export default {
+  data(){
+    return {
+      histories: ''
+    }
+  },
   components: {
     AdminDashboardSidebar,
   },
+  async mounted(){
+  
+      const res = await axios.get('http://localhost:5500/batches')
+      console.log(res.data.data)
+      this.histories = res.data.data
+      console.log(this.histories.history.created_at)
+  
+  },
+  methods: {
+    getHumanDate : function (date) {
+                return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+            }
+  }
 };
 </script>
 
@@ -311,5 +351,47 @@ color: #4F4F4F;
     border-radius: 8px 0px 0px 8px;
     
 
+}
+
+table {
+  margin-top: 30px;
+  margin-left: 25px;
+  width: 720px;
+  text-align: center;
+  border-collapse: collapse; 
+  box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
+  border-radius: 8px;
+}
+
+
+td {
+     padding: 0;
+}
+
+td div {
+    margin-bottom: 10px;
+    margin-top: 11px;
+    padding: 10px;
+}
+
+.table-header {
+  background-color: #2b3c4e;
+  color: #fff;
+  width: 946.48px;
+  height: 47.78px;
+}
+
+tr {
+  width: 946.48px;
+  height: 45.78px;
+  border-left: 10px solid #ffffff;
+
+}
+
+tr:hover {
+  cursor: pointer;
+  background: #ffffff;
+  box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
+  border-left: 10px solid #7557d3;
 }
 </style>

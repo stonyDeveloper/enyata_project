@@ -14,8 +14,11 @@
 
       <div class="input-field">
         <label>Password</label><br>
-        <input type="password" v-model="password">
-        <img src="../assets/passwordicon.svg" alt="">
+        <input
+        :type="[showPassword ? 'text' : 'password']"  v-model="password">
+        <img 
+        @click="showPassword = !showPassword"
+        src="../assets/passwordicon.svg" alt="">
       </div>
 
       <ButtonComponent class="btn"
@@ -40,7 +43,8 @@ export default {
     return{
       email: '',
       password: '',
-      name: ''  
+      name: '',
+      showPassword: false,  
     }
   },
   methods: {
@@ -61,7 +65,11 @@ export default {
         withCredentials: false
       })
 
-      console.log(response.data.data.admin[0].name)
+      // console.log(response.data.data.admin[0].name)
+      // console.log(response)
+      // if(this.password = )
+
+      alert(response.data.message)
 
       // this.name = response.data.data.admin[0].name
       // this.email = response.data.data.admin[0].email_address
