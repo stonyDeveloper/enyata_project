@@ -32,7 +32,8 @@
     <div class="container">
         <div>      
           <h6 class="text-center">Question {{currentQuestion+1}}</h6>
-          <h2 class="text-center question_name">{{questions[currentQuestion]["questions"]}}</h2>
+          <h2 class="text-center question_name">{{questions[currentQuestion]["questions"]}}
+        </h2>
          <div class= "d-flex justify-content-center mt-5">
            <div class="mb-5">
               <div  class="align-items-center mb-3">
@@ -397,16 +398,16 @@ letter-spacing: -0.02em;
 color: #2B3C4E;
 }
 
-.assessment p{
-        margin-top: 14px;
+.assessment p
+{
+     margin-top: 14px;
     font-family: 'Lato';
-    font-style: italic;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    color: #2B3C4E;
+font-style: italic;
+font-weight: 500;
+font-size: 16px;
+line-height: 19px;
+color: #2B3C4E;
 }
-
 .assessment-and-timer{
     display: flex;
     justify-content: space-between;
