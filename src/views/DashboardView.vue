@@ -89,7 +89,7 @@ export default {
     return {
       date_of_application: '',
       daysAgo: '',
-      status: '',
+      status: 'Pending',
       isGreen: false,
       isRed: false,
       isYellow: false
