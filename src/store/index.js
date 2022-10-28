@@ -18,6 +18,7 @@ export default createStore({
         admin: {},
         application_entries: {},
         token: null,
+        setQuestions: []
     },
     getters: {},
     mutations: {
@@ -30,6 +31,9 @@ export default createStore({
         setAdmin(state, admin) {
             state.admin = admin;
         },
+        setQuestions(state, questions) {
+            state.questions = questions
+        }
 
     },
     actions: {},

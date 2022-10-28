@@ -38,29 +38,31 @@
            <div class="mb-5">
               <div  class="align-items-center mb-3">
                 <div class="gap-3">
-                  <input id="questions[currentQuestion].optiona" type="radio" value="questions[currentQuestion].optiona" v-model="userAnswers[currentQuestion]">
-                <label for="questions[currentQuestion].optiona">
+                  <input id="question.options[0]" type="radio" value="question.options[0]" v-model="userAnswers[currentQuestion]">
+                <label for="question.options[0]">
                   <!-- {{questions[currentQuestion].optiona}} -->
                   {{question.options[0].text}}
                   </label>
                 </div>
                 <div class="gap-3">
-                  <input id="questions[currentQuestion].optionb" type="radio" value="questions[currentQuestion].optionb"   v-model="userAnswers[currentQuestion]">
-                <label for="questions[currentQuestion].optionb">
+                  <input id="question.options[1]" type="radio" value="question.options[1]"   v-model="userAnswers[currentQuestion]">
+                <label for="question.options[1]">
                   <!-- {{questions[currentQuestion].optionb}} -->
                   {{question.options[1].text}}
                   </label>
                 </div>
                 <div class="gap-3">
-                  <input id="questions[currentQuestion].optionc" type="radio" value="questions[currentQuestion].optionc"   v-model="userAnswers[currentQuestion]">
-                <label for="questions[currentQuestion].optionc">
+                  <input id="question.options[2]" type="radio" value="question.options[2]"
+                  v-model="userAnswers[currentQuestion]">
+                <label for="question.options[2]">
                   <!-- {{questions[currentQuestion].optionc}} -->
                   {{question.options[2].text}}
                   </label>
                 </div>
                 <div class="gap-3">
-                  <input id="questions[currentQuestion].optiond" type="radio" value="questions[currentQuestion].optiond"   v-model="userAnswers[currentQuestion]">
-                <label for="questions[currentQuestion].optiond">
+                  <input id="question.options[3]" type="radio" value="question.option[3]"
+                  v-model="userAnswers[currentQuestion]">
+                <label for="question.options[3]">
                   <!-- {{questions[currentQuestion].optiond}} -->
                   {{question.options[3].text}}
                   </label>
@@ -84,6 +86,7 @@
 
         <router-link to="/assessment_completed">
         <ButtonComponent
+        @click="submit"
              :class="btnBg()"
               buttonText="Finish"
               width="205"
@@ -172,9 +175,44 @@ export default {
            this.currentQuestion -= 1
         },
        submit(){
-           this.$router.push('/success');
-           const timeFinish = {mins:this.mins, secs:this.secs} 
-           this.$store.commit("setTimeFinish", timeFinish)
+           this.$router.push('/assessment_completed');
+        //    const timeFinish = {mins:this.mins, secs:this.secs} 
+        //    this.$store.commit("setTimeFinish", timeFinish)
+        const assessmentQuestions = JSON.parse(localStorage.getItem("questions"))
+        // console.log(assessmentQuestions)
+
+        // for(let i = 0 ; i < assessmentQuestions.length; i++){
+            
+        //         console.log(assessmentQuestions[i].options[0])
+
+            
+        // }
+
+        for (let i =0; i < assessmentQuestions.length; i++){
+    const options = assessmentQuestions[i].options
+        for (let option in options) {
+            // console.log(option)
+            // console.log(options[option].correct)
+
+            const positions = []
+        if(options[option].correct === true){
+            positions.push(option)
+        }
+
+        console.log(positions)
+        }
+
+        
+    
+}
+
+     
+        
+
+        console.log(this.userAnswers)
+
+        // if(this.userAnswers)
+
        },
        isDisabled(){
          if(this.currentQuestion === 3) return true
@@ -184,9 +222,15 @@ export default {
        const resp = await axios.get("http://localhost:5500/questions/14")
 
         //  console.log(resp.data.data)
-          this.questions = JSON.parse(resp.data.data[0].questions);
-        console.log(this.questions)
+        this.questions = JSON.parse(resp.data.data[0].questions);
+        // console.log(this.questions)
         //   console.log(resp.data.data)
+
+        localStorage.setItem("questions", JSON.stringify(this.questions))
+
+        // const testStore = localStorage.getItem("questions")
+
+        // console.log(testStore)
          
        },
    mounted() {
@@ -194,12 +238,12 @@ export default {
          this.startTimer(thirtyMins)
     },
     watch:{
-    //   userAnswers:{
-    //     handler(userAnswers){
-    //       console.log(userAnswers)
-    //     },
-    //     deep:true
-    //   },
+      userAnswers:{
+        handler(userAnswers){
+          console.log(userAnswers)
+        },
+        deep:true
+      },
       secs(secs){
         if(Number(secs)===0 && Number(this.mins)===0){
          this.submit()

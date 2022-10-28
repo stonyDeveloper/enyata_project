@@ -31,8 +31,8 @@
           <div class="choose_file">
             <label for="upload">
               <span>+</span><span>Choose file</span> 
-              <input id="upload" type="file" size="60" 
-              :value="questions[questionNumber].img" @change="uploadFile"/>
+              <!-- <input id="upload" type="file" size="60" 
+              :value="questions[questionNumber].img" @change="uploadFile"/> -->
               <!-- {{questions[questionNumber].img?.filename}} -->
             </label>
           </div>
@@ -155,7 +155,8 @@ export default {
         }
         ],
         questionNumber: 0,
-        isCorrect: false
+        isCorrect: false,
+  
         
       } 
     
@@ -244,6 +245,8 @@ export default {
         option.correct = false;
       });
       options[index].correct = true;
+
+      // this.correctAnswer = options[index].correct
 
     },
     prev(){

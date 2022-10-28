@@ -6,51 +6,7 @@
       <h1>Entries - Batch 2</h1>
       <p>Comprises of all that applied for batch 2</p>
 
-      <!-- <div>
-      <table>
-        <thead class="entry-table">
-          <td>Name</td>
-          <td>Email</td>
-          <td>DOB - Age</td>
-          <td>Address</td>
-          <td>University</td>
-          <td>CGPA</td>
-        </thead>
-
-        <tbody>
-          <tr
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasRight"
-            aria-controls="offcanvasRight"
-          >
-            <td><div>Ify Chinke</div></td>
-            <td><div>ify@enyata.com</div></td>
-            <td><div>12/09/19 - 22</div></td>
-            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
-            <td><div>University of Nigeria</div></td>
-            <td><div>5.0</div></td>
-          </tr>
-
-          <tr v-b-modal.modal-1>
-            <td><div>Ify Chinke</div></td>
-            <td><div>ify@enyata.com</div></td>
-            <td><div>12/09/19 - 22</div></td>
-            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
-            <td><div>University of Nigeria</div></td>
-            <td><div>5.0</div></td>
-          </tr>
-
-          <tr v-b-modal.modal-1>
-            <td><div>Ify Chinke</div></td>
-            <td><div>ify@enyata.com</div></td>
-            <td><div>12/09/19 - 22</div></td>
-            <td><div>3 Sabo Ave, Yaba, Lagos</div></td>
-            <td><div>University of Nigeria</div></td>
-            <td><div>5.0</div></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>  -->
+       
 
       <div class="updates-and-assessment">
         <div class="header">
@@ -140,7 +96,7 @@
         />
         </div>
       </div>
-      </div>
+      </div> 
 
      
     </div>
