@@ -3,7 +3,7 @@ import VuexPersistence from 'vuex-persist';
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage,
-    reducer: (state) => ({ user: state.user, admin: state.admin }),
+    reducer: (state) => ({ user: state.user, admin: state.admin, applicantID: state.applicantID }),
 
 });
 
@@ -18,7 +18,8 @@ export default createStore({
         admin: {},
         application_entries: {},
         token: null,
-        setQuestions: []
+        setQuestions: [],
+        setApplicantID: ''
     },
     getters: {},
     mutations: {
@@ -33,6 +34,9 @@ export default createStore({
         },
         setQuestions(state, questions) {
             state.questions = questions
+        },
+        setApplicantID(state, applicantID) {
+            state.applicantID = applicantID
         }
 
     },

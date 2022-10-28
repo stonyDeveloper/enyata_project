@@ -8,6 +8,13 @@
 <style>
 input{
   padding: 5px 10px;
+  
+}
+
+input:focus{
+  outline: none;
+  /* background: black; */
+  color: black;
 }
 
 /* .route-enter-from{

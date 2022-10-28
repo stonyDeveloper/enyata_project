@@ -1,111 +1,134 @@
 <template>
-    <div class="container">
+  <div class="container">
     <DashboardSidebar></DashboardSidebar>
 
     <div class="assessment">
-        <div class="assessment-and-timer">
+      <div class="assessment-and-timer">
+        <div>
+          <h1>Take Assessment</h1>
+
+          <p>
+            Click the finish button below to submit assessment, you can go back
+            at any time to edit your<br />
+            answers.
+          </p>
+        </div>
+
+        <div class="right">
+          <p>Timer</p>
+          <div class="span">
             <div>
-                <h1>Take Assessment</h1>
-
-                    <p>Click the finish button below to submit assessment, you can go back at any time to edit your<br>
-                answers.</p>
+              <span class="time">
+                {{ mins }}
+                <span class="minute">mins</span>
+              </span>
             </div>
-
-    <div class="right">
-        <p>Timer</p>
-        <div class="span">
-          <div>
-            <span class="time">
-              {{mins}}
-              <span class="minute">mins</span>
-            </span>
-          </div>
-          <div>
-            <span class="seconds time">
-              0{{secs}}
-              <span class="minute">sec</span>
-            </span>
+            <div>
+              <span class="seconds time">
+                0{{ secs }}
+                <span class="minute">sec</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="container">
-        <div>      
-          <h6 class="text-center question-heading">Question {{currentQuestion+1}}</h6>
-          <div v-for="(question, index) in questions" :key="index" v-show="index === currentQuestion">
-            <h2 class="realquestion">{{question.question}}</h2>
-            <div class= "d-flex justify-content-center mt-5">
-           <div class="mb-5">
-              <div  class="align-items-center mb-3">
-                <div class="gap-3">
-                  <input id="question.options[0]" type="radio" value="question.options[0]" v-model="userAnswers[currentQuestion]">
-                <label for="question.options[0]">
-                  <!-- {{questions[currentQuestion].optiona}} -->
-                  {{question.options[0].text}}
-                  </label>
+      <div class="container">
+        <div>
+          <h6 class="text-center question-heading">
+            Question {{ currentQuestion + 1 }}
+          </h6>
+          <div
+            v-for="(question, index) in questions"
+            :key="index"
+            v-show="index === currentQuestion"
+          >
+            <h2 class="realquestion">{{ question.question }}</h2>
+            <div class="d-flex justify-content-center mt-5">
+              <div class="mb-5">
+                <div class="align-items-center mb-3">
+                  <div class="gap-3">
+                    <input
+                      id="question.options[0]"
+                      type="radio"
+                      value="0"
+                      v-model="userAnswers[currentQuestion]"
+                    />
+                    <label for="question.options[0]">
+                      <!-- {{questions[currentQuestion].optiona}} -->
+                      {{ question.options[0].text }}
+                    </label>
+                  </div>
+                  <div class="gap-3">
+                    <input
+                      id="question.options[1]"
+                      type="radio"
+                      value="1"
+                      v-model="userAnswers[currentQuestion]"
+                    />
+                    <label for="question.options[1]">
+                      <!-- {{questions[currentQuestion].optionb}} -->
+                      {{ question.options[1].text }}
+                    </label>
+                  </div>
+                  <div class="gap-3">
+                    <input
+                      id="question.options[2]"
+                      type="radio"
+                      value="2"
+                      v-model="userAnswers[currentQuestion]"
+                    />
+                    <label for="question.options[2]">
+                      <!-- {{questions[currentQuestion].optionc}} -->
+                      {{ question.options[2].text }}
+                    </label>
+                  </div>
+                  <div class="gap-3">
+                    <input
+                      id="question.options[3]"
+                      type="radio"
+                      value="3"
+                      v-model="userAnswers[currentQuestion]"
+                    />
+                    <label for="question.options[3]">
+                      <!-- {{questions[currentQuestion].optiond}} -->
+                      {{ question.options[3].text }}
+                    </label>
+                  </div>
                 </div>
-                <div class="gap-3">
-                  <input id="question.options[1]" type="radio" value="question.options[1]"   v-model="userAnswers[currentQuestion]">
-                <label for="question.options[1]">
-                  <!-- {{questions[currentQuestion].optionb}} -->
-                  {{question.options[1].text}}
-                  </label>
-                </div>
-                <div class="gap-3">
-                  <input id="question.options[2]" type="radio" value="question.options[2]"
-                  v-model="userAnswers[currentQuestion]">
-                <label for="question.options[2]">
-                  <!-- {{questions[currentQuestion].optionc}} -->
-                  {{question.options[2].text}}
-                  </label>
-                </div>
-                <div class="gap-3">
-                  <input id="question.options[3]" type="radio" value="question.option[3]"
-                  v-model="userAnswers[currentQuestion]">
-                <label for="question.options[3]">
-                  <!-- {{questions[currentQuestion].optiond}} -->
-                  {{question.options[3].text}}
-                  </label>
-                </div>
-              </div> 
+              </div>
             </div>
-         </div>
-
-        </div>
+          </div>
           <!-- <h2 class="text-center question_name">
             {{questions[currentQuestion]?.questions}}
 
            
             
         </h2> -->
-          
         </div>
-    </div>
+      </div>
       <div class="two-buttons">
         <button class="second-button" @click="preQuest">Previous</button>
 
         <router-link to="/assessment_completed">
-        <ButtonComponent
-        @click="submit"
-             :class="btnBg()"
-              buttonText="Finish"
-              width="205"
-              height="41"
-              border="2"
-            ></ButtonComponent>
+          <ButtonComponent
+            @click="submit"
+            :class="btnBg()"
+            buttonText="Finish"
+            width="205"
+            height="41"
+            border="2"
+          ></ButtonComponent>
         </router-link>
 
         <button @click="nextQuest" :class="btnNextQuest()">Next</button>
-        
       </div>
-  </div>
+    </div>
   </div>
 
   <!-- <div v-for="(question, index) in questions" :key="index.question">
    <p>{{ question }}</p>
   </div> -->
 </template>
-
 
 <script>
 import axios from 'axios'
@@ -143,13 +166,13 @@ export default {
       btnBg(){
         if(this.currentQuestion === 2){
         return this.btnFinish
-        } 
+        }
           return this.btn
       },
         btnNextQuest(){
         if(this.currentQuestion === 2){
           return this.noNext
-          } 
+          }
         return this.btnNext
       },
         startTimer(duration) {
@@ -164,54 +187,72 @@ export default {
                 }
             }, 1000);
         },
-         
-       
+
+
         nextQuest(){
-          if(this.currentQuestion === this.questions.length - 1) return 
+          if(this.currentQuestion === this.questions.length - 1) return
            this.currentQuestion += 1
         },
         preQuest(){
-          if(this.currentQuestion === 0) return 
+          if(this.currentQuestion === 0) return
            this.currentQuestion -= 1
         },
-       submit(){
+       async submit(){
            this.$router.push('/assessment_completed');
-        //    const timeFinish = {mins:this.mins, secs:this.secs} 
+        //    const timeFinish = {mins:this.mins, secs:this.secs}
         //    this.$store.commit("setTimeFinish", timeFinish)
         const assessmentQuestions = JSON.parse(localStorage.getItem("questions"))
-        // console.log(assessmentQuestions)
-
-        // for(let i = 0 ; i < assessmentQuestions.length; i++){
-            
-        //         console.log(assessmentQuestions[i].options[0])
-
-            
-        // }
+        console.log(assessmentQuestions)
 
         for (let i =0; i < assessmentQuestions.length; i++){
-    const options = assessmentQuestions[i].options
-        for (let option in options) {
-            // console.log(option)
-            // console.log(options[option].correct)
+                    const options = assessmentQuestions[i].options
+                    const answer = Number(this.userAnswers[i])
+                    console.log(options)
+                    console.log(answer)
+                    
+                    if(options[answer].correct){
+                        this.score++
+                        
+                    }
+                    console.warn(this.score)
+                    
+            }
 
-            const positions = []
-        if(options[option].correct === true){
-            positions.push(option)
-        }
+            const sendResult = await axios.post('http://localhost:5500/assessments_results',{
+                email_address: this.$store.state.user.email_address,
+                score: this.score
+            })
 
-        console.log(positions)
-        }
+            console.log(sendResult)
+            
 
-        
-    
-}
 
-     
-        
 
-        console.log(this.userAnswers)
 
-        // if(this.userAnswers)
+
+
+
+//         for (let i =0; i < assessmentQuestions.length; i++){
+//     const options = assessmentQuestions[i].options
+//         // for (let option in options) {
+//         //     console.log(option)
+//         //     console.log(options[option].correct)
+
+//         //     const positions = []
+//         // if(options[option].correct === true){
+//         //     positions.push(option)
+//         // }
+
+// //         console.log(positions)
+// //         }
+
+
+
+// // }
+
+
+
+//     
 
        },
        isDisabled(){
@@ -231,7 +272,7 @@ export default {
         // const testStore = localStorage.getItem("questions")
 
         // console.log(testStore)
-         
+
        },
    mounted() {
         const thirtyMins = 60 * 30
@@ -251,34 +292,33 @@ export default {
         }
       }
     }
-  } 
+  }
 </script>
 
 <style scoped>
-.gap-3{
+.gap-3 {
   display: flex;
   align-items: baseline;
-  margin:30px 5px ;
+  margin: 30px 5px;
 }
 
-.gap-3 label{
-    margin-left: 10px;
-    font-family: 'Lato';
-font-style: italic;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-/* identical to box height */
+.gap-3 label {
+  margin-left: 10px;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
 
-
-color: #2B3C4E;
+  color: #2b3c4e;
 }
-input[type="radio"]{
-  width:12px;
+input[type="radio"] {
+  width: 12px;
   height: 12px;
-  background: #7557D3;
+  background: #7557d3;
 }
-label{
+label {
   font-size: 18px;
 }
 .question_name {
@@ -287,7 +327,7 @@ label{
   font-weight: 500;
   font-size: 24px;
   line-height: 29px;
-  color: #2B3C4E;
+  color: #2b3c4e;
 }
 .options_name {
   font-family: Lato;
@@ -295,7 +335,7 @@ label{
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
-  color: #2B3C4E;
+  color: #2b3c4e;
 }
 li {
   list-style: none;
@@ -324,9 +364,8 @@ li {
   justify-content: space-between;
 }
 
-.question-heading{
-    margin-top: 64px;
-
+.question-heading {
+  margin-top: 64px;
 }
 .last-button {
   background: #cecece;
@@ -371,13 +410,13 @@ li {
 }
 .second-button:hover {
   color: white;
-  background: #7557D3;
+  background: #7557d3;
 }
 .btn {
   border: none;
   box-sizing: border-box;
   border-radius: 4px;
-  background: #CECECE;
+  background: #cecece;
   border-radius: 4px;
   width: 205px;
   height: 41px;
@@ -391,7 +430,7 @@ li {
   border: none;
   box-sizing: border-box;
   border-radius: 4px;
-  background: #7557D3;
+  background: #7557d3;
   border-radius: 4px;
   width: 205px;
   height: 41px;
@@ -468,80 +507,75 @@ h2 {
   color: #2b3c4e;
 }
 
-.container{
-    display: flex;
-    gap: 47px;
+.container {
+  display: flex;
+  gap: 47px;
 }
 
-.assessment{
-    padding-top: 107px;
-    padding-right: 82px;
-   
-    width: 100%;
+.assessment {
+  padding-top: 107px;
+  padding-right: 82px;
 
+  width: 100%;
 }
-.assessment h1{
-    font-family: 'Lato';
-font-style: normal;
-font-weight: 300;
-font-size: 43.5555px;
-line-height: 52px;
-letter-spacing: -0.02em;
+.assessment h1 {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 43.5555px;
+  line-height: 52px;
+  letter-spacing: -0.02em;
 
-color: #2B3C4E;
-}
-
-.assessment p
-{
-     margin-top: 14px;
-    font-family: 'Lato';
-font-style: italic;
-font-weight: 500;
-font-size: 16px;
-line-height: 19px;
-color: #2B3C4E;
-}
-.assessment-and-timer{
-    display: flex;
-    justify-content: space-between;
-    
-    
+  color: #2b3c4e;
 }
 
-.timer p:first-child{
-    font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 17px;
+.assessment p {
+  margin-top: 14px;
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  color: #2b3c4e;
+}
+.assessment-and-timer {
+  display: flex;
+  justify-content: space-between;
+}
 
-color: #4F4F4F;
+.timer p:first-child {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #4f4f4f;
 }
 
 .timer p:nth-of-type(2) {
-  font-family: 'Lato';
-font-style: normal;
-font-weight: 300;
-font-size: 48px;
-line-height: 58px;
-color: #2B3C4E;    
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 58px;
+  color: #2b3c4e;
 }
 
-.timer p:nth-of-type(2) span{
-    font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 14px;
-color: #4F4F4F;
+.timer p:nth-of-type(2) span {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 14px;
+  color: #4f4f4f;
 }
 
-.finish{
-    margin-top: 130px;
-    
+.finish {
+  margin-top: 130px;
 }
 
-.realquestion{
-    margin-top: 14px
+.realquestion {
+  margin-top: 14px;
 }
 </style>

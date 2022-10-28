@@ -6,9 +6,42 @@
       <h1>Results - Batch 2</h1>
       <p>Comprises of all that applied for batch 2</p>
 
+      <table class="table table-sm table-borderless table-responsive">
+          <thead class="heading">
+            <tr>
+              <th class="name" scope="col">Name</th>
+              <th class="email" scope="col">Email</th>
+              <th class="dob" scope="col">
+                DOB - Age
+                <i class="fa fa-sort mx-1" aria-hidden="true" @click="sort('dob')"></i>
+              </th>
+              <th scope="col">Address</th>
+              <th scope="col">University<br></th>
+              <th scope="col" >
+                CGPA 
+                <i class="fa fa-sort mx-1" aria-hidden="true" @click="sort('dob')"></i>
+              </th>
+              <th scope="col">Test Scores
+                <i class="fa fa-sort mx-1" aria-hidden="true" @click="sort('score')"></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="different-row" v-for="entry in entries" :key="entry.index">
+              <td class="text-left">{{entry.first_name}}{{entry.last_name}}</td>
+              <td class="text-left">{{entry.email_address}}</td>
+              <td class="text-left">{{entry.date_of_birth}}</td>
+              <td class="text-left">{{entry.address}}</td>
+              <td class="text-left">{{entry.university}}</td>
+              <td class="text-left">{{entry.cgpa}}</td>
+              <td class="text-left">{{entry.score}}</td>
+            </tr>
+          </tbody>
+        </table>
+
       
 
-      <div class="updates-and-assessment">
+      <!-- <div class="updates-and-assessment">
         
           <div class="entries">
             <div class="entry">
@@ -57,22 +90,157 @@
 
            
           </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
+import axios from 'axios'
 
 export default {
   components: {
     AdminDashboardSidebar,
   },
+  data(){
+    return{
+      entries:[],
+      score:[]
+    }
+  },
+  created(){
+    console.log(localStorage.getItem('applicantID'))
+  },
+  async mounted(){
+    {
+        const response  = await axios.get('http://localhost:5500/allApplicant')
+      // console.log(response.data)
+      this.entries = response.data.data
+      console.log(this.entries[0])
+      // const obj = Object.assign({}, ...this.entries)
+      // localStorage.setItem('savedEntries', obj)
+
+      // console.log(localStorage.savedEntries)
+      // console.log(response.data.data[0].date_of_birth) 
+      // console.log(moment(response.data.data[0].date_of_birth).format('YYYY-MM-DD'))
+
+      // console.log(this.$state.admin)
+      console.log(this.entries)
+      
+
+    }
+    {
+      const scores = await axios.get('http://localhost:5500/single_assessment_result/all_assessments_results')
+      console.log(scores)
+
+      // const saveScores = []
+
+      // saveScores.push(scores) 
+
+      // console.log(saveScores)
+    }
+  }
 };
 </script>
 
 <style scoped>
+.different-row:hover {
+background: #ffffff;
+box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+border-radius: 10px;
+font-weight: bold;
+color: #2b3c4e;
+border-left: 10px solid #31d283;
+}
+.title-entries {
+  width: 350px;
+  height: 53px;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 43px;
+  line-height: 52px;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  margin-top: 50px;
+}
+#description-div {
+  margin-bottom: 37px;
+  text-align: left;
+}
+
+.container{
+  width: 70% !important;
+}
+
+.description {
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: left;
+  color: var(--text-secondary-small);
+}
+
+h3 {
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 43.5555px;
+  line-height: 52px;
+  letter-spacing: -0.02em;
+  color: #2b3c4e;
+}
+
+h6 {
+  font-family: Lato;
+  font-style: italic;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 16px;
+
+  color: #4f4f4f;
+}
+
+.heading {
+  background: #2b3c4e;
+}
+th {
+  color: white;
+  font-family: Lato;
+  font-size: 14px;
+  text-align: left;
+  line-height: 17px;
+  padding-left: 20px;
+}
+
+th.name{
+  padding-right: 80px;
+  padding-left: 20px;
+}
+
+th.dob{
+  padding-right: 60px;
+  padding-left: 40px;
+}
+
+td {
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14.5333px;
+line-height: 17px;
+/* identical to box height */
+
+text-align: center;
+
+color: #4F4F4F;
+padding: 20px;
+}
+i {
+  cursor: pointer;
+  color: white;
+}
 .container {
   display: flex;
   gap: 47px;

@@ -130,12 +130,13 @@ import axios from 'axios'
         // console.log(returnUser())
         
         // console.log(token);
-        console.log(response);
+        localStorage.setItem("applicant", response)
 
-        const storeEmail = []
+        const applyID = response.data.data[0].id
+        localStorage.setItem("applicantID", applyID)
+        console.warn(applyID);
 
-        const push = localStorage.setItem('applicationEmail', storeEmail)
-        storeEmail.push(push)
+        
 
 
         
@@ -143,7 +144,7 @@ import axios from 'axios'
 
         
 
-        console.log(storeEmail)
+        
         
         
         

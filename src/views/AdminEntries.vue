@@ -3,8 +3,9 @@
     <AdminDashboardSidebar />
 
     <div class="dashboard">
-      <h1>Entries - Batch 2</h1>
-      <p>Comprises of all that applied for batch 2</p>
+      <h1>Entries - Batch 2 <img @click="getAllBatches" src="../assets/dropdownicon.svg" alt=""></h1>
+      <p>Comprises of all that applied for batch 2 </p>
+      
 
        
 
@@ -97,7 +98,13 @@
         </div>
       </div>
       </div> 
-
+      
+<!-- 
+      <div class="selectBatch">
+        <div>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti veniam earum qui error quam consequuntur dolorum velit aliquam eius hic architecto labore recusandae fuga saepe eveniet impedit at ratione quas, fugiat iure sequi. Vero animi quod fugiat ullam a, consequatur, et praesentium repudiandae perferendis iusto fuga cum dolorem aut veniam facere nulla nemo alias. Quae velit autem ad non! Rem explicabo, delectus commodi itaque nisi ipsam odio accusamus atque, ipsa quos quo placeat cumque iure alias perferendis. Porro provident suscipit harum, asperiores architecto nihil exercitationem iste minus quae voluptatem. Id tempore eum ipsum natus porro voluptate nostrum omnis aut distinctio!
+        </div>
+      </div> -->
      
     </div>
   </div>
@@ -126,7 +133,8 @@ export default {
       date_of_birth: '',
       cgpa: '',
       upload_CV: null,
-      approve: false
+      approve: false,
+      id: ''
 
     }
   },
@@ -149,8 +157,10 @@ export default {
     }
   },
   methods: {
-    entryDetails(){
+    async getAllBatches(){
+        const allBatches = await axios.get('http://localhost:5500/all_batches')
 
+        console.log(allBatches)
     },
    async show(email_address){
       console.log(email_address)
@@ -163,8 +173,11 @@ export default {
       this.course_of_study =  getApplicant.data.data.course_of_study
       this.date_of_birth =  getApplicant.data.data.date_of_birth
       this.cgpa =  getApplicant.data.data.cgpa
+      this.id = getApplicant.data.data.id
     
-      console.log(this.name)
+      console.warn(this.id)
+
+      localStorage.setItem("applicantID", this.id)
       // let entry
       // for(entry in this.entries){
       //   console.log(entry)
@@ -217,6 +230,22 @@ export default {
   position: relative;
  
   
+}
+
+.selectBatch{
+  width:368px;
+  min-height: 100px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 48px rgba(0, 0, 0, 0.1);
+  padding: 35px;
+  position: absolute;
+  left: 35%;
+  transform: translate(-35%, -50%);
+  top: 50%;
+  z-index:99;
+  background: #fff;
+  
+
 }
 
 .dashboard h1 {

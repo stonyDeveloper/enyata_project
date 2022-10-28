@@ -150,6 +150,9 @@ export default {
       //   this.isRed = true
       // }
     }
+    {
+      console.log(this.$store.state.user.email_address)
+    }
 
     
   }
