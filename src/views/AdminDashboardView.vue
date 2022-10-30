@@ -40,28 +40,14 @@
       <div class="updates-and-assessment">
         <div class="updates">
           <h4>History</h4>
-          <p>Last Update 18:24,{{getHumanDate(lastUpdate) }} 
+          <p>Last Update 18:24,   {{getHumanDate(lastUpdate) }} 
             </p>
 
           <div class="batches">
             <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
-            </div>
-
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
-
-            </div>
-
-            <div class="batch">
-                <span>Academy Batch 1.0</span>
-                <span>15 candidates</span>
-                <span>started 11/09/15</span>
+                <span>Academy Batch {{batches.id}}.0</span>
+                <span>{{currentApplications}} candidates</span>
+                <span>started {{batches.created_at}}</span>
 
             </div>
           </div>
@@ -102,7 +88,8 @@ export default {
       totalApplications: '0',
       currentApplications: '0',
       batch: '0',
-      lastUpdate: ''
+      lastUpdate: '',
+      batches: ''
     }
   },
   components: {
@@ -114,7 +101,16 @@ export default {
             }
   },
   async mounted(){
+    {
+      const history = await axios.get('http://localhost:5500/batches')
+      console.log()
 
+      this.batches = history.data.data[1]
+      
+
+      this.batches.created_at =  moment(this.batches.created_at, 'YYYY-MM-DD').format('YY/MM/DD');
+      console.log(this.batches.created_at)
+    }
     {
       const response = await axios.get('http://localhost:5500/total_applications')
 

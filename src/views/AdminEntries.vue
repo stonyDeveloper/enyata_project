@@ -1,15 +1,67 @@
 <template>
   <div class="container">
-    <AdminDashboardSidebar />
+    <AdminDashboardSidebar class="sidebar"></AdminDashboardSidebar>
 
     <div class="dashboard">
-      <h1>Entries - Batch 2 <img @click="getAllBatches" src="../assets/dropdownicon.svg" alt=""></h1>
+      <h1>Entries - Batch 2 <img @click="getAllBatches" src="../assets/dropdownicon.svg" alt="" style="{cursor: pointer}"></h1>
       <p>Comprises of all that applied for batch 2 </p>
+
+
+      <table class="table table-sm table-borderless table-responsive">
+          <thead class="heading">
+            <tr>
+              <th class="name" scope="col">Name</th>
+              <th class="email" scope="col">Email</th>
+              <th class="dob" scope="col">
+                DOB - Age
+                <i
+                  class="fa fa-sort mx-1"
+                  aria-hidden="true"
+                  @click="sort('dob')"
+                ></i>
+              </th>
+              <th class="address" scope="col">Address</th>
+              <th class="uni" scope="col">University</th>
+              <th class="cgpa" scope="col">
+                CGPA
+                <i
+                  class="fa fa-sort mx-1"
+                  aria-hidden="true"
+                  @click="sort('cgpa')"
+                ></i>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <p v-if="entries === ''" class="fs-3 fw-bold">
+              There are no applicants yet. Check back later
+            </p>
+            <tr
+              v-else
+              class="mx-1 different-row text-left"
+              v-for="entry in entries"
+              @click="show(entry.email_address)"
+              :key="entry.email_address"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+            >
+              <!-- data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" @click="selectEntry(entry.id)"
+                            aria-controls="offcanvasRight"   -->
+              <td class="text-left">{{ entry.first_name }} {{ entry.last_name }}</td>
+              <td class="text-left">{{ entry.email_address }}</td>
+              <td class="text-left">{{ entry.date_of_birth }}</td>
+              <td class="text-left">{{ entry.address }}</td>
+              <td class="text-left">{{ entry.university }}</td>
+              <td class="text-left">{{ entry.cgpa }}</td>
+            </tr>
+          </tbody>
+        </table>
       
 
        
 
-      <div class="updates-and-assessment">
+      <!-- <div class="updates-and-assessment">
         <div class="header">
                 <span>Name</span>
                 <span>Email</span>
@@ -37,9 +89,10 @@
 
            
           </div>
-      </div>
+      </div> -->
 
-      <div class="background" v-if="showDetails" @click="closePopUp">
+      <div class="background" v-if="showDetails">
+      <div class="exitPopUp" @click="closePopUp"></div>
       <div ref="inner" class="popup">
         <img src="../assets/entrypopupimage.svg" alt="">
         <p>Personal Details</p>
@@ -78,9 +131,9 @@
           </div>
         </div>
 
-        <div class="btns">
+        <div class="btns" v-if="showBtns">
           <ButtonComponent 
-          @click="approved"
+          @click="showApprove"
           class="approve"
           buttonText="Approve"
           width="125"
@@ -88,7 +141,7 @@
           border = "2"
         />
           <ButtonComponent 
-          @click="declined"
+          @click="showDecline"
           class="decline"
           buttonText="Decline"
           width="125"
@@ -98,16 +151,80 @@
         </div>
       </div>
       </div> 
-      
-<!-- 
-      <div class="selectBatch">
-        <div>
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti veniam earum qui error quam consequuntur dolorum velit aliquam eius hic architecto labore recusandae fuga saepe eveniet impedit at ratione quas, fugiat iure sequi. Vero animi quod fugiat ullam a, consequatur, et praesentium repudiandae perferendis iusto fuga cum dolorem aut veniam facere nulla nemo alias. Quae velit autem ad non! Rem explicabo, delectus commodi itaque nisi ipsam odio accusamus atque, ipsa quos quo placeat cumque iure alias perferendis. Porro provident suscipit harum, asperiores architecto nihil exercitationem iste minus quae voluptatem. Id tempore eum ipsum natus porro voluptate nostrum omnis aut distinctio!
+
+      <div class="approveModal" v-if="approveModal">
+        <div class="approveDiv">
+          <p>Are you sure you want to approve
+this application?</p>
+
+<div class="popUpBtns">
+  <ButtonComponent 
+          @click="approved"
+          class="yes"
+          buttonText="Yes"
+          width="125"
+          height="48"
+          border = "2"
+        />
+
+        <ButtonComponent 
+          @click="closeApprove"
+          class="no"
+          buttonText="No"
+          width="125"
+          height="48"
+          border = "2"
+        />
+</div>
+
+
+
         </div>
-      </div> -->
+      </div>
+      <div class="approveModal" v-if="declineModal">
+        <div class="approveDiv">
+          <p>Are you sure you want to decline
+this application?</p>
+
+<div class="popUpBtns">
+  <ButtonComponent 
+          @click="declined"
+          class="yes"
+          buttonText="Yes"
+          width="125"
+          height="48"
+          border = "2"
+        />
+
+        <ButtonComponent 
+          @click="closeDecline"
+          class="no"
+          buttonText="No"
+          width="125"
+          height="48"
+          border = "2"
+        />
+</div>
+
+
+
+        </div>
+      </div>
+      
+       
      
     </div>
   </div>
+
+  <div class="selectBatch" v-if="showBatches"
+  @click="closeBatches">
+        <div>
+          <h4 
+          v-for="(batch, index) in batches" 
+          :key="index"
+          >Batch{{batch.batch_id}}</h4>
+        </div>
+      </div>
 </template>
 
 <script>
@@ -125,6 +242,8 @@ export default {
     return{
       entries:[],
       showDetails: false,
+      approveModal: false,
+      declineModal: false,
       name: '',
       email_address: '',
       address: '',
@@ -134,7 +253,10 @@ export default {
       cgpa: '',
       upload_CV: null,
       approve: false,
-      id: ''
+      id: '',
+      batches: [],
+      showBatches: false,
+      showBtns: true
 
     }
   },
@@ -160,12 +282,24 @@ export default {
     async getAllBatches(){
         const allBatches = await axios.get('http://localhost:5500/all_batches')
 
-        console.log(allBatches)
+        this.batches = allBatches.data.data
+
+        this.showBatches = true
+
+        // console.log(this.batches[0].batch_id)
     },
    async show(email_address){
       console.log(email_address)
+
+    
       const getApplicant = await  axios.get(`http://localhost:5500/oneApplicant/${email_address}`)
 
+      if(getApplicant.data.data.status == 'Approved' || getApplicant.data.data.status == 'Declined'){
+        this.showBtns = false
+      }
+
+      
+      
       this.name = getApplicant.data.data.first_name + " " + getApplicant.data.data.last_name
       this.email_address =  getApplicant.data.data.email_address
       this.address =  getApplicant.data.data.address
@@ -187,6 +321,7 @@ export default {
       // console.log(check)
       this.showDetails = true
       // thisName = this.first_name
+      
     },
     closePopUp(){
       this.showDetails = false
@@ -195,21 +330,48 @@ export default {
       await axios.post('http://localhost:5500/addStatus', {
         status: 'declined',
         email_address: `${this.email_address}`
+        
       })
+      this.declineModal = false
     },
     async approved(){
-       const approve = await axios.post('http://localhost:5500/addStatus', {
+        await axios.post('http://localhost:5500/addStatus', {
         status: 'approved',
         email_address: `${this.email_address}`
       })
 
       console.log(this.email_address)
 
-      this.setApplicationStatus(approve)
+      // this.setApplicationStatus(approve)
 
       console.log('working')
 
+      this.closeApprove()
+
+    },
+    showApprove(){
+      this.approveModal = true
+    },
+    showDecline(){
+      this.declineModal = true
+    },
+    closeApprove(){
+       this.approveModal = false
+    },
+    closeDecline(){
+       this.declineModal = false
+    },
+    closeBatches(){
+      this.showBatches = false
     }
+    // disabledEventPropagation(click){
+    //   if(click.stopPropagation){
+    //     click.stopPropagation();
+    //   }
+    //   else if(window.click){
+    //     window.click.this.showBatches = true
+    //   }
+    // }
 
   }
 };
@@ -219,9 +381,75 @@ export default {
 *{
   box-sizing: border-box;
 }
+
+img{
+  cursor: pointer;
+}
+
+.approveModal{
+  background: rgba(3, 17, 49, 0.2);
+backdrop-filter: blur(4px);
+width: 125vw;
+height: 100%;
+position: absolute;
+z-index: 99;
+top: 0;
+left: -464px;
+display: flex;
+justify-content: center;
+align-items: center;
+
+padding-top:20%;
+
+}
+
+.approveModal .approveDiv{
+  width: 458px;
+  height: 300px;
+  /* padding: 75px 94px; */
+  background: #fff;
+  display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+  
+}
+
+.approveModal .approveDiv p{
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 150%;
+
+text-align: center;
+
+color: #4F4F4F;
+}
+
+.popUpBtns{
+  margin-top: 48px;
+}
+
+.no{
+background: #ffffff;
+color: black;
+}
+
+.yes{
+  background: #7557D3;
+border-radius: 4px;
+width: 125px;
+height: 48px;
+}
+
+.sidebar{
+  min-height: 150vh;
+}
 .container {
   display: flex;
   gap: 47px;
+  min-height: 150vh;
 }
 
 .dashboard {
@@ -233,21 +461,63 @@ export default {
 }
 
 .selectBatch{
-  width:368px;
-  min-height: 100px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 48px rgba(0, 0, 0, 0.1);
-  padding: 35px;
-  position: absolute;
-  left: 35%;
-  transform: translate(-35%, -50%);
-  top: 50%;
-  z-index:99;
-  background: #fff;
+  /* width:368px; */
+  width: 130vw;
+  min-height: 100vh;
+    position: absolute;
+    left: -343px;
+    top: 0;
+    height: 100%;
+     z-index:1000;
   
+  
+  
+  position: absolute;
+  /* left: 35%; */
+  /* transform: translate(-35%, -50%); */
+  /* top: 20%; */
+  
+/* From https://css.glass */
+background: trasparent;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(2px);
+-webkit-backdrop-filter: blur(5px);
+border: 1px solid rgba(25, 13, 74, 0.3);
 
 }
 
+.selectBatch div{
+  width:368px;
+  background: #fff;
+  padding: 35px;
+  box-shadow: 0px 4px 48px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 20%;
+ 
+}
+
+.selectBatch div h4{
+ font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 16px;
+line-height: 19px;
+/* text-align: center; */
+padding: 18px 18px 18px 25px;
+margin-top: 10px;
+
+color: #4F4F4F;
+border-radius: 10px;
+
+}
+
+.selectBatch div h4:hover{
+  border-left: solid 7px #7557D3;
+  cursor: pointer;
+}
 .dashboard h1 {
   font-family: "Lato";
   font-style: normal;
@@ -483,6 +753,16 @@ color: #4F4F4F;
   text-align: left;
 }
 
+.exitPopUp{
+  /* background: red; */
+  z-index: 99;
+  width: 73.3vw;
+  position: absolute;
+  left:0;
+  top: 0;
+  height: 100%;
+}
+
 .popup{
   /* position: absolute; */
   top: 0;
@@ -510,6 +790,11 @@ color: #7D7D7D;
 
 .popup hr{
   margin-top:14px;
+}
+
+.popup img{
+  width: 179px;
+  height: 179px;
 }
 
 .inputs{
@@ -562,7 +847,6 @@ color: #B1B1B1;
 }
 
 .background{
-  width: 130vw;
   height: 100%;
   background: rgba(3, 17, 49, 0.2);
 backdrop-filter: blur(4px);
@@ -582,7 +866,7 @@ backdrop-filter: blur(4px);
 table {
   margin-top: 30px;
   width: 930px;
-  text-align: center;
+  text-align: left;
   border-collapse: collapse;
 }
 
@@ -597,8 +881,9 @@ thead {
   margin-right: 200px;
 }
 
+
 td {
-  padding: 0 20px 0 0;
+  padding: 20px 0;
 }
 
 td div {
@@ -617,7 +902,15 @@ tr {
   line-height: 19px;
 }
 
-tr:hover {
+
+tbody:before {
+    content:"@";
+    display:block;
+    line-height:20px;
+    text-indent:-99999px;
+}
+
+tbody tr:hover {
   cursor: pointer;
   background: #ffffff;
   box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);

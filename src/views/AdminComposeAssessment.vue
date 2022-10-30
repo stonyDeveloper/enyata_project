@@ -10,7 +10,7 @@
           <p>Set Time</p>
           <div class="time">
             <div class="min">
-              <h3 ref="timer" contenteditable class="val">00</h3>
+              <h3 ref="timer" contenteditable class="val">{{ time_allocated }}</h3>
               <sub style="margin-top: 44px">min</sub>
             </div>
             <div class="polygon">
@@ -25,7 +25,7 @@
       </div>
 
       <div class="assessment">
-        <p>{{ questionNumber + 1 }} / 3</p>
+        <p>{{ questionNumber + 1 }} / 5</p>
 
         
           <div class="choose_file">
@@ -142,6 +142,7 @@ export default {
     return{
         allQuestions: [],
         answer:'',
+        time_allocated: 0,
         questions: [
         {  
           question: "",
@@ -212,7 +213,7 @@ export default {
         //  this.questions[select] = [...this.select]
 
          
-        if(this.questionNumber < 2) {
+        if(this.questionNumber < 5) {
           this.questions.push({
           question: "",
           options: [
@@ -245,6 +246,7 @@ export default {
         option.correct = false;
       });
       options[index].correct = true;
+      
 
       // this.correctAnswer = options[index].correct
 
@@ -258,10 +260,12 @@ export default {
     },
     async uploadQuestions(){
 
-       await axios.post('http://localhost:5500/assessments', {
+       const response = await axios.post('http://localhost:5500/assessments', {
         questions: JSON.stringify(this.questions),
-        time_allocated: 60
+        time_allocated: this.time_allocated
       })
+
+      console.log(response)
 
       
     }

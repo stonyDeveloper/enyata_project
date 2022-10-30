@@ -5,6 +5,11 @@
     <form @submit="handleSubmit">
       <h3>Sign Up</h3>
 
+      <div class="error" v-if="error">
+      {{errorMsg}}
+      </div>
+
+
       <div class="form-input">
         <div class="input-field">
           <label>First Name</label><br />
@@ -41,6 +46,7 @@
         />
       </div>
 
+      
       <div class="form-text">
         <p>
           Already have an account?
@@ -64,7 +70,7 @@ export default {
       password: "",
       confirm_password: "",
       error: false,
-      errorMsg: 'An Error occured, please try again'
+      errorMsg: 'This Email Address already exists!!!'
     }
   },
   methods: {
@@ -97,6 +103,13 @@ export default {
 </script>
 
 <style scoped>
+
+.error{
+  color: red;
+  /* background: black; */
+  text-align: center;
+  padding-top: 20px;
+}
 .signup {
   display: flex;
   flex-direction: column;

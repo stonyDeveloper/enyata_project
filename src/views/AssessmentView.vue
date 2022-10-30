@@ -68,20 +68,46 @@ import axios from 'axios'
 
         methods:{
            async countDown(){
+            // const status = localStorage.getItem("status")
+
+            // console.log(status)
             
-            const questions = await axios.get('http://localhost:5500/questions/11')
+            // 
+
+            const email_address = this.$store.state.user.email_address
+            // console.log(email_address)
+
+            const assessment = await axios.get(`http://localhost:5500/oneApplicant/${email_address}`)
+
+            const result = assessment.data.data.score
+
+            const status = assessment.data.data.status
+            console.log(status)
+
+        
+
+
+            if(status == "approved" && result == null){
+                const questions = await axios.get('http://localhost:5500/questions/11')
             
             console.log(questions)
-            this.$refs.count.showRemaining();
+            // this.$refs.count.showRemaining();
 
             console.log('ttttt')
             
             this.$router.push('/assessment/questions')
+            } else{
+                alert("Your application is pending or declined, or you've taken this assessment!!")
+            }
+            
             
 
             
            },
 
+        },
+        mounted(){
+            
         }
             
         

@@ -28,69 +28,21 @@
           </thead>
           <tbody>
             <tr class="different-row" v-for="entry in entries" :key="entry.index">
-              <td class="text-left">{{entry.first_name}}{{entry.last_name}}</td>
+              <td class="text-left"><input type="checkbox" class="checkbox">{{ entry.first_name }} {{ entry.last_name }}</td>
               <td class="text-left">{{entry.email_address}}</td>
               <td class="text-left">{{entry.date_of_birth}}</td>
               <td class="text-left">{{entry.address}}</td>
               <td class="text-left">{{entry.university}}</td>
               <td class="text-left">{{entry.cgpa}}</td>
-              <td class="text-left">{{entry.score}}</td>
+              <td class="text-left">{{entry.score}} <img src="../assets/optionsicon.svg"></td>
             </tr>
           </tbody>
         </table>
 
       
 
-      <!-- <div class="updates-and-assessment">
         
-          <div class="entries">
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-                <span>Test Score</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-                <span>15</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-                <span>20</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Name</span>
-                <span>Email</span>
-                <span>DOB-Age</span>
-                <span>Address</span>
-                <span>University</span>
-                <span>CGPA</span>
-                <span>19</span>
-
-            </div>
-
-           
-          </div>
-      </div> -->
+        
     </div>
   </div>
 </template>
@@ -145,14 +97,39 @@ export default {
 </script>
 
 <style scoped>
-.different-row:hover {
+.text-left img{
+  margin-left: 5px;
+}
+thead tr{
+  height:60px;
+}
+.checkbox{
+margin-right: 10px;
+}
+
+table{
+  width: 153%;
+  /* table-layout: fixed; */
+  margin-top: 38px;
+}
+
+td:first-of-type{
+  width: 150px;
+}
+
+tbody tr:hover {
 background: #ffffff;
-box-shadow: 8px 18px 20px rgba(79, 79, 79, 0.3);
+box-shadow: -5px 0px 0px 0px rgba(117, 87, 211, 1);
 border-radius: 10px;
 font-weight: bold;
 color: #2b3c4e;
-border-left: 10px solid #31d283;
+border: 30px solid #31d283;
+cursor: pointer;
 }
+
+
+
+
 .title-entries {
   width: 350px;
   height: 53px;
@@ -228,15 +205,14 @@ td {
   font-family: 'Lato';
 font-style: normal;
 font-weight: 400;
-font-size: 14.5333px;
-line-height: 17px;
-/* identical to box height */
-
-text-align: center;
-
+font-size: 16px;
+line-height: 19px;
+/* text-align: center; */
 color: #4F4F4F;
 padding: 20px;
 }
+
+
 i {
   cursor: pointer;
   color: white;

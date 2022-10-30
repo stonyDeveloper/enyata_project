@@ -62,12 +62,17 @@
             <div>
               We have 4 days left until the next assessment Watch this space
             </div>
+
+            
             <ButtonComponent
+              :disabled="isActive"
               buttonText="Take Assessment"
               width="205"
               height="41"
               border="2"
+              @click="validateButton"
             ></ButtonComponent>
+           
           </div>
         </div>
       </div>
@@ -92,7 +97,20 @@ export default {
       status: 'Pending',
       isGreen: false,
       isRed: false,
-      isYellow: false
+      isYellow: false,
+      isActive: false
+
+    }
+  },
+  methods: {
+    validateButton(){
+
+      console.log(this.status)
+      if(this.status == "Declined" || this.status == "Pending"){
+        this.$router.push("/dashboard")
+      } else{
+        this.$router.push("/assessment")
+      }
     }
   },
   async mounted(){
@@ -151,8 +169,12 @@ export default {
       // }
     }
     {
-      console.log(this.$store.state.user.email_address)
+      localStorage.setItem("status", this.status)
+
+      // const test = localStorage.getItem("status")
+      // console.log(test)
     }
+    
 
     
   }

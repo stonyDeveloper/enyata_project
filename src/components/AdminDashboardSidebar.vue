@@ -91,10 +91,11 @@ export default {
   /* width: 292px; */
 
   min-height: 100vh;
+  box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
 
   border-radius: 8px;
   background: #ffffff;
-  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0, 0, 0, 0.22);
+  /* box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.12), 0 2px 3px 0 rgba(0, 0, 0, 0.22); */
   /* padding-right: 100px; */
 }
 

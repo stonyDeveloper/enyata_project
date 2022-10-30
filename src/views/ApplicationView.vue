@@ -23,7 +23,7 @@
       </div>
                 <div class="input-field">
         <label>Email Address</label><br>
-        <input type="email" v-model="email_address">
+        <input type="email" v-model="email_address" class="email">
       </div>
                 <div class="input-field">
         <label>Date of Birth</label><br>
@@ -85,7 +85,8 @@ import axios from 'axios'
           address: '',
           university: '',
           course: '',
-          cgpa: ''
+          cgpa: '',
+          pointer_events: ""
         }
       },
       computed: {
@@ -93,10 +94,12 @@ import axios from 'axios'
           return this.$store.state.user.first_name;
         }
       },
-      mounted(){
+      async mounted(){
         {
-          // let storeEmail = this.$store.state.user.email_address
-          // console.log(storeEmail)
+          
+          let storeEmail = this.$store.state.user.email_address
+          console.log(storeEmail)
+          this.email_address = storeEmail
         }
       },
       methods: {
@@ -124,6 +127,8 @@ import axios from 'axios'
               'Authorization': `Bearer ${token}`  
             } 
           })
+
+          console.log(response)
 
           // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
@@ -168,6 +173,11 @@ import axios from 'axios'
 </script>
 
 <style scoped>
+
+.email{
+  pointer-events: none
+}
+
 .signup{
     display: flex;
     flex-direction: column;

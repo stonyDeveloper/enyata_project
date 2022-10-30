@@ -260,7 +260,7 @@ export default {
        }
     },
     async created(){
-       const resp = await axios.get("http://localhost:5500/questions/14")
+       const resp = await axios.get("http://localhost:5500/questions/15")
 
         //  console.log(resp.data.data)
         this.questions = JSON.parse(resp.data.data[0].questions);
