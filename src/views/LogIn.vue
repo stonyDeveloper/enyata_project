@@ -117,7 +117,7 @@ export default {
      console.log(applied.data.data.length)
      const loggedInUser = this.$store.state.user.email_address
      for(let i = 0; i < applied.data.data.length; i++){
-        if(loggedInUser === applied.data.data[i].email_address){
+        if(loggedInUser == applied.data.data[i].email_address){
           await this.$router.push('/dashboard')
         } else {
            await this.$router.push('/application')
