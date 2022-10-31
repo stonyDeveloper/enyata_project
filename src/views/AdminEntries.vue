@@ -3,8 +3,8 @@
     <AdminDashboardSidebar class="sidebar"></AdminDashboardSidebar>
 
     <div class="dashboard">
-      <h1>Entries - Batch 2 <img @click="getAllBatches" src="../assets/dropdownicon.svg" alt="" style="{cursor: pointer}"></h1>
-      <p>Comprises of all that applied for batch 2 </p>
+      <h1>Entries - Batch {{selectedBatch}} <img @click="getAllBatches" src="../assets/dropdownicon.svg" alt="" style="{cursor: pointer}"></h1>
+      <p>Comprises of all that applied for batch {{selectedBatch}} </p>
 
 
       <table class="table table-sm table-borderless table-responsive">
@@ -257,7 +257,8 @@ export default {
       id: '',
       batches: [],
       showBatches: false,
-      showBtns: true
+      showBtns: true,
+      selectedBatch: ''
 
     }
   },
@@ -368,8 +369,12 @@ export default {
     async getByBatch(batch_id){
       console.log(batch_id)
       const getOneBatch = await axios.get(`http://localhost:5500/batch_applicant/${batch_id}`)
-      console.log(getOneBatch)
-    }
+      // console.log(getOneBatch)
+
+      this.entries = getOneBatch.data.data
+      this.selectedBatch = this.entries[0].batch_id
+    },
+  
     // disabledEventPropagation(click){
     //   if(click.stopPropagation){
     //     click.stopPropagation();

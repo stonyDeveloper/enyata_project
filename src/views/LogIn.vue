@@ -94,6 +94,7 @@ export default {
 
     //  console.log(localStorage.token)
     //  console.log(localStorage.user)
+      
 
     const getDate = localStorage.getItem('application')
     console.log(getDate)
@@ -102,6 +103,28 @@ export default {
     } else{
       await this.$router.push('/dashboard')
     }
+
+
+    
+    const applied = await axios.get('http://localhost:5500/allApplicant')
+     
+    console.log(applied)
+     console.log(applied.data.data.length)
+     const loggedInUser = this.$store.state.user.email_address
+
+     console.log(loggedInUser)
+     for(let i = 0; i < applied.data.data.length; i++){
+        if(loggedInUser === applied.data.data[i].email_address){
+          await this.$router.push('/dashboard')
+          return
+        } else if(loggedInUser !== applied.data.data[i].email_address) {
+           await this.$router.push('/application')
+        }
+        console.log(applied.data.data[i].email_address)
+
+     }
+     console.log(this.$store.state.user.email_address)
+
 
 
 
@@ -113,21 +136,8 @@ export default {
 
     //  console.log(email)
 
-     const applied = await axios.get('http://localhost:5500/allApplicant')
      
-    console.log(applied)
-     console.log(applied.data.data.length)
-     const loggedInUser = this.$store.state.user.email_address
-     for(let i = 0; i < applied.data.data.length; i++){
-        if(loggedInUser == applied.data.data[i].email_address){
-          await this.$router.push('/dashboard')
-        } else {
-           await this.$router.push('/application')
-        }
-        console.log(applied.data.data[i].email_address)
-
-     }
-     console.log(this.$store.state.user.email_address)
+    
      
 
     //  let signUp = applied.data.data
