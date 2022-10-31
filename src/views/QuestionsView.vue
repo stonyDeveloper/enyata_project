@@ -206,13 +206,13 @@ export default {
 
         for (let i =0; i < assessmentQuestions.length; i++){
                     const options = assessmentQuestions[i].options
-                    // const answer = Number(this.userAnswers[i])
+                    const answer = Number(this.userAnswers[i])
                     console.log(options)
-                    // console.log(answer)
+                    console.log(answer)
                     
-                    if(options[0].correct || options[1].correct || options[2].correct){
-                        this.score++
-                        
+                    if(options[answer].correct){
+                       this.score++
+
                     }
                     console.warn(this.score)
                     
@@ -257,7 +257,7 @@ export default {
 
        },
        isDisabled(){
-         if(this.currentQuestion === 3) return true
+         if(this.currentQuestion === 5) return true
        }
     },
     async created(){
@@ -265,7 +265,7 @@ export default {
        console.log(resp)
 
         //  console.log(resp.data.data)
-        this.questions = JSON.parse(resp.data.data.questions);
+        this.questions = JSON.parse(resp.data.data[0].questions);
         // console.log(this.questions)
         //   console.log(resp.data.data)
 
