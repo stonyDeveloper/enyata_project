@@ -206,11 +206,11 @@ export default {
 
         for (let i =0; i < assessmentQuestions.length; i++){
                     const options = assessmentQuestions[i].options
-                    const answer = Number(this.userAnswers[i])
+                    // const answer = Number(this.userAnswers[i])
                     console.log(options)
-                    console.log(answer)
+                    // console.log(answer)
                     
-                    if(options[answer].correct){
+                    if(options[0].correct || options[1].correct || options[2].correct){
                         this.score++
                         
                     }
@@ -219,8 +219,9 @@ export default {
             }
 
             const sendResult = await axios.post('http://localhost:5500/assessments_results',{
-                email_address: this.$store.state.user.email_address,
-                score: this.score
+                score: this.score,
+                email_address: this.$store.state.user.email_address
+                
             })
 
             console.log(sendResult)
@@ -260,10 +261,11 @@ export default {
        }
     },
     async created(){
-       const resp = await axios.get("http://localhost:5500/questions/15")
+       const resp = await axios.get("http://localhost:5500/questions")
+       console.log(resp)
 
         //  console.log(resp.data.data)
-        this.questions = JSON.parse(resp.data.data[0].questions);
+        this.questions = JSON.parse(resp.data.data.questions);
         // console.log(this.questions)
         //   console.log(resp.data.data)
 

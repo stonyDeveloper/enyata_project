@@ -88,7 +88,7 @@ import axios from 'axios'
 
 
             if(status == "approved" && result == null){
-                const questions = await axios.get('http://localhost:5500/questions/11')
+                const questions = await axios.get('http://localhost:5500/questions')
             
             console.log(questions)
             // this.$refs.count.showRemaining();

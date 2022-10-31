@@ -220,8 +220,9 @@ this application?</p>
   @click="closeBatches">
         <div>
           <h4 
-          v-for="(batch, index) in batches" 
-          :key="index"
+          v-for="batch in batches" 
+          :key="batch.batch_id"
+          @click="getByBatch(batch.batch_id)"
           >Batch{{batch.batch_id}}</h4>
         </div>
       </div>
@@ -363,6 +364,11 @@ export default {
     },
     closeBatches(){
       this.showBatches = false
+    },
+    async getByBatch(batch_id){
+      console.log(batch_id)
+      const getOneBatch = await axios.get(`http://localhost:5500/batch_applicant/${batch_id}`)
+      console.log(getOneBatch)
     }
     // disabledEventPropagation(click){
     //   if(click.stopPropagation){
