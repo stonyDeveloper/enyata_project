@@ -29,7 +29,9 @@
         <div class="form-text">
         <p>Don’t have an account yet? <span><router-link to="/signup">Sign Up</router-link></span></p>
 
+        <router-link to="/forgotpassword">
         <p>Forgot Password?</p>
+        </router-link>
         </div>
     </form>
   </div>

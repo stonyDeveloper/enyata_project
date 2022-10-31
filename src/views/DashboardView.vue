@@ -34,7 +34,9 @@
 
          
           <div
-          class="green-status-indicator"></div>
+          v-bind:style="bgc"
+          class="status-indicator"
+          ></div>
          
 <!-- 
          
@@ -98,7 +100,10 @@ export default {
       isGreen: false,
       isRed: false,
       isYellow: false,
-      isActive: false
+      isActive: false,
+      bgc: {
+        backgroundColor: '#F09000'
+      }
 
     }
   },
@@ -174,8 +179,15 @@ export default {
       // const test = localStorage.getItem("status")
       // console.log(test)
     }
-    
+    {
 
+      console.log(this.status)
+       if(this.status == "Approved"){
+        this.bgc.backgroundColor = "#12C52F"
+      } else if(this.status == "Declined"){
+        this.bgc.backgroundColor = "red"
+      } 
+    }
     
   }
   
@@ -263,6 +275,13 @@ export default {
 
 .red-status-indicator{
   background: red;
+  width: 148px;
+  height: 4px;
+  border-radius: 4px;
+  margin-top: 9px;
+}
+
+.status-indicator{
   width: 148px;
   height: 4px;
   border-radius: 4px;
