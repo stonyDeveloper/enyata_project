@@ -112,12 +112,12 @@ const router = createRouter({
     routes,
 });
 
-router.beforeEach((to, from, next) => {
-    if (localStorage.getItem("token") === null) {
-        next({ name: 'login' });
-    } else {
-        next();
-    }
-})
+// router.beforeEach((to, from, next) => {
+//     if (localStorage.getItem("token") === null) {
+//         next({ name: 'login' });
+//     } else {
+//         next();
+//     }
+// })
 
 export default router;

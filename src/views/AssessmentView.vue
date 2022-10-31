@@ -7,7 +7,7 @@
         <div>
         <h1>Take Assessment</h1>
 
-        <p>Your Application is currently being review, you will be notified if successful</p>
+        <p v-if="status == 'Pending'">Your Application is currently being review, you will be notified if successful</p>
         </div>
 
         <div class="timer">
@@ -62,7 +62,8 @@ import axios from 'axios'
             hour : "7",
             minute : "30",
             second : "5",
-            millisecond : "31"
+            millisecond : "31",
+            status:''
             }
         },
 
@@ -83,12 +84,15 @@ import axios from 'axios'
 
             const status = assessment.data.data.status
             console.log(status)
+            this.status = status
 
         
 
 
             if(status == "approved" && result == null){
                 const questions = await axios.get('http://localhost:5500/questions')
+
+
             
             console.log(questions)
             // this.$refs.count.showRemaining();

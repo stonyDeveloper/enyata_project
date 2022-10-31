@@ -61,9 +61,14 @@
           <h4>Take Assessment</h4>
 
           <div class="content">
-            <div>
-              We have 4 days left until the next assessment Watch this space
+            <div v-if="status === 'Approved'">
+              Your Application has been approved, you can now take the assessment
             </div>
+            <div v-else-if="status === 'Declined'">
+              Sorry, you didn't meet the requirement for this current application, kindly wait till next batch
+            </div>
+            <div v-else>Your Application is currently being reviewed, you wil be notified if successful!!!</div>
+              
 
             
             <ButtonComponent

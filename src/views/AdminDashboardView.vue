@@ -45,7 +45,7 @@
 
           <div class="batches">
             <div class="batch">
-                <span>Academy Batch {{batches.id}}.0</span>
+                <span>Academy Batch {{batches.batch_id}}</span>
                 <span>{{currentApplications}} candidates</span>
                 <span>started {{batches.created_at}}</span>
 
@@ -102,14 +102,14 @@ export default {
   },
   async mounted(){
     {
-      const history = await axios.get('http://localhost:5500/batches')
+      const history = await axios.get('http://localhost:5500/all_batches')
       console.log()
 
-      this.batches = history.data.data[1]
+      this.batches = history.data.data[history.data.data.length - 1]
       
 
-      this.batches.created_at =  moment(this.batches.created_at, 'YYYY-MM-DD').format('YY/MM/DD');
-      console.log(this.batches.created_at)
+      // this.batches.created_at =  moment(this.batches.created_at, 'YYYY-MM-DD').format('YY/MM/DD');
+      // console.log(this.batches.created_at)
     }
     {
       const response = await axios.get('http://localhost:5500/total_applications')
