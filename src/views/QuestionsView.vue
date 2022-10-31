@@ -164,13 +164,13 @@ export default {
             this.currentQuestion ++
         },
       btnBg(){
-        if(this.currentQuestion === 2){
+        if(this.currentQuestion === 4){
         return this.btnFinish
         }
           return this.btn
       },
         btnNextQuest(){
-        if(this.currentQuestion === 2){
+        if(this.currentQuestion === 5){
           return this.noNext
           }
         return this.btnNext
