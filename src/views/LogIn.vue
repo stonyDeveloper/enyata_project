@@ -68,15 +68,7 @@ export default {
       const response = await axios.post('http://localhost:5500/login', input, {
         withCredentials: false
       })
-
-      // console.log(response.data.data.user)
-      // console.log(response.data.data.token)
-
-      console.log(response)
-
       alert(response.data.message)
-      
-
      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;
 
      localStorage.setItem('token', response.data.data.token)
@@ -89,30 +81,16 @@ export default {
      this.setUser(user);
      this.setToken(token);
 
-    //  localStorage.setItem('token', token)
-    //  localStorage.setItem('user', user)
-
-    //  console.log(localStorage.token)
-    //  console.log(localStorage.user)
-      
-
     const getDate = localStorage.getItem('application')
     console.log(getDate)
-    if(getDate){
-      await this.$router.push('/application')
-    } else{
-      await this.$router.push('/dashboard')
-    }
-
-
     
+
     const applied = await axios.get('http://localhost:5500/allApplicant')
      
-    console.log(applied)
-     console.log(applied.data.data.length)
+  
+    
      const loggedInUser = this.$store.state.user.email_address
 
-     console.log(loggedInUser)
      for(let i = 0; i < applied.data.data.length; i++){
         if(loggedInUser === applied.data.data[i].email_address){
           await this.$router.push('/dashboard')
@@ -120,143 +98,16 @@ export default {
         } else if(loggedInUser !== applied.data.data[i].email_address) {
            await this.$router.push('/application')
         }
-        console.log(applied.data.data[i].email_address)
 
      }
-     console.log(this.$store.state.user.email_address)
 
-
-
-
-   
-
-     
-
-    //  const email = response.data.data.user.id
-
-    //  console.log(email)
-
-     
-    
-     
-
-    //  let signUp = applied.data.data
-    //  let single = {id: email}
-
-    //  if(signUp.some(animal => animal.name === single.name)){
-    //   await this.$router.push('/dashboard')
-    //  }
-
-    //  console.log(user)
-
-
-
-     
-
-    //  console.log(applied)
-
-
-
-
-
-    //  if(applied.email_address){
-    //     await this.$router.push('/dashboard')
-    //  }else{
-    //     await this.$router.push('/application')
-    //  } 
-      
-
-      
-
-
-
-
-
-
-
-
-      
-
-      // try {
-      //   const res = await axios.post(`http://localhost:5500/login`, {
-      //     email_address: this.email,
-      //     password: this.password
-      //   });
-      //   console.log(res)
-      //   const { jwt, user} = res.data
-      //   window.localStorage.setItem('jwt', jwt)
-      //   window.localStorage.setItem('userData', JSON.stringify(user))
-       
-
-      //   const res2 = await axios.get(`http://localhost:5500/signup/${user.id}?populate=*`, {
-      //     headers: {
-      //       Authorization: `Bearer ${jwt}`,
-      //     }
-      //   })
-      //   window.localStorage.setItem('bookmarks', JSON.stringify(res2?.data?.bookmarks || []))
-      //   this.$router.push('/dashboard')
-      // } catch(error){
-      //   this.error = true
-      //   this.password = ''
-      // }
+     if(!getDate){
+      await this.$router.push('/dashboard')
+    } else{
+      await this.$router.push('/application')
     }
-    
+    }
 
-
-
-    // async login(e) {
-    //                     e.preventDefault()
-
-    //                     try {
-    //                         const res = await axios.post(`http://localhost:5500/login`, {
-    //                             identifier: this.email,
-    //                             password: this.password
-    //                         });
-    //                         const { jwt, user } = res.data
-    //                         window.localStorage.setItem('jwt', jwt)
-    //                         window.localStorage.setItem('userData', JSON.stringify(user))
-    //                         const res2 = await this.axios.get(`http://localhost:5500/signup/${user.id}?populate=*`, {
-    //                                 headers: {
-    //                                     Authorization: `Bearer ${jwt}`,
-    //                                 }
-    //                             })
-    //                         window.localStorage.setItem('bookmarks', JSON.stringify(res2?.data?.bookmarks || []))
-    //                         this.$router.push('/dashboard')
-    //                     } catch(error) {
-    //                         this.error = true
-    //                         this.password = ''
-    //                     }
-    //                 },
-  //  async handleSubmit(){
-  //      let response = await axios.post(
-  //       "http://localhost:5500/login", {
-  //         email: this.email,
-  //         password: this.password
-  //       },{
-  //         withCredentials: true
-  //       });
-
-  //       axios.defaults.headers.commom['Authorization']
-
-
-  //       console.log(response);
-  //       console.log("yes");
-
-  //       if(response.status == 200 && response.data.length > 0){
-  //         console.log(response)
-  //         alert('You have been logged in')
-  //         this.$router.push('/dashboard')
-  //       }
-  //       else{
-  //         alert('Please fill in the right information')
-  //       }
-
-
-        
-  //   }
-    
-
-  // }
 
 }
 

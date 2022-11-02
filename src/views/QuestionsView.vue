@@ -66,7 +66,6 @@
                       v-model="userAnswers[currentQuestion]"
                     />
                     <label for="question.options[1]">
-                      <!-- {{questions[currentQuestion].optionb}} -->
                       {{ question.options[1].text }}
                     </label>
                   </div>
@@ -78,7 +77,6 @@
                       v-model="userAnswers[currentQuestion]"
                     />
                     <label for="question.options[2]">
-                      <!-- {{questions[currentQuestion].optionc}} -->
                       {{ question.options[2].text }}
                     </label>
                   </div>
@@ -90,7 +88,6 @@
                       v-model="userAnswers[currentQuestion]"
                     />
                     <label for="question.options[3]">
-                      <!-- {{questions[currentQuestion].optiond}} -->
                       {{ question.options[3].text }}
                     </label>
                   </div>
@@ -98,12 +95,6 @@
               </div>
             </div>
           </div>
-          <!-- <h2 class="text-center question_name">
-            {{questions[currentQuestion]?.questions}}
-
-           
-            
-        </h2> -->
         </div>
       </div>
       <div class="two-buttons">
@@ -124,177 +115,128 @@
       </div>
     </div>
   </div>
-
-  <!-- <div v-for="(question, index) in questions" :key="index.question">
-   <p>{{ question }}</p>
-  </div> -->
 </template>
 
 <script>
-import axios from 'axios'
-import DashboardSidebar from '../components/DashboardSidebar.vue'
+import axios from "axios";
+import DashboardSidebar from "../components/DashboardSidebar.vue";
 export default {
   name: "QuestionPage",
-  components:{
-            DashboardSidebar
-        },
+  components: {
+    DashboardSidebar,
+  },
   data() {
-        return {
-            mins: 30,
-            secs: 0,
-             currentQuestion: 0,
-             selectedAnswers:{},
-            showScore: false,
-            score:0,
-            btn: "btn",
-            btnFinish: "btn-finish",
-            btnNext: "second-button",
-            noNext: "second-btn-drop",
-            countDown : 30,
-            timer:null,
-            startQuiz: false,
-            userAnswers: new Array().fill(""),
-            questions: [],
+    return {
+      mins: 30,
+      secs: 0,
+      currentQuestion: 0,
+      selectedAnswers: {},
+      showScore: false,
+      score: 0,
+      btn: "btn",
+      btnFinish: "btn-finish",
+      btnNext: "second-button",
+      noNext: "second-btn-drop",
+      countDown: 30,
+      timer: null,
+      startQuiz: false,
+      userAnswers: new Array().fill(""),
+      questions: [],
+    };
+  },
+  computed: {},
+  methods: {
+    next() {
+      this.currentQuestion++;
+    },
+    btnBg() {
+      if (this.currentQuestion === 4) {
+        return this.btnFinish;
+      }
+      return this.btn;
+    },
+    btnNextQuest() {
+      if (this.currentQuestion === 4) {
+        return this.noNext;
+      }
+      return this.btnNext;
+    },
+    startTimer(duration) {
+      let timer = duration;
+      setInterval(() => {
+        this.mins = parseInt(timer / 60, 10);
+        this.secs = parseInt(timer % 60, 10);
+        this.mins = this.mins < 10 ? "0" + this.mins : this.mins;
+        this.secs = this.secs < 10 ? "0" + this.secs : this.secs;
+        if (--timer < 0) {
+          timer = duration;
         }
+      }, 1000);
     },
-    computed:{
+
+    nextQuest() {
+      if (this.currentQuestion === this.questions.length - 1) return;
+      this.currentQuestion += 1;
     },
-    methods: {
-        next(){
-            this.currentQuestion ++
-        },
-      btnBg(){
-        if(this.currentQuestion === 4){
-        return this.btnFinish
-        }
-          return this.btn
-      },
-        btnNextQuest(){
-        if(this.currentQuestion === 5){
-          return this.noNext
-          }
-        return this.btnNext
-      },
-        startTimer(duration) {
-            let timer = duration
-            setInterval(() => {
-                this.mins = parseInt(timer / 60, 10);
-                this.secs = parseInt(timer % 60, 10);
-                this.mins = this.mins < 10 ? "0" + this.mins : this.mins;
-                this.secs = this.secs < 10 ? "0" + this.secs : this.secs;
-                if (--timer < 0) {
-                    timer = duration;
-                }
-            }, 1000);
-        },
-
-
-        nextQuest(){
-          if(this.currentQuestion === this.questions.length - 1) return
-           this.currentQuestion += 1
-        },
-        preQuest(){
-          if(this.currentQuestion === 0) return
-           this.currentQuestion -= 1
-        },
-       async submit(){
-           this.$router.push('/assessment_completed');
-        //    const timeFinish = {mins:this.mins, secs:this.secs}
-        //    this.$store.commit("setTimeFinish", timeFinish)
-        const assessmentQuestions = JSON.parse(localStorage.getItem("questions"))
-        console.log(assessmentQuestions)
-
-        for (let i =0; i < assessmentQuestions.length; i++){
-                    const options = assessmentQuestions[i].options
-                    const answer = Number(this.userAnswers[i])
-                    console.log(options)
-                    console.log(answer)
-                    
-                    if(options[answer].correct){
-                       this.score++
-
-                    }
-                    console.warn(this.score)
-                    
-            }
-
-            const sendResult = await axios.post('http://localhost:5500/assessments_results',{
-                score: this.score,
-                email_address: this.$store.state.user.email_address
-                
-            })
-
-            console.log(sendResult)
-            
-
-
-
-
-
-
-
-//         for (let i =0; i < assessmentQuestions.length; i++){
-//     const options = assessmentQuestions[i].options
-//         // for (let option in options) {
-//         //     console.log(option)
-//         //     console.log(options[option].correct)
-
-//         //     const positions = []
-//         // if(options[option].correct === true){
-//         //     positions.push(option)
-//         // }
-
-// //         console.log(positions)
-// //         }
-
-
-
-// // }
-
-
-
-//     
-
-       },
-       isDisabled(){
-         if(this.currentQuestion === 5) return true
-       }
+    preQuest() {
+      if (this.currentQuestion === 0) return;
+      this.currentQuestion -= 1;
     },
-    async created(){
-       const resp = await axios.get("http://localhost:5500/questions")
-       console.log(resp)
+    async submit() {
+      this.$router.push("/assessment_completed");
 
-        //  console.log(resp.data.data)
-        this.questions = JSON.parse(resp.data.data[0].questions);
-        // console.log(this.questions)
-        //   console.log(resp.data.data)
+      const assessmentQuestions = JSON.parse(localStorage.getItem("questions"));
+      console.log(assessmentQuestions);
 
-        localStorage.setItem("questions", JSON.stringify(this.questions))
+      for (let i = 0; i < assessmentQuestions.length; i++) {
+        const options = assessmentQuestions[i].options;
+        const answer = Number(this.userAnswers[i]);
+        console.log(options);
+        console.log(answer);
 
-        // const testStore = localStorage.getItem("questions")
-
-        // console.log(testStore)
-
-       },
-   mounted() {
-        const thirtyMins = 60 * 30
-         this.startTimer(thirtyMins)
-    },
-    watch:{
-      userAnswers:{
-        handler(userAnswers){
-          console.log(userAnswers)
-        },
-        deep:true
-      },
-      secs(secs){
-        if(Number(secs)===0 && Number(this.mins)===0){
-         this.submit()
-          // clearInterval(this.startTimer())
+        if (options[answer].correct) {
+          this.score++;
         }
       }
-    }
-  }
+
+       await axios.post(
+        "http://localhost:5500/assessments_results",
+        {
+          score: this.score,
+          email_address: this.$store.state.user.email_address,
+        }
+      );
+    },
+    isDisabled() {
+      if (this.currentQuestion === 5) return true;
+    },
+  },
+  async created() {
+    const resp = await axios.get("http://localhost:5500/questions");
+
+    this.questions = JSON.parse(resp.data.data[0].questions);
+
+    localStorage.setItem("questions", JSON.stringify(this.questions));
+  },
+  mounted() {
+    const thirtyMins = 60 * 30;
+    this.startTimer(thirtyMins);
+  },
+  watch: {
+    userAnswers: {
+      handler(userAnswers) {
+        console.log(userAnswers);
+      },
+      deep: true,
+    },
+    secs(secs) {
+      if (Number(secs) === 0 && Number(this.mins) === 0) {
+        this.submit();
+        // clearInterval(this.startTimer())
+      }
+    },
+  },
+};
 </script>
 
 <style scoped>

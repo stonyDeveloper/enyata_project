@@ -4,126 +4,59 @@
 
     <div class="dashboard">
       <h1>Assessment Template</h1>
-      
-
-      
 
       <div class="updates-and-assessment">
-         <table>
-        <thead class="table-header">
-          <td>Batch</td>
-          <td>Date Composed</td>
-          <td>No of Questions</td>
-          <td>Time Allocated</td>
-        </thead>
+        <table>
+          <thead class="table-header">
+            <td>Batch</td>
+            <td>Date Composed</td>
+            <td>No of Questions</td>
+            <td>Time Allocated</td>
+          </thead>
 
-        <tbody v-for="history in histories" v-bind:key="history.client_id">
-          <tr>
-            <td><div>Batch {{ history.batch_id  }}</div></td>
-            <td><div>{{ getHumanDate(history.created_at )}}</div></td>
-            <td><div>30</div></td>
-            <td><div>30 min</div></td>
-          </tr>
-        </tbody>
-      </table>
-        
-          <!-- <div class="entries">
-            <div class="entry">
-                <span>Batch</span>
-                <span>Date Composed</span>
-                <span>No of Questions</span>
-                <span>Time Allocated</span>
-
-            </div>
-
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-            <div class="entry">
-                <span>Batch 1</span>
-                <span>12/07/94</span>
-                <span>30</span>
-                <span>30 mins</span>
-                
-
-            </div>
-
-           
-          </div> -->
+          <tbody v-for="history in histories" v-bind:key="history.client_id">
+            <tr>
+              <td>
+                <div>Batch {{ history.batch_id }}</div>
+              </td>
+              <td>
+                <div>{{ getHumanDate(history.created_at) }}</div>
+              </td>
+              <td><div>5</div></td>
+              <td><div>30 min</div></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </template>
 
-
-
-
 <script>
 import AdminDashboardSidebar from "../components/AdminDashboardSidebar.vue";
-import axios from 'axios'
- import moment from 'moment'
+import axios from "axios";
+import moment from "moment";
 
 export default {
-  data(){
+  data() {
     return {
-      histories: ''
-    }
+      histories: "",
+    };
   },
   components: {
     AdminDashboardSidebar,
   },
-  async mounted(){
-  
-      const res = await axios.get('http://localhost:5500/batches')
-      console.log(res.data.data)
-      this.histories = res.data.data
-      console.log(this.histories.history.created_at)
-  
+  async mounted() {
+    const res = await axios.get("http://localhost:5500/batches");
+    console.log(res.data.data);
+    this.histories = res.data.data;
+    console.log(this.histories.history.created_at);
   },
   methods: {
-    getHumanDate : function (date) {
-                return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY');
-            }
-  }
+    getHumanDate: function (date) {
+      return moment(date, "YYYY-MM-DD").format("DD/MM/YYYY");
+    },
+  },
 };
 </script>
 
@@ -137,8 +70,6 @@ export default {
   padding-top: 107px;
   padding-right: 40px;
   width: 70%;
- 
-  
 }
 
 .dashboard h1 {
@@ -152,16 +83,14 @@ export default {
   color: #2b3c4e;
 }
 
+.dashboard p {
+  font-family: "Lato";
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
 
-.dashboard p{
-  font-family: 'Lato';
-font-style: italic;
-font-weight: 400;
-font-size: 13px;
-line-height: 16px;
-
-
-color: #4F4F4F;  
+  color: #4f4f4f;
 }
 .title {
   font-family: "Lato";
@@ -174,14 +103,14 @@ color: #4F4F4F;
 }
 
 .updates p {
- font-family: 'Nunito Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 12px;
-line-height: 16px;
-margin-top: 4px;
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 4px;
 
-color: #4F4F4F;
+  color: #4f4f4f;
 }
 
 .date-and-status {
@@ -270,14 +199,12 @@ color: #4F4F4F;
 }
 
 .updates {
-  padding-top: 25px ;
-  
+  padding-top: 25px;
+
   border-radius: 4px;
   height: 307px;
   width: 482px;
 }
-
-
 
 .assessment {
   padding: 25px 35px 99px 35px;
@@ -313,44 +240,42 @@ color: #4F4F4F;
   margin-bottom: 74px;
 }
 
-.entries{
-    margin-top: 32px;
-    width: 100%;
+.entries {
+  margin-top: 32px;
+  width: 100%;
 }
 
-.entry:first-child{
-    background: #2B3C4E;
-    
-    font-family: 'Lato';
-font-size: 14px;
-line-height: 17px;
+.entry:first-child {
+  background: #2b3c4e;
 
-text-align: center;
+  font-family: "Lato";
+  font-size: 14px;
+  line-height: 17px;
 
-color: #FFFFFF;
-border-radius: 0; 
+  text-align: center;
+
+  color: #ffffff;
+  border-radius: 0;
 }
 
-.entry:nth-child(2){
-    border-left: solid 7px #7557D3;
-    box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
-    margin-top: 20px;
+.entry:nth-child(2) {
+  border-left: solid 7px #7557d3;
+  box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
+  margin-top: 20px;
 }
 
-.entry{
-    font-family: 'Nunito Sans';
-font-style: normal;
-font-weight: 400;
-font-size: 16px;
-line-height: 22px;
-color: #4F4F4F;
-    padding: 24px 21px 20px 25px;
-    display: flex;
-    justify-content: space-between;
-    
-    border-radius: 8px 0px 0px 8px;
-    
+.entry {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #4f4f4f;
+  padding: 24px 21px 20px 25px;
+  display: flex;
+  justify-content: space-between;
 
+  border-radius: 8px 0px 0px 8px;
 }
 
 table {
@@ -358,20 +283,19 @@ table {
   margin-left: 25px;
   width: 720px;
   text-align: center;
-  border-collapse: collapse; 
+  border-collapse: collapse;
   box-shadow: 0px 5px 15px rgba(33, 31, 38, 0.05);
   border-radius: 8px;
 }
 
-
 td {
-     padding: 0;
+  padding: 0;
 }
 
 td div {
-    margin-bottom: 10px;
-    margin-top: 11px;
-    padding: 10px;
+  margin-bottom: 10px;
+  margin-top: 11px;
+  padding: 10px;
 }
 
 .table-header {
@@ -385,7 +309,6 @@ tr {
   width: 946.48px;
   height: 45.78px;
   border-left: 10px solid #ffffff;
-
 }
 
 tr:hover {

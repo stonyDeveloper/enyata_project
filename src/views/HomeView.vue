@@ -18,6 +18,8 @@
           height="48"
           border = "2"
         />
+
+        <LoadingState v-if="loading"></LoadingState>
         <!-- </router-link> -->
         <div class="registration_open" v-if="applicationOpen">
           <img src="../assets/registrationopenicon.svg" alt="">
@@ -69,6 +71,8 @@
 // @ is an alias to /src
 
 import axios from 'axios'
+import LoadingState from "@/components/LoadingState.vue";
+import { mapState } from "vuex";
 const moment = require('moment');
 export default {
   name: "HomeView",
@@ -80,6 +84,9 @@ export default {
     }
     
 
+  },
+  computed: {
+    ...mapState([ "loading"])
   },
   methods: {
    async registerButton(){
@@ -97,7 +104,7 @@ export default {
 
 
 
-       const applicationDate = moment().add(10, 'days');
+       const applicationDate = moment().add(26, 'days');
        console.log(applicationDate)
 
       const dateFormat = 'YYYY-MM-DD'
@@ -122,7 +129,8 @@ export default {
 
        
     }
-  }
+  },
+  components: { LoadingState }
   
 };
 </script>

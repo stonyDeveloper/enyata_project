@@ -7,7 +7,7 @@
         <div>
         <h1>Take Assessment</h1>
 
-        <p v-if="status == 'Pending'">Your Application is currently being review, you will be notified if successful</p>
+        <p v-if="status == 'Pending'">Your Application is currently being reviewed, you will be notified if successful</p>
         </div>
 
         <div class="timer">
@@ -68,15 +68,9 @@ import axios from 'axios'
         },
 
         methods:{
-           async countDown(){
-            // const status = localStorage.getItem("status")
-
-            // console.log(status)
-            
-            // 
+           async countDown(){ 
 
             const email_address = this.$store.state.user.email_address
-            // console.log(email_address)
 
             const assessment = await axios.get(`http://localhost:5500/oneApplicant/${email_address}`)
 
@@ -86,36 +80,15 @@ import axios from 'axios'
             console.log(status)
             this.status = status
 
-        
-
 
             if(status == "approved" && result == null){
-                const questions = await axios.get('http://localhost:5500/questions')
-
-
-            
-            console.log(questions)
-            // this.$refs.count.showRemaining();
-
-            console.log('ttttt')
-            
+                 await axios.get('http://localhost:5500/questions')
             this.$router.push('/assessment/questions')
             } else{
                 alert("Your application is pending or declined, or you've taken this assessment!!")
             }
-            
-            
-
-            
            },
-
-        },
-        mounted(){
-            
-        }
-            
-        
-        
+        }   
     }
 </script>
 

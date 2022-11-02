@@ -65,26 +65,25 @@ export default {
      async createApplication(e){
       e.preventDefault()
 
-      
-
       const input = {
         application_closure_date: this.application_closure_date,
         batch_id: this.batch_id,
         instruction: this.instruction
       }
 
-      console.log(input)
-
-      const response = await axios.post('http://localhost:5500/create_batches', input, {
+      await axios.post('http://localhost:5500/create_batches', input, {
         withCredentials: false
       })
 
-      console.log(response)
-      
-    
+      alert('Application created successfully')
 
+      this.application_closure_date = ''
+      this.batch_id = ''
+      this.instruction = ''
+
+      
   }
-  }
+}
 };
 </script>
 
@@ -314,9 +313,9 @@ border-radius: 4px;
     font-family: 'Lato';
 font-style: italic;
 font-weight: 400;
-font-size: 10px;
+font-size: 13px;
 line-height: 12px;
-color: #CECECE;
+color: black;
 
 }
 
@@ -324,9 +323,9 @@ color: #CECECE;
     font-family: 'Lato';
 font-style: italic;
 font-weight: 400;
-font-size: 10px;
+font-size: 13px;
 line-height: 12px;
-color: #CECECE;
+color: black;
  padding-left: 13px;
 }
 

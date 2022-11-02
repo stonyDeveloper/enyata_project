@@ -47,7 +47,7 @@
             <div class="batch">
                 <span>Academy Batch {{batches.batch_id}}</span>
                 <span>{{currentApplications}} candidates</span>
-                <span>started {{batches.created_at}}</span>
+                <!-- <span>started {{batches.created_at}}</span> -->
 
             </div>
           </div>

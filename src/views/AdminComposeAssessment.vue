@@ -14,11 +14,11 @@
               <sub style="margin-top: 44px">min</sub>
             </div>
             <div class="polygon">
-              <!-- <img src="@/assets/svgs/polygon-logo.svg" alt="polygon-logo" /> -->
+
             </div>
             <span>00<sub>sec</sub></span>
             <div class="polygon">
-              <!-- <img src="@/assets/svgs/polygon-logo.svg" alt="polygon" /> -->
+  
             </div>
           </div>
         </div>
@@ -31,9 +31,6 @@
           <div class="choose_file">
             <label for="upload">
               <span>+</span><span>Choose file</span> 
-              <!-- <input id="upload" type="file" size="60" 
-              :value="questions[questionNumber].img" @change="uploadFile"/> -->
-              <!-- {{questions[questionNumber].img?.filename}} -->
             </label>
           </div>
 
@@ -51,49 +48,14 @@
 
           <div class="options">
             <div class="input_field" v-for="(option, index) in questions[questionNumber].options" :key="index">
-              <!-- <label>Option A</label><br /> -->
+              
               <input
               v-on:dblclick="chooseCorrect(index)"
               type="text"
               v-model="option.text"
               />
             </div>
-            <!-- <div class="input_field">
-              <label>Option B</label><br />
-              <input
-              v-on:dblclick="chooseOption"
-              :style="{ 'background': colorB}"
-                type="text"
-                class="option_B"
-                placeholder="40"
-                v-model="options[1]"
-                required
-              />
-            </div>
-            <div class="input_field">
-              <label>Option C</label><br />
-              <input
-              v-on:dblclick="chooseOption"
-              :style="{ 'background': colorC}"
-                type="text"
-                class="option_C"
-                placeholder="67"
-                v-model="options[2]"
-                required
-              />
-            </div>
-            <div class="input_field">
-              <label>Option D</label><br />
-              <input
-              v-on:dblclick="chooseOption"
-              :style="{ 'background': colorD}"
-                type="text"
-                class="option_D"
-                placeholder="50"
-                v-model="options[3]"
-                required
-              />
-            </div> -->
+           
           </div>
 
           </form>
@@ -140,8 +102,6 @@ import axios from "axios";
 export default {
   data() {
     return{
-        allQuestions: [],
-        answer:'',
         time_allocated: 0,
         questions: [
         {  
@@ -157,62 +117,11 @@ export default {
         ],
         questionNumber: 0,
         isCorrect: false,
-  
-        
       } 
     
   },
   methods: {
-    submitQuestion() {
-
-      // const data = [
-      //   {
-      //     questionText: this.questionText,
-      //     options: [
-      //       { optionA: this.optionA, isAnswer: false },
-      //       { optionB: this.optionB, isAnswer: false },
-      //       { optionC: this.optionC, isAnswer: false },
-      //       { optionD: this.optionD, isAnswer: false }
-      //     ],
-      //   },
-      // ];
-
-      // if(this.questionText != '' && this.optionA != '' && this.optionB != '' && this.optionC != '' && this.optionD != ''){
-
-      
-      // if(this.questionNumber < 30){
-      //   axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
-      // console.log(data)
-      //   this.questionNumber++
-      // } else if(this.questionNumber == 30){
-      //   axios.post("https://634828c60b382d796c6af96d.mockapi.io/set_questions", data).then(response => console.log(response)).catch(error => console.log(error));
-      // console.log(data)
-      // }
-      
-     
-
-      // } else{
-      //   alert('please fill in all the fields')
-      // }
-      
-    },
-    async next(){
-      // if (this.questions.length - 1 === this.questionIndex)
-      
-        // await axios.post('http://localhost:5500/assessments', {
-        // questions: this.questions,
-        // options: this.options
-        // })
-
-        //  localStorage.setItem('Questions', this.questions)
-
-        //  const questions = localStorage.getItem('Questions')
-      
-        // console.log(questions)
-        // this.questionNumber ++
-        //  this.questions[select] = [...this.select]
-
-         
+    async next(){   
         if(this.questionNumber < 5) {
           this.questions.push({
           question: "",
@@ -224,20 +133,7 @@ export default {
           ]
         })
           this.questionNumber++
-        
-         console.log(this.questions)
-        }
-        
-        
-
-       
-
-        // this.questions.push({
-        //   question: "",
-        // })
-
-      
-      
+        }  
     },
     chooseCorrect(index){
      const options = this.questions[this.questionNumber].options
@@ -246,28 +142,15 @@ export default {
         option.correct = false;
       });
       options[index].correct = true;
-      
-
-      // this.correctAnswer = options[index].correct
-
     },
     prev(){
       this.questionNumber--
     },
-     uploadFile(event) {
-    const image = event.target.files[0]
-    this.questions[this.questionNumber].img = image 
-    },
     async uploadQuestions(){
-
-       const response = await axios.post('http://localhost:5500/assessments', {
+       await axios.post('http://localhost:5500/assessments', {
         questions: JSON.stringify(this.questions),
         time_allocated: this.time_allocated
-      })
-
-      console.log(response)
-
-      
+      })      
     }
 
   },
