@@ -127,7 +127,7 @@ export default {
   },
   data() {
     return {
-      mins: 30,
+      mins: '',
       secs: 0,
       currentQuestion: 0,
       selectedAnswers: {},
@@ -213,8 +213,12 @@ export default {
   },
   async created() {
     const resp = await axios.get("http://localhost:5500/questions");
+    console.log(resp)
 
     this.questions = JSON.parse(resp.data.data[0].questions);
+    this.mins = JSON.parse(resp.data.data[0].time_allocated)
+    console.log(this.questions)
+    console.log(this.mins)
 
     localStorage.setItem("questions", JSON.stringify(this.questions));
   },

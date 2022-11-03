@@ -104,7 +104,7 @@ export default {
 
 
 
-       const applicationDate = moment().add(26, 'days');
+       const applicationDate = moment().add(34, 'days');
        console.log(applicationDate)
 
       const dateFormat = 'YYYY-MM-DD'
@@ -119,15 +119,7 @@ export default {
         this.$router.push("/signup")
       }
        
-        this.applicationOpen = true;
-      
-       
-      //  else{
-      //     // this.applicationOpen = false;
-      //     this.$router.push("/login")
-      //  }
-
-       
+        this.applicationOpen = true;  
     }
   },
   components: { LoadingState }

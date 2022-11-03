@@ -118,7 +118,7 @@ export default {
             }
           );
 
-          
+          alert('Application Submitted!!')
 
           localStorage.setItem("applicant", response);
 

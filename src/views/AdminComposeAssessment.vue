@@ -102,7 +102,7 @@ import axios from "axios";
 export default {
   data() {
     return{
-        time_allocated: 0,
+        time_allocated: 30,
         questions: [
         {  
           question: "",
