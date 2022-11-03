@@ -1,6 +1,6 @@
 <template>
   
-  <router-view/>
+  <router-view></router-view>
 
   
 </template>
@@ -17,7 +17,7 @@ input:focus{
   color: black;
 }
 
-/* .route-enter-from{
+.route-enter-from{
   opacity: 0;
   transform: translateX(100px)
 }
@@ -33,5 +33,5 @@ input:focus{
 
 .route-leave-active{
   transition: all 0.1s ease-in;
-} */
+}
 </style>

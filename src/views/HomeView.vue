@@ -104,7 +104,7 @@ export default {
 
 
 
-       const applicationDate = moment().add(34, 'days');
+       const applicationDate = moment().add(10, 'days');
        console.log(applicationDate)
 
       const dateFormat = 'YYYY-MM-DD'
