@@ -6,7 +6,7 @@
       <div class="icon">
         <img src="@/assets/email.svg" alt="mail-icon" />
       </div>
-      <div class="header">
+      <div class="header" @click="route">
         <p class="title">Reset via Email</p>
         <p class="paragraph">
           Reset password link will be send to your registered email address.
@@ -38,6 +38,11 @@
 <script>
 export default {
   name: "ForgotPasswordView",
+  methods: {
+    route(){
+      this.$router.push('/forgotpassword/enter_email_address')
+    }
+  }
 };
 </script>
 

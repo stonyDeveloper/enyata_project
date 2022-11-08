@@ -2,39 +2,44 @@
   <div class="signup">
     <EnyataLogo></EnyataLogo>
 
-    <form @submit="handleSubmit">
+    <form @submit.prevent="handleSubmit">
       <h3>Sign Up</h3>
+      <div v-if="passwordMatch" class="password-match">Passwords do not match!!!</div>
+      <div v-if="emailExist" class="password-match">This email address exists already!!!</div>
 
-      <div class="error" v-if="error">
-      {{errorMsg}}
+      <div class="error">
+      </div>
+      <div class="error" v-if="signUpStatus">
+      Signed Up Successfully!!!
       </div>
 
 
       <div class="form-input">
         <div class="input-field">
           <label>First Name</label><br />
-          <input type="text" v-model="first_name"/>
+          <input type="text" v-model="first_name" required/>
         </div>
         <div class="input-field">
           <label>Last Name</label><br />
-          <input type="text" v-model="last_name" />
+          <input type="text" v-model="last_name" required/>
         </div>
         <div class="input-field">
           <label>Email Address</label><br />
-          <input type="email" v-model="email"/>
+          <input type="email" v-model="email" required/>
         </div>
         <div class="input-field">
           <label>Phone Number</label><br />
-          <input type="number" v-model="phone_number"/>
+          <input type="text" v-model="phone_number" required/>
         </div>
         <div class="input-field">
           <label>Password</label><br />
-          <input type="password" v-model="password"/>
+          <input type="password" v-model="password" required/>
         </div>
         <div class="input-field">
           <label>Confirm Password</label><br />
-          <input type="password" v-model="confirm_password"/>
+          <input type="password" v-model="confirm_password" required/>
         </div>
+        
       </div>
 
       <div class="btn">
@@ -70,12 +75,30 @@ export default {
       password: "",
       confirm_password: "",
       error: false,
-      errorMsg: 'This Email Address already exists!!!'
+      // errorMsg: 'This Email Address already exists!!!',
+      signUpStatus: false,
+      passwordMatch: false,
+      emailExist: false
     }
   },
   methods: {
     async handleSubmit(e){
       try {
+        const userEmail = this.email
+        console.log(userEmail)
+        const emailExists = await axios.get('http://localhost:5500/users_email')
+        console.log(emailExists)
+        for(let i = 0; i < emailExists.data.data.length; i++){
+          if (userEmail == emailExists.data.data[i].email_address){
+            this.passwordMatch = false
+            this.emailExist = true
+
+          }
+        }
+        if(this.password !== this.confirm_password){
+           this.emailExist = false
+          this.passwordMatch = true
+        }
         e.preventDefault()
           const response = await axios.post('http://localhost:5500/signup', {
             first_name: this.first_name,
@@ -85,11 +108,18 @@ export default {
             password: this.password,
             confirm_password: this.confirm_password
         })
+
+        
+        
         console.log(response);
-         this.$router.push('/login')
+        this.signUpStatus = true
+        setTimeout(() => {
+  this.$router.push('/login');
+}, "2000")
+         
       } catch(e){
         this.error = true;
-        this.email = ''
+        // this.email = ''
   
       }
       
@@ -104,11 +134,17 @@ export default {
 
 <style scoped>
 
-.error{
+.password-match{
   color: red;
-  /* background: black; */
   text-align: center;
   padding-top: 20px;
+}
+
+.error{
+  color: green;
+  /* background: black; */
+  text-align: center
+  
 }
 .signup {
   display: flex;

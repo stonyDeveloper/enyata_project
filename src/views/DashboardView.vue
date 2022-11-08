@@ -158,7 +158,13 @@ export default {
 
      const userEmail = this.$store.state.user.email_address
 
-      const status = await axios.get(`http://localhost:5500/oneApplicant/${userEmail}`)
+     const token = this.$store.state.adminToken
+
+      const status = await axios.get(`http://localhost:5500/oneApplicant/${userEmail}`,{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
       console.log(status.data.data.status)
 
       const realStatus = status.data.data.status

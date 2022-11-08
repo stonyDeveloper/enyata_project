@@ -48,7 +48,7 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(["setAdmin", "setToken"]),
+    ...mapMutations(["setAdmin", "setAdminToken"]),
     async login(e){
       e.preventDefault()
 
@@ -75,12 +75,14 @@ export default {
       // this.email = response.data.data.admin[0].email_address
       // this.password = response.data.data.admin[0].password
 
-    //  axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    const token = this.$store.state.adminToken
+
+     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
      const admin = response.data.data.admin
-     const token = response.data.data.token
+     const adminToken = response.data.data.token
      this.setAdmin(admin);
-     this.setToken(token);
+     this.setAdminToken(adminToken);
       
 
       await this.$router.push('/admin_dashboard')

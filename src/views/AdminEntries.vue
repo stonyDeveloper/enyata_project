@@ -231,7 +231,12 @@ export default {
   },
   async mounted() {
     {
-      const response = await axios.get("http://localhost:5500/allApplicant");
+      const token = this.$store.state.adminToken
+      const response = await axios.get("http://localhost:5500/allApplicant", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
       
       this.entries = response.data.data;
       console.log(this.entries[0]);
@@ -244,7 +249,12 @@ export default {
   },
   methods: {
     async getAllBatches() {
-      const allBatches = await axios.get("http://localhost:5500/all_batches");
+      const token = this.$store.state.adminToken
+      const allBatches = await axios.get("http://localhost:5500/all_batches", {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
 
       this.batches = allBatches.data.data;
 
@@ -252,10 +262,15 @@ export default {
     },
     async show(email_address) {
       console.log(email_address);
+      const token = this.$store.state.adminToken
 
       const getApplicant = await axios.get(
         `http://localhost:5500/oneApplicant/${email_address}`
-      );
+      , {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
 
       if (
         getApplicant.data.data.status == "Approved" ||
@@ -286,17 +301,29 @@ export default {
       this.showDetails = false;
     },
     async declined() {
+      const token = this.$store.state.adminToken
       await axios.post("http://localhost:5500/addStatus", {
         status: "declined",
         email_address: `${this.email_address}`,
-      });
+      },
+      {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
       this.declineModal = false;
     },
     async approved() {
+      const token = this.$store.state.adminToken
       await axios.post("http://localhost:5500/addStatus", {
         status: "approved",
         email_address: `${this.email_address}`,
-      });
+      }, 
+      {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
 
       this.closeApprove();
     },
@@ -317,9 +344,14 @@ export default {
     },
     async getByBatch(batch_id) {
       console.log(batch_id);
+      const token = this.$store.state.adminToken
       const getOneBatch = await axios.get(
         `http://localhost:5500/batch_applicant/${batch_id}`
-      );
+      , {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
       // console.log(getOneBatch)
 
       this.entries = getOneBatch.data.data;

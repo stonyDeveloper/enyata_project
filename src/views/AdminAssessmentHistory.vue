@@ -47,7 +47,12 @@ export default {
     AdminDashboardSidebar,
   },
   async mounted() {
-    const res = await axios.get("http://localhost:5500/batches");
+    const token = this.$store.state.adminToken
+    const res = await axios.get("http://localhost:5500/batches",{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
     console.log(res.data.data);
     this.histories = res.data.data;
     console.log(this.histories.history.created_at);

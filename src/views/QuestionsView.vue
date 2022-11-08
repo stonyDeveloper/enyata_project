@@ -212,19 +212,31 @@ export default {
     },
   },
   async created() {
+    // const token = this.$store.state.adminToken
     const resp = await axios.get("http://localhost:5500/questions");
-    console.log(resp)
+    console.log(resp.data.data[0].time_allocated)
 
     this.questions = JSON.parse(resp.data.data[0].questions);
     this.mins = JSON.parse(resp.data.data[0].time_allocated)
-    console.log(this.questions)
-    console.log(this.mins)
+    // console.log(this.questions)
+    // console.log("yes")
+  
+        localStorage.setItem("questions", JSON.stringify(this.questions));
 
-    localStorage.setItem("questions", JSON.stringify(this.questions));
+    // console.log("testing")
   },
-  mounted() {
-    const thirtyMins = 60 * 30;
+  async mounted() {
+    const resp = await axios.get("http://localhost:5500/questions");
+    console.log(resp.data.data[0].time_allocated)
+    const thirtyMins = 60 * resp.data.data[0].time_allocated;
+    localStorage.setItem('timer', thirtyMins)
+    const assessment = localStorage.getItem('questions')   
+    console.log(assessment)
     this.startTimer(thirtyMins);
+    
+    
+    
+
   },
   watch: {
     userAnswers: {

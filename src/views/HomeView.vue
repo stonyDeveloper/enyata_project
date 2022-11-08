@@ -90,8 +90,13 @@ export default {
   },
   methods: {
    async registerButton(){
+    const token = this.$store.state.adminToken
       
-       const response =  await axios.get('http://localhost:5500/batches')
+       const response =  await axios.get('http://localhost:5500/batches',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
 
       //  console.log(response)
 

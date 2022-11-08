@@ -101,8 +101,13 @@ export default {
             }
   },
   async mounted(){
-    {
-      const history = await axios.get('http://localhost:5500/all_batches')
+    { 
+      const token = this.$store.state.adminToken
+      const history = await axios.get('http://localhost:5500/all_batches',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
       console.log()
 
       this.batches = history.data.data[history.data.data.length - 1]
@@ -112,24 +117,44 @@ export default {
       // console.log(this.batches.created_at)
     }
     {
-      const response = await axios.get('http://localhost:5500/total_applications')
+      const token = this.$store.state.adminToken
+      const response = await axios.get('http://localhost:5500/total_applications',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
 
       // console.log(response.data.data[0].count)
       this.totalApplications = response.data.data[0].count
     }
     {
-      const current = await axios.get('http://localhost:5500/current_applications')
+      const token = this.$store.state.adminToken
+      const current = await axios.get('http://localhost:5500/current_applications',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
       // console.log(current.data.data.count)
       this.currentApplications = current.data.data.count
 
     }
     {
-      const batch = await axios.get('http://localhost:5500/current_batch')
+      const token = this.$store.state.adminToken
+      const batch = await axios.get('http://localhost:5500/current_batch',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
       console.log(batch.data.data.batch_id)
       this.batch = batch.data.data.batch_id
     }
     {
-     const lastUpdate = await axios.get('http://localhost:5500/batches') 
+     const token = this.$store.state.adminToken
+     const lastUpdate = await axios.get('http://localhost:5500/batches',{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    }) 
      this.lastUpdate = lastUpdate.data.data[lastUpdate.data.data.length-1].created_at
     }
   }

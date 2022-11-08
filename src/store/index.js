@@ -3,7 +3,7 @@ import VuexPersistence from 'vuex-persist';
 
 const vuexLocal = new VuexPersistence({
     storage: window.localStorage,
-    reducer: (state) => ({ user: state.user, admin: state.admin, applicantID: state.applicantID }),
+    reducer: (state) => ({ user: state.user, admin: state.admin, applicantID: state.applicantID, adminToken: state.adminToken }),
 
 });
 
@@ -31,6 +31,9 @@ export default createStore({
         },
         setAdmin(state, admin) {
             state.admin = admin;
+        },
+        setAdminToken(state, adminToken) {
+            state.adminToken = adminToken
         },
         setQuestions(state, questions) {
             state.questions = questions

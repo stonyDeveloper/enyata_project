@@ -71,9 +71,18 @@ export default {
         instruction: this.instruction
       }
 
+      const token = this.$store.state.adminToken
+
       await axios.post('http://localhost:5500/create_batches', input, {
         withCredentials: false
-      })
+      }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
+
+      
+    
 
       alert('Application created successfully')
 

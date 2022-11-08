@@ -106,9 +106,14 @@ export default {
     AdminDashboardSidebar,
   },
   async mounted() {
+    const token = this.$store.state.adminToken
     const adminEmail = this.$store.state.admin[0].email_address;
     const response = await axios.get(
-      `http://localhost:5500/oneAdmin/${adminEmail}`
+      `http://localhost:5500/oneAdmin/${adminEmail}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    }
     );
 
     this.name = response.data.data.name;
@@ -119,7 +124,9 @@ export default {
   },
   methods:{
     async submitAdminInfo(){
-      
+
+
+      const token = this.$store.state.adminToken
       const id = this.$store.state.admin[0].id;
       await axios.patch(`http://localhost:5500/updateAdmin/${id}`, {
         name: this.name,
@@ -127,7 +134,11 @@ export default {
         phone_number: this.phone_number,
         country: this.country,
         address: this.address
-      })
+      }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
 
       alert("Details saved successfully")
       

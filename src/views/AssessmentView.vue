@@ -71,8 +71,13 @@ import axios from 'axios'
            async countDown(){ 
 
             const email_address = this.$store.state.user.email_address
+            const token = this.$store.state.adminToken
 
-            const assessment = await axios.get(`http://localhost:5500/oneApplicant/${email_address}`)
+            const assessment = await axios.get(`http://localhost:5500/oneApplicant/${email_address}`,{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })
 
             const result = assessment.data.data.score
 

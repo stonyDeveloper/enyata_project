@@ -6,6 +6,9 @@
     <form @submit.prevent="login">
       <h3>Log In</h3>
 
+      <div class="alert green" v-if="loggedIn">Logged In Successfully!!</div>
+      <div class="alert" v-if="incorrectDetails">Incorrect Email Address or Password!!</div>
+
       <div class="form-input">
       <div class="input-field">
         <label>Email Address</label><br>
@@ -49,12 +52,19 @@ export default {
       email: '',
       password: '',
       showPassword: false,
+      loggedIn: false,
+      incorrectDetails: false,
+      
     }
   },
   methods: {
     ...mapMutations(["setUser", "setToken"]),
     async login(e){
-      e.preventDefault()
+
+      try{
+        e.preventDefault()
+
+        // this.loggedIn = false
 
       
 
@@ -65,13 +75,16 @@ export default {
 
       console.log(input)
 
-      const response = await axios.post('http://localhost:5500/login', input, {
-        withCredentials: false
-      })
-      alert(response.data.message)
+      const response = await axios.post('http://localhost:5500/login', input)
+      console.log(response.status)
+      this.incorrectDetails = false
+      this.loggedIn = true
+      // alert(response.data.message)
      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;
 
      localStorage.setItem('token', response.data.data.token)
+
+
      
 
      const user = response.data.data.user
@@ -91,22 +104,37 @@ export default {
     
      const loggedInUser = this.$store.state.user.email_address
 
-     for(let i = 0; i < applied.data.data.length; i++){
+     
+
+      setTimeout(() => {
+  for(let i = 0; i < applied.data.data.length; i++){
         if(loggedInUser === applied.data.data[i].email_address){
-          await this.$router.push('/dashboard')
+          this.$router.push('/dashboard')
           return
         } else if(loggedInUser !== applied.data.data[i].email_address) {
-           await this.$router.push('/application')
+           this.$router.push('/application')
         }
 
      }
+}, "1000")
+
+     
 
      if(!getDate){
       await this.$router.push('/dashboard')
     } else{
       await this.$router.push('/application')
     }
-    }
+    
+    }catch(e){
+        this.error = true;
+        this.email = '';
+        this.password = ''
+        this.incorrectDetails = true
+      }
+      
+    },
+ 
 
 
 }
@@ -117,6 +145,17 @@ export default {
 
 
 <style scoped>
+.alert{
+  color: red;
+  /* background: black; */
+  text-align: center;
+  padding-top: 20px;
+}
+
+.green{
+  color: green;
+}
+
 .login{
   display: flex;
   flex-direction: column;

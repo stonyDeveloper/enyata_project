@@ -102,7 +102,7 @@ import axios from "axios";
 export default {
   data() {
     return{
-        time_allocated: 30,
+        time_allocated: 20,
         questions: [
         {  
           question: "",
@@ -147,12 +147,16 @@ export default {
       this.questionNumber--
     },
     async uploadQuestions(){
+      const token = this.$store.state.adminToken
        await axios.post('http://localhost:5500/assessments', {
         questions: JSON.stringify(this.questions),
         time_allocated: this.time_allocated
-      })      
+      },{
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    })      
     }
-
   },
   components: {
     AdminDashboardSidebar,

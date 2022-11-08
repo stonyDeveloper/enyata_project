@@ -105,6 +105,18 @@ const routes = [{
         component: () =>
             import ("../views/AdminProfilesAndSettings.vue"),
     },
+    {
+        path: "/forgotpassword/enter_email_address",
+        name: "forgotpassword_enter_email",
+        component: () =>
+            import ("../views/ForgotPasswordEmail.vue"),
+    },
+    {
+        path: "/forgotpassword/confirm_password",
+        name: "confirm_password",
+        component: () =>
+            import ("../views/ConfirmPassword.vue"),
+    },
 ];
 
 const router = createRouter({
@@ -112,12 +124,12 @@ const router = createRouter({
     routes,
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (localStorage.getItem("token") === null) {
-//         next({ name: 'login' });
-//     } else {
-//         next();
-//     }
-// })
+router.beforeEach((to, from, next) => {
+    if (localStorage.getItem("token") === null) {
+        next({ name: 'login' });
+    } else {
+        next();
+    }
+})
 
 export default router;

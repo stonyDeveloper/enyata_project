@@ -5,6 +5,10 @@
     <form @submit="submitApplication">
       <h3>Application Form</h3>
 
+      <div class="alert" v-if="applicationStatus">
+        Application Submitted Successfully!!
+      </div>
+
       <div class="upload">
         <div class="CV"><span>+</span>Upload CV</div>
 
@@ -14,11 +18,11 @@
       <div class="form-input">
         <div class="input-field">
           <label>First Name</label><br />
-          <input type="text" v-model="first_name" />
+          <input type="text" v-model="first_name" class="email" />
         </div>
         <div class="input-field">
           <label>Last Name</label><br />
-          <input type="text" v-model="last_name" />
+          <input type="text" v-model="last_name" class="email" />
         </div>
         <div class="input-field">
           <label>Email Address</label><br />
@@ -26,7 +30,7 @@
         </div>
         <div class="input-field">
           <label>Date of Birth</label><br />
-          <input type="date" v-model="dob" />
+          <input type="date" v-model="dob" :max="maxDate" />
         </div>
         <div class="input-field">
           <label>Address</label><br />
@@ -76,6 +80,8 @@ export default {
       course: "",
       cgpa: "",
       pointer_events: "",
+      maxDate: new Date().toISOString().split("T")[0],
+      applicationStatus: false,
     };
   },
   computed: {
@@ -86,8 +92,12 @@ export default {
   async mounted() {
     {
       let storeEmail = this.$store.state.user.email_address;
+      let firstName = this.$store.state.user.first_name;
+      let lastName = this.$store.state.user.last_name;
       console.log(storeEmail);
       this.email_address = storeEmail;
+      this.first_name = firstName;
+      this.last_name = lastName;
     }
   },
   methods: {
@@ -118,16 +128,17 @@ export default {
             }
           );
 
-          alert('Application Submitted!!')
+          this.applicationStatus = true;
 
           localStorage.setItem("applicant", response);
 
           const applyID = response.data.data[0].id;
 
           localStorage.setItem("applicantID", applyID);
-        
 
-          this.$router.push("/dashboard");
+          setTimeout(() => {
+            this.$router.push("/dashboard");
+          }, "2000");
         }
       } catch (error) {
         console.log(error);
@@ -138,6 +149,13 @@ export default {
 </script>
 
 <style scoped>
+.alert {
+  margin-top: 10px;
+  color: green;
+  /* background: black; */
+  text-align: center;
+  padding-top: 20px;
+}
 .email {
   pointer-events: none;
 }
