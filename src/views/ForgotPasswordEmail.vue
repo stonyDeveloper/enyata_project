@@ -35,7 +35,7 @@ export default {
     async sendEmail() {
         const url = "http://localhost:5500/forgot_password"
         console.log(url)
-        const resp = await axios.post(url, {
+      const resp = await axios.post(url, {
         email_address: this.email_address
       });
       console.log(resp)

@@ -106,13 +106,13 @@ const routes = [{
             import ("../views/AdminProfilesAndSettings.vue"),
     },
     {
-        path: "/forgotpassword/enter_email_address",
+        path: "/forgot_password",
         name: "forgotpassword_enter_email",
         component: () =>
             import ("../views/ForgotPasswordEmail.vue"),
     },
     {
-        path: "/forgotpassword/confirm_password",
+        path: "/reset_password",
         name: "confirm_password",
         component: () =>
             import ("../views/ConfirmPassword.vue"),

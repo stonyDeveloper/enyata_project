@@ -22,6 +22,7 @@
       />
 
       <ButtonComponent
+        @click="sendInfo"
         class="createBtn"
         buttonText="Submit"
         width="420"
@@ -34,7 +35,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -43,6 +44,15 @@ export default {
       password: "",
       confirm_password: "",
     };
+  },
+  methods:{
+        async sendInfo(){
+                await axios.patch('http://localhost:5500/reset_password', {
+                password: this.password,
+                confirm_password: this.confirm_password,
+                token: this.$route.query.token
+            })
+        }
   }
 };
 </script>
