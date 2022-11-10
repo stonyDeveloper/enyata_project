@@ -40,7 +40,7 @@ export default {
   name: "ForgotPasswordView",
   methods: {
     route(){
-      this.$router.push('/forgotpassword')
+      this.$router.push('/forgot_password')
     }
   }
 };

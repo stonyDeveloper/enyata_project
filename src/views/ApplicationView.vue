@@ -10,9 +10,12 @@
       </div>
 
       <div class="upload">
-        <div class="CV"><span>+</span>Upload CV</div>
+        <div class="CV"><span>+</span><input type="file" :v-model="upload_CV" ref="cv" @change="handleCvUpload">CV</div>
+        <span v-if="upload_CV">name.doc</span>
 
-        <div class="photo"><span>+</span>Upload Photo</div>
+        <div class="photo"><span>+</span><input type="file" :v-model="upload_photo" ref="image" @change="handleImageUpload"
+        accept=".jpg, .jpeg, .png">Upload Photo<span v-if="upload_photo">image/png</span></div>
+        
       </div>
 
       <div class="form-input">
@@ -100,7 +103,35 @@ export default {
       this.last_name = lastName;
     }
   },
+  watch:{
+    upload_CV(value){
+      this.upload_photo = value
+      this.showCV(value)
+    }
+  },
   methods: {
+    showCV(value){
+console.log(value)
+    },
+    handleImageUpload(event){
+      this.upload_photo = event.target.files[0];
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        this.upload_photo = reader.result
+      }
+      reader.readAsDataURL(this.upload_photo)
+    },
+    handleCvUpload(event){
+      this.upload_CV = event.target.files[0] ;
+      let reader = new FileReader();
+      reader.onloadend = () => {
+        this.upload_CV = reader.result
+      }
+      reader.readAsDataURL(this.upload_CV)
+    },
+    onFile(file) {
+      console.log(file); // file object
+    },
     async submitApplication(e) {
       try {
         e.preventDefault();

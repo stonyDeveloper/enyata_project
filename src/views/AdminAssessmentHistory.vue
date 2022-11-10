@@ -29,6 +29,8 @@
         </table>
       </div>
     </div>
+
+    
   </div>
 </template>
 
@@ -41,6 +43,7 @@ export default {
   data() {
     return {
       histories: "",
+      preview: true
     };
   },
   components: {

@@ -117,6 +117,12 @@ const routes = [{
         component: () =>
             import ("../views/ConfirmPassword.vue"),
     },
+    {
+        path: "/valtest",
+        name: "valtest",
+        component: () =>
+            import ("../views/TestEmailValidation.vue"),
+    },
 ];
 
 const router = createRouter({

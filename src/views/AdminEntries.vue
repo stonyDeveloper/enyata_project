@@ -41,6 +41,7 @@
                 @click="sort('cgpa')"
               ></i>
             </th>
+            <th class="status" scope="col">Status</th>
           </tr>
         </thead>
         <tbody>
@@ -65,6 +66,7 @@
             <td class="text-left">{{ entry.address }}</td>
             <td class="text-left">{{ entry.university }}</td>
             <td class="text-left">{{ entry.cgpa }}</td>
+            <td class="text-left">{{ entry.status }}</td>
           </tr>
         </tbody>
       </table>
@@ -220,6 +222,7 @@ export default {
       course_of_study: "",
       date_of_birth: "",
       cgpa: "",
+      status:"",
       upload_CV: null,
       approve: false,
       id: "",
@@ -237,6 +240,7 @@ export default {
         Authorization: `Bearer ${token}`
       } 
     });
+      console.log(response.data.data)
       
       this.entries = response.data.data;
       console.log(this.entries[0]);

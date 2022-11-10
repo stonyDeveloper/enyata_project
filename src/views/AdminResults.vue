@@ -45,18 +45,18 @@
           </tr>
         </thead>
         <tbody>
-          <p v-if="entries === ''" class="fs-3 fw-bold">
-            There are no applicants yet. Check back later
-          </p>
+          <!-- <input class="checkbox" type="checkbox"> -->
+          
           <tr
-            v-else
             class="mx-1 different-row text-left"
             v-for="entry in entries"
+            @click="show(entry.email_address)"
             :key="entry.email_address"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasRight"
             aria-controls="offcanvasRight"
           >
+          
             <td class="text-left">
               {{ entry.first_name }} {{ entry.last_name }}
             </td>
@@ -69,11 +69,15 @@
               {{ entry.score
               }}
             </td>
+            <a :href="'mailto:' + entry.email_address">
+            <img class="options" src="../assets/optionsicon.svg">
+            </a>
           </tr>
+          
         </tbody>
       </table>
 
-      <div class="background" v-if="showDetails">
+      <!-- <div class="background" v-if="showDetails">
         <div class="exitPopUp" @click="closePopUp"></div>
         <div ref="inner" class="popup">
           <img src="../assets/entrypopupimage.svg" alt="" />
@@ -132,7 +136,7 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="approveModal" v-if="approveModal">
         <div class="approveDiv">
@@ -324,6 +328,44 @@ export default {
       this.entries = getOneBatch.data.data;
       this.selectedBatch = this.entries[0].batch_id;
     },
+     async show(email_address) {
+      console.log(email_address);
+      const token = this.$store.state.adminToken
+
+      const getApplicant = await axios.get(
+        `http://localhost:5500/oneApplicant/${email_address}`
+      , {
+      headers: {
+        Authorization: `Bearer ${token}`
+      } 
+    });
+
+      if (
+        getApplicant.data.data.status == "Approved" ||
+        getApplicant.data.data.status == "Declined"
+      ) {
+        this.showBtns = false;
+      }
+
+      this.name =
+        getApplicant.data.data.first_name +
+        " " +
+        getApplicant.data.data.last_name;
+      this.email_address = getApplicant.data.data.email_address;
+      this.address = getApplicant.data.data.address;
+      this.university = getApplicant.data.data.university;
+      this.course_of_study = getApplicant.data.data.course_of_study;
+      this.date_of_birth = getApplicant.data.data.date_of_birth;
+      this.cgpa = getApplicant.data.data.cgpa;
+      this.id = getApplicant.data.data.id;
+
+      console.warn(this.id);
+
+      localStorage.setItem("applicantID", this.id);
+      
+      this.showDetails = true;
+    },
+    
   },
 };
 </script>
@@ -331,6 +373,14 @@ export default {
 <style scoped>
 * {
   box-sizing: border-box;
+}
+
+/* .checkbox{
+  margin-left: -50px;
+} */
+
+.options{
+  margin-left: -30px;
 }
 
 tr td:last-of-type{
